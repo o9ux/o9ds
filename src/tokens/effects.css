@@ -1,0 +1,99 @@
+/* ================================================================
+   o9ds Effects System — Foundation Library
+   Source: EFFECT[SHADOW/OPACITY/BLUR] TOKENS (Figma node-id=5901-4558)
+
+   Two-tier architecture:
+     Primitive tokens  → :root  (raw values, prefixed --o9ds-*)
+     Tailwind @theme   → shadow-* + blur-* utility classes
+
+   Tokens:
+     6 directional shadow tokens  (center, right, left, down, up, fab)
+     1 backdrop-blur token        (layer-blur = 4px)
+     3 opacity tokens             (high 0.8 · medium 0.6 · low/disabled 0.4)
+   ================================================================ */
+
+
+/* ----------------------------------------------------------------
+   SHADOW COLOR PRIMITIVES
+   Referenced by all shadow tokens.  Never use directly.
+   ---------------------------------------------------------------- */
+:root {
+  --o9ds-color-s-shadow-static-1: rgba(0, 0, 0, 0.40);   /* Primary shadow  — overlays, dropdowns, popovers */
+  --o9ds-color-s-shadow-static-2: rgba(0, 0, 0, 0.25);   /* Secondary shadow — side-panel overlays          */
+}
+
+
+/* ----------------------------------------------------------------
+   SHADOW PRIMITIVES
+   Format: h-offset  v-offset  blur  spread  color
+   ---------------------------------------------------------------- */
+:root {
+  /* All-sides glow — highest elevation surface */
+  --o9ds-shadow-center:  0px   4px 40px 0px var(--o9ds-color-s-shadow-static-1);
+
+  /* Horizontal cast — panel slides in from left */
+  --o9ds-shadow-right:   10px  0px 10px 0px var(--o9ds-color-s-shadow-static-2);
+
+  /* Horizontal cast — panel slides in from right */
+  --o9ds-shadow-left:   -10px  0px 10px 0px var(--o9ds-color-s-shadow-static-2);
+
+  /* Downward cast — content appears below trigger */
+  --o9ds-shadow-down:    0px  10px 20px 0px var(--o9ds-color-s-shadow-static-1);
+
+  /* Upward cast — toolbar footer floats above content */
+  --o9ds-shadow-up:      0px -10px 20px 0px var(--o9ds-color-s-shadow-static-1);
+
+  /* FAB lift — floating action button above toolbar */
+  --o9ds-shadow-fab:     0px -10px 20px 0px var(--o9ds-color-s-shadow-static-1);
+}
+
+
+/* ----------------------------------------------------------------
+   LAYER BLUR PRIMITIVE
+   Used only with the overlay component (backdrop-filter).
+   ---------------------------------------------------------------- */
+:root {
+  --o9ds-layer-blur: 4px;
+}
+
+
+/* ----------------------------------------------------------------
+   OPACITY PRIMITIVES
+   Three levels of transparency for interactive & disabled states.
+   ---------------------------------------------------------------- */
+:root {
+  --o9ds-opacity-high:     0.8;   /* Image hover overlay         */
+  --o9ds-opacity-medium:   0.6;   /* Chart selected state        */
+  --o9ds-opacity-low:      0.4;   /* Disabled / low-emphasis     */
+  --o9ds-opacity-disabled: 0.4;   /* Alias of low for disabled   */
+}
+
+
+/* ----------------------------------------------------------------
+   TAILWIND @theme
+   Generates shadow-* and blur-* utility classes.
+   ---------------------------------------------------------------- */
+@theme {
+  /* --- Directional box shadows --- */
+  --shadow-center: var(--o9ds-shadow-center);   /* Tooltip, popover, overlay, dialog, card:hover, toast  */
+  --shadow-right:  var(--o9ds-shadow-right);    /* Left side-panel sliding in as overlay                 */
+  --shadow-left:   var(--o9ds-shadow-left);     /* Right-side pane sliding in as overlay                 */
+  --shadow-down:   var(--o9ds-shadow-down);     /* Dropdowns (all variants)                              */
+  --shadow-up:     var(--o9ds-shadow-up);       /* Toolbar / action bar footers                          */
+  --shadow-fab:    var(--o9ds-shadow-fab);      /* Floating Action Button                                */
+
+  /* --- Backdrop blur ---
+     Generates both blur-overlay and backdrop-blur-overlay utilities.
+     Apply only to overlay component (e.g. backdrop-blur-overlay).        */
+  --blur-overlay: var(--o9ds-layer-blur);
+}
+
+
+/* ----------------------------------------------------------------
+   LIGHT MODE SHADOW OVERRIDES
+   Softer shadows on white surfaces — less opacity needed.
+   ---------------------------------------------------------------- */
+[data-theme="light"] {
+  --o9ds-color-s-shadow-static-1: rgba(0, 0, 0, 0.12);
+  --o9ds-color-s-shadow-static-2: rgba(0, 0, 0, 0.08);
+}

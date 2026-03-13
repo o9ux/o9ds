@@ -1,0 +1,75 @@
+/* ================================================================
+   o9ds Icon & Illustration Size Tokens — Foundation Library
+   Source: ICON/ILLUSTRATION SIZE TOKENS (Figma node-id=3350-25)
+
+   Base font/root size = 16px
+
+   Two-tier architecture:
+     Primitive tokens → :root  (prefixed --o9con-* and --o9ds-illus-*)
+     Tailwind @theme  → size-icon-* and size-illus-* utilities
+
+   Icon tokens:   5 stops  (14 · 16 · 20 · 24 · 32 px)
+   Illus tokens:  3 stops  (96 · 124 · 224 px)
+   ================================================================ */
+
+
+/* ----------------------------------------------------------------
+   ICON SIZE PRIMITIVES  (--o9con-*)
+   Named after the o9con icon library prefix + pixel size.
+   11 stops: 14–80px. Default = 20px.
+   ---------------------------------------------------------------- */
+:root {
+  /* UI icon range (inline, controls, navigation) */
+  --o9con-14: 0.875rem;   /*  14px — dense tables, compact list rows      */
+  --o9con-16: 1rem;       /*  16px — small buttons, chips, breadcrumbs    */
+  --o9con-20: 1.25rem;    /*  20px — default: toolbars, nav, action menus */
+  --o9con-24: 1.5rem;     /*  24px — section headings, card actions        */
+  --o9con-32: 2rem;       /*  32px — feature headers, step indicators     */
+
+  /* Pictogram range (large icons, feature art, empty states) */
+  --o9con-40: 2.5rem;     /*  40px — large list-row icons, wizard steps   */
+  --o9con-48: 3rem;       /*  48px — category / type icons in card headers */
+  --o9con-56: 3.5rem;     /*  56px — onboarding steps, feature callouts   */
+  --o9con-64: 4rem;       /*  64px — empty-state context icons             */
+  --o9con-72: 4.5rem;     /*  72px — modal / dialog hero icons             */
+  --o9con-80: 5rem;       /*  80px — max size: landing page feature icons  */
+}
+
+
+/* ----------------------------------------------------------------
+   ILLUSTRATION SIZE PRIMITIVES  (--o9ds-illus-*)
+   o9illus illustration library — always square aspect ratio.
+   ---------------------------------------------------------------- */
+:root {
+  --o9ds-illus-96:  6rem;      /*  96px — compact illustration slot   */
+  --o9ds-illus-124: 7.75rem;   /* 124px — standard card illustration  */
+  --o9ds-illus-224: 14rem;     /* 224px — hero / empty-state feature  */
+}
+
+
+/* ----------------------------------------------------------------
+   TAILWIND @theme
+   Generates size-icon-* (width + height) utilities for icons
+   and size-illus-* utilities for illustrations.
+   ---------------------------------------------------------------- */
+@theme {
+  /* Icon sizes — UI range */
+  --size-icon-14: var(--o9con-14);    /* .size-icon-14 */
+  --size-icon-16: var(--o9con-16);    /* .size-icon-16 */
+  --size-icon-20: var(--o9con-20);    /* .size-icon-20 — default */
+  --size-icon-24: var(--o9con-24);    /* .size-icon-24 */
+  --size-icon-32: var(--o9con-32);    /* .size-icon-32 */
+
+  /* Icon sizes — pictogram range */
+  --size-icon-40: var(--o9con-40);    /* .size-icon-40 */
+  --size-icon-48: var(--o9con-48);    /* .size-icon-48 */
+  --size-icon-56: var(--o9con-56);    /* .size-icon-56 */
+  --size-icon-64: var(--o9con-64);    /* .size-icon-64 */
+  --size-icon-72: var(--o9con-72);    /* .size-icon-72 */
+  --size-icon-80: var(--o9con-80);    /* .size-icon-80 */
+
+  /* Illustration sizes */
+  --size-illus-96:  var(--o9ds-illus-96);    /* .size-illus-96  */
+  --size-illus-124: var(--o9ds-illus-124);   /* .size-illus-124 */
+  --size-illus-224: var(--o9ds-illus-224);   /* .size-illus-224 */
+}

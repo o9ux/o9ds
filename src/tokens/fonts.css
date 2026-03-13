@@ -1,0 +1,84 @@
+/* ============================================================
+   o9Sans — Custom Brand Typeface
+   All 5 weights × 2 styles (normal + italic)
+   ============================================================ */
+
+@font-face {
+  font-family: 'o9Sans';
+  src: url('/fonts/o9Sans-Thin.otf') format('opentype');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'o9Sans';
+  src: url('/fonts/o9Sans-ThinItalic.otf') format('opentype');
+  font-weight: 100;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'o9Sans';
+  src: url('/fonts/o9Sans-Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'o9Sans';
+  src: url('/fonts/o9Sans-LightItalic.otf') format('opentype');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'o9Sans';
+  src: url('/fonts/o9Sans-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'o9Sans';
+  src: url('/fonts/o9Sans-RegularItalic.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'o9Sans';
+  src: url('/fonts/o9Sans-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'o9Sans';
+  src: url('/fonts/o9Sans-BoldItalic.otf') format('opentype');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'o9Sans';
+  src: url('/fonts/o9Sans-Black.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'o9Sans';
+  src: url('/fonts/o9Sans-BlackItalic.otf') format('opentype');
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}

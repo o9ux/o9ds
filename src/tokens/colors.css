@@ -1,0 +1,515 @@
+/* ================================================================
+   o9ds Color System — Foundation Library
+   Two-tier architecture:
+     Tier 1 · Global / Primitive tokens  (:root)
+     Tier 2 · Semantic tokens  (:root)
+     Tier 3 · Component aliases  (@theme → generates Tailwind utilities)
+   ================================================================ */
+
+
+/* ----------------------------------------------------------------
+   TIER 1 — GLOBAL / PRIMITIVE TOKENS
+   Raw palette values from the o9ds Foundation Library.
+   Never consume these directly in components.
+   ---------------------------------------------------------------- */
+:root {
+  /* Neutral Scale */
+  --color-global-black:    #010101;   /* Off Black Accent */
+  --color-global-gray-10:  #121212;   /* Off Black L1 */
+  --color-global-gray-09:  #202020;   /* Off Black L3 */
+  --color-global-gray-08:  #303030;   /* Off Black L4 */
+  --color-global-gray-07:  #4C4C4C;   /* Off Black L5 */
+  --color-global-gray-06:  #666666;   /* Off Black L6 */
+  --color-global-gray-05:  #808080;   /* Off White L5 */
+  --color-global-gray-04:  #B2B2B2;   /* Off White L4 */
+  --color-global-gray-03:  #CCCCCC;   /* Off White L3 */
+  --color-global-gray-02:  #E5E5E5;   /* Off White L2 */
+  --color-global-gray-01:  #F2F2F2;   /* Off White L1 */
+  --color-global-white:    #FFFFFF;
+
+  /* Dark Mode Theme Scale */
+  --color-global-dark-13:  #666666;
+  --color-global-dark-12:  #303030;
+  --color-global-dark-11:  #010101;
+  --color-global-dark-10:  #121212;
+  --color-global-dark-09:  #4C4C4C;
+  --color-global-dark-08:  #E5E5E5;
+  --color-global-dark-07:  #FFFFFF;
+  --color-global-dark-06:  #CCCCCC;
+
+  /* Feedback — Bluish / Shock */
+  --color-global-bluish-10: #002ED2;   /* Shock D1 */
+  --color-global-bluish-09: #0037FF;   /* Shock Accent */
+  --color-global-bluish-08: #8AA3FF;   /* Shock L3 */
+  --color-global-bluish-07: #B8C7FF;   /* Shock L4 */
+
+  /* Feedback — Greenish / Grass */
+  --color-global-greenish-10: #0C7951;  /* Grass D2 */
+  --color-global-greenish-09: #2FE09D;  /* Grass L1 */
+
+  /* Feedback — Reddish / Scarlet–Sienna */
+  --color-global-redish-11: #660914;   /* Scarlet D3 */
+  --color-global-redish-10: #931D07;   /* Sienna D2 */
+  --color-global-redish-09: #BC1227;   /* Scarlet D1 */
+  --color-global-redish-08: #D9311B;   /* Sienna Accent */
+  --color-global-redish-07: #EB5436;   /* Sienna L1 */
+  --color-global-redish-06: #F07A62;   /* Sienna L2 */
+
+  /* Feedback — Orangish / Sun–Ocra */
+  --color-global-orangish-10: #926200;  /* Ocra D2 */
+  --color-global-orangish-09: #FFEF5C;  /* Sun L2 */
+  --color-global-orangish-08: #D25F0C;  /* Ocra D1 */
+  --color-global-orangish-07: #E39600;  /* Ocra Accent */
+
+  /* Theme Palette — Onyx-Black */
+  --color-global-onyxblack-11: #303030;
+  --color-global-onyxblack-10: #111111;
+  --color-global-onyxblack-09: #424242;
+  --color-global-onyxblack-08: #CCCCCC;
+  --color-global-onyxblack-07: #E5E5E5;
+  --color-global-onyxblack-06: #F2F2F2;
+
+  /* Theme Palette — Forest-Green */
+  --color-global-forestgreen-11: #2A5C44;
+  --color-global-forestgreen-10: #3A684E;
+  --color-global-forestgreen-09: #2E8B57;
+  --color-global-forestgreen-08: #BFE2CB;
+  --color-global-forestgreen-07: #E5F3EA;
+  --color-global-forestgreen-06: #EEF7F1;
+
+  /* Theme Palette — Sky-Blue */
+  --color-global-skyblue-11: #204DA5;
+  --color-global-skyblue-10: #2758BA;
+  --color-global-skyblue-09: #3D6DCC;
+  --color-global-skyblue-08: #BBDDFF;
+  --color-global-skyblue-07: #E3F2FF;
+  --color-global-skyblue-06: #EFF8FF;
+
+  /* Theme Palette — Midnight-Indigo */
+  --color-global-midnightindigo-11: #1E344D;
+  --color-global-midnightindigo-10: #041E3A;
+  --color-global-midnightindigo-09: #2A4058;
+  --color-global-midnightindigo-08: #C3D6EB;
+  --color-global-midnightindigo-07: #E4EEFF;
+  --color-global-midnightindigo-06: #F0F5FF;
+
+  /* Utility Colors */
+  --color-global-purple-dark:  #7433CC;  /* Indigo Accent */
+  --color-global-purple-light: #A67DDE;  /* Indigo L2 */
+  --color-global-green-dark:   #073725;  /* Deep Forest */
+
+  /* ── BRANDING PALETTE — 12 hue families × 11 stops each ─────────
+     Naming: --color-global-{family}-{d5…d1|accent|l1…l5}
+     Stop labels: D5=darkest, D1=dark, Accent=semantic mid, L1=light, L5=lightest
+     Source: o9ds Foundation Library / BRANDING PALETTE [FOR REFERENCE]
+     ──────────────────────────────────────────────────────────────── */
+
+  /* Plum */
+  --color-global-plum-d5:       #1A0010;
+  --color-global-plum-d4:       #390023;
+  --color-global-plum-d3:       #580036;
+  --color-global-plum-d2:       #770049;
+  --color-global-plum-d1:       #96005C;
+  --color-global-plum-accent:   #B60071;
+  --color-global-plum-l1:       #C52E88;
+  --color-global-plum-l2:       #D45CA9;
+  --color-global-plum-l3:       #E38ABF;
+  --color-global-plum-l4:       #F2B8D9;
+  --color-global-plum-l5:       #FFE5F5;
+
+  /* Scarlet */
+  --color-global-scarlet-d5:    #1A0003;
+  --color-global-scarlet-d4:    #48060E;
+  --color-global-scarlet-d3:    #660914;
+  --color-global-scarlet-d2:    #931020;
+  --color-global-scarlet-d1:    #BC1227;
+  --color-global-scarlet-accent:#FF1E39;
+  --color-global-scarlet-l1:    #FF465C;
+  --color-global-scarlet-l2:    #FF6E7F;
+  --color-global-scarlet-l3:    #FF96A2;
+  --color-global-scarlet-l4:    #FFBEC5;
+  --color-global-scarlet-l5:    #FFE5E8;
+
+  /* Sienna */
+  --color-global-sienna-d5:     #180501;
+  --color-global-sienna-d4:     #410D03;
+  --color-global-sienna-d3:     #6A1505;
+  --color-global-sienna-d2:     #931D07;
+  --color-global-sienna-d1:     #BC2509;
+  --color-global-sienna-accent: #E62E0A;
+  --color-global-sienna-l1:     #EB5436;
+  --color-global-sienna-l2:     #F07A62;
+  --color-global-sienna-l3:     #F5A08E;
+  --color-global-sienna-l4:     #FAC6BA;
+  --color-global-sienna-l5:     #FFE4E0;
+
+  /* Juice */
+  --color-global-juice-d5:      #1A0B00;
+  --color-global-juice-d4:      #482003;
+  --color-global-juice-d3:      #763506;
+  --color-global-juice-d2:      #A44A09;
+  --color-global-juice-d1:      #D25F0C;
+  --color-global-juice-accent:  #FF7311;
+  --color-global-juice-l1:      #FF8C38;
+  --color-global-juice-l2:      #FFA565;
+  --color-global-juice-l3:      #FFBE8F;
+  --color-global-juice-l4:      #FFD7B9;
+  --color-global-juice-l5:      #FFECDF;
+
+  /* Ocra */
+  --color-global-ocra-d5:       #1A1100;
+  --color-global-ocra-d4:       #422C00;
+  --color-global-ocra-d3:       #7B4700;
+  --color-global-ocra-d2:       #926200;
+  --color-global-ocra-d1:       #BA7D00;
+  --color-global-ocra-accent:   #E39600;
+  --color-global-ocra-l1:       #E9A92E;
+  --color-global-ocra-l2:       #EFBC5C;
+  --color-global-ocra-l3:       #F5CF8A;
+  --color-global-ocra-l4:       #FBECB8;
+  --color-global-ocra-l5:       #FFFDE6;
+
+  /* Sun */
+  --color-global-sun-d5:        #1A1700;
+  --color-global-sun-d4:        #484000;
+  --color-global-sun-d3:        #766900;
+  --color-global-sun-d2:        #A49200;
+  --color-global-sun-d1:        #D2BB00;
+  --color-global-sun-accent:    #FFE500;
+  --color-global-sun-l1:        #FFEA2E;
+  --color-global-sun-l2:        #FFEF5C;
+  --color-global-sun-l3:        #FFF48A;
+  --color-global-sun-l4:        #FFF9B8;
+  --color-global-sun-l5:        #FFFFE5;
+
+  /* Lavender */
+  --color-global-lavender-d5:   #090218;
+  --color-global-lavender-d4:   #17053F;
+  --color-global-lavender-d3:   #250866;
+  --color-global-lavender-d2:   #330B8D;
+  --color-global-lavender-d1:   #410EB4;
+  --color-global-lavender-accent:#5111DA;
+  --color-global-lavender-l1:   #673CE1;
+  --color-global-lavender-l2:   #8168E5;
+  --color-global-lavender-l3:   #9B8DEE;
+  --color-global-lavender-l4:   #B3B1F2;
+  --color-global-lavender-l5:   #E2E1FF;
+
+  /* Indigo */
+  --color-global-indigo-d5:     #0B0514;
+  --color-global-indigo-d4:     #200E39;
+  --color-global-indigo-d3:     #35175E;
+  --color-global-indigo-d2:     #4A2083;
+  --color-global-indigo-d1:     #5F29A8;
+  --color-global-indigo-accent: #7433CC;
+  --color-global-indigo-l1:     #8068D1;
+  --color-global-indigo-l2:     #AA67DE;
+  --color-global-indigo-l3:     #BFA2E7;
+  --color-global-indigo-l4:     #D8C7F0;
+  --color-global-indigo-l5:     #EEE6F8;
+
+  /* Grass */
+  --color-global-grass-d5:      #001A10;
+  --color-global-grass-d4:      #073725;
+  --color-global-grass-d3:      #015132;
+  --color-global-grass-d2:      #00804F;
+  --color-global-grass-d1:      #00A264;
+  --color-global-grass-accent:  #00C278;
+  --color-global-grass-l1:      #2FE09D;
+  --color-global-grass-l2:      #89E6C3;
+  --color-global-grass-l3:      #AEECD4;
+  --color-global-grass-l4:      #CBF9E7;
+  --color-global-grass-l5:      #DDF8EE;
+
+  /* Leaf */
+  --color-global-leaf-d5:       #001905;
+  --color-global-leaf-d4:       #0D3818;
+  --color-global-leaf-d3:       #186622;
+  --color-global-leaf-d2:       #1E8A38;
+  --color-global-leaf-d1:       #26A644;
+  --color-global-leaf-accent:   #2EC653;
+  --color-global-leaf-l1:       #4AD66D;
+  --color-global-leaf-l2:       #6EDE8A;
+  --color-global-leaf-l3:       #92E6A7;
+  --color-global-leaf-l4:       #C0F0CA;
+  --color-global-leaf-l5:       #E1F3E4;
+
+  /* Glacier */
+  --color-global-glacier-d5:    #001119;
+  --color-global-glacier-d4:    #002436;
+  --color-global-glacier-d3:    #003753;
+  --color-global-glacier-d2:    #004A70;
+  --color-global-glacier-d1:    #005D8D;
+  --color-global-glacier-accent:#0172AA;
+  --color-global-glacier-l1:    #2F8CBB;
+  --color-global-glacier-l2:    #50A6CC;
+  --color-global-glacier-l3:    #8BC0DD;
+  --color-global-glacier-l4:    #BAD8EB;
+  --color-global-glacier-l5:    #E3F0F7;
+
+  /* Shock */
+  --color-global-shock-d5:      #00061A;
+  --color-global-shock-d4:      #001048;
+  --color-global-shock-d3:      #001A76;
+  --color-global-shock-d2:      #0024A4;
+  --color-global-shock-d1:      #002ED2;
+  --color-global-shock-accent:  #0037FF;
+  --color-global-shock-l1:      #2E5BFF;
+  --color-global-shock-l2:      #5C7FFF;
+  --color-global-shock-l3:      #8AA3FF;
+  --color-global-shock-l4:      #B8C7FF;
+  --color-global-shock-l5:      #E1E8FF;
+
+  /* o9 Gray (neutral ramp — Off Black through Off White) */
+  --color-global-o9gray-off-black: #010101;
+  --color-global-o9gray-d5:     #191919;
+  --color-global-o9gray-d4:     #303030;
+  --color-global-o9gray-d3:     #4C4C4C;
+  --color-global-o9gray-d2:     #666666;
+  --color-global-o9gray-d1:     #808080;
+  --color-global-o9gray-accent: #B2B2B2;
+  --color-global-o9gray-l1:     #CCCCCC;
+  --color-global-o9gray-l2:     #E5E5E5;
+  --color-global-o9gray-l3:     #F2F2F2;
+  --color-global-o9gray-off-white: #FFFFFF;
+}
+
+
+/* ----------------------------------------------------------------
+   TIER 2A — SEMANTIC SURFACE TOKENS  (Dark Mode — o9Theme)
+   App layers from deepest base to highest elevation.
+   ---------------------------------------------------------------- */
+:root {
+  --color-s-base:      #0A0A0A;   /* App body / outermost background */
+  --color-s-layer-01:  #121212;   /* Header, sidebar, tile layout bg */
+  --color-s-layer-02:  #1A1A1A;   /* Cards, panels, Gen AI prompt bg */
+  --color-s-layer-03:  #202020;   /* Windows, dialogs, popovers */
+  --color-s-layer-04:  #2A2A2A;   /* Form inputs, search bars */
+  --color-s-layer-05:  #303030;   /* Secondary button default, chip bg */
+  --color-s-layer-06:  #404040;   /* Dropdowns, context menus */
+  --color-s-theme:     #FFFFFF;   /* Primary button / active theme bg */
+  --color-s-brand:     #010101;   /* Brand mark / logo background */
+}
+
+
+/* ----------------------------------------------------------------
+   TIER 2B — SEMANTIC BORDER TOKENS  (Dark Mode)
+   ---------------------------------------------------------------- */
+:root {
+  --color-b-divider:        #303030;   /* Separators, chip borders, tile edges */
+  --color-b-base:           #202020;   /* Matches s-layer-03 surface */
+  --color-b-subtle:         #121212;   /* Subtle divider on elevated bg */
+  --color-b-dark:           #666666;   /* Strong / prominent border */
+  --color-b-separator:      #4C4C4C;   /* Visual group separators */
+  --color-b-inverse:        #FFFFFF;   /* Inverse (on dark primary btn) */
+  --color-b-theme:          #FFFFFF;   /* Theme-tinted border */
+  --color-b-hover:          #4C4C4C;   /* Border on hover */
+  --color-b-theme-hover:    #FFFFFF;   /* Theme border on hover */
+  --color-b-theme-active:   #FFFFFF;   /* Theme border on active */
+  --color-b-theme-hover-2:  #E5E5E5;  /* Active tabs, focused chips */
+  --color-b-negative:       #D9311B;   /* Error / danger border → Sienna Accent */
+  --color-b-warning:        #D25F0C;   /* Warning border → Ocra D1 */
+  --color-b-positive:       #00804F;   /* Success / positive border → Grass D2 */
+  --color-b-info-light:     #0037FF;   /* Info border → Shock Accent */
+  --color-b-neutral:        #FFFFFF;   /* Neutral emphasis border */
+  --color-b-theme-focus:    #FFFFFF;   /* Focus ring */
+  --color-b-focus-inverse:  #FFFFFF;   /* Focus ring on inverted bg */
+  --color-b-form:           #303030;   /* Form field border */
+  --color-b-disabled:       #666666;   /* Disabled field border */
+  --color-b-readonly:       #666666;   /* Read-only field border */
+  --color-b-utility-purple: #7433CC;  /* Utility purple border → Indigo Accent */
+}
+
+
+/* ----------------------------------------------------------------
+   TIER 2C — SEMANTIC TEXT TOKENS  (Dark Mode)
+   ---------------------------------------------------------------- */
+:root {
+  --color-t-primary:         #FFFFFF;   /* Primary body / headline text */
+  --color-t-secondary:       #E5E5E5;   /* Supporting / secondary text */
+  --color-t-tertiary:        #B2B2B2;   /* Muted / de-emphasized text */
+  --color-t-placeholder:     #808080;   /* Input placeholder text */
+  --color-t-theme:           #FFFFFF;   /* Theme-colored text */
+  --color-t-theme-hover:     #FFFFFF;   /* Theme text on hover */
+  --color-t-theme-active:    #FFFFFF;   /* Theme text on active */
+  --color-t-active:          #FFFFFF;   /* Neutral active state text */
+  --color-t-hover:           #FFFFFF;   /* Neutral hover text */
+  --color-t-inverse:         #010101;   /* Inverse text (on white bg) */
+  --color-t-active-inverse:  #010101;   /* Primary button active text */
+  --color-t-white-static:    #FFFFFF;   /* Always white regardless of theme */
+  --color-t-black-static:    #202020;   /* Always dark (e.g. tooltip text) */
+  --color-t-disabled:        #B2B2B2;   /* Disabled text */
+  --color-t-readonly:        #E5E5E5;   /* Read-only field text */
+  --color-t-positive:        #00804F;   /* Success / positive text → Grass D2 */
+  --color-t-negative:        #D9311B;   /* Error / danger text → Sienna Accent */
+  --color-t-warning:         #D25F0C;   /* Warning text → Ocra D1 */
+  --color-t-info-light:      #0037FF;   /* Info text → Shock Accent */
+  --color-t-info-dark:       #0037FF;   /* Info text (dark/light bg) */
+  --color-t-neutral:         #FFFFFF;   /* Neutral emphasis text */
+  --color-t-form-label:      #E5E5E5;   /* Form field label */
+  --color-t-form-value:      #808080;   /* Form field helper / description */
+  --color-t-utility-purple:  #7433CC;   /* Utility purple text → Indigo Accent */
+}
+
+
+/* ----------------------------------------------------------------
+   TIER 3 — COMPONENT ALIASES
+   Consumed by components via Tailwind utilities (bg-surface, text-text …)
+   These map semantic tokens to the utility class names in use today.
+   ---------------------------------------------------------------- */
+@theme {
+  /* --- Surfaces --- */
+  --color-surface:          #121212;   /* → s-layer-01 */
+  --color-surface-raised:   #1A1A1A;   /* → s-layer-02 */
+  --color-surface-overlay:  #202020;   /* → s-layer-03 */
+  --color-surface-sunken:   #0A0A0A;   /* → s-base */
+  --color-surface-input:    #2A2A2A;   /* → s-layer-04 */
+  --color-surface-chip:     #303030;   /* → s-layer-05 */
+  --color-surface-menu:     #404040;   /* → s-layer-06 */
+
+  /* --- Primary interactive --- */
+  --color-primary:          #FFFFFF;   /* → s-theme */
+  --color-primary-hover:    #E5E5E5;   /* → global-gray-02 */
+  --color-primary-active:   #CCCCCC;   /* → global-gray-03 */
+  --color-primary-subtle:   rgba(255, 255, 255, 0.07);
+  --color-on-primary:       #010101;   /* → t-inverse */
+
+  /* --- Danger / Error --- */
+  --color-danger:           #D9311B;   /* → global-redish-08 / Sienna Accent */
+  --color-danger-hover:     #931D07;   /* → global-redish-10 / Sienna D2 */
+  --color-danger-active:    #6A1505;   /* → sienna-d3 */
+  --color-danger-subtle:    rgba(217, 49, 27, 0.12);
+
+  /* --- Status: Success --- */
+  --color-success:          #00804F;   /* → global-grass-d2 / Grass D2 */
+  --color-success-hover:    #015132;   /* → grass-d3 */
+  --color-success-subtle:   rgba(0, 128, 79, 0.10);
+
+  /* --- Status: Warning --- */
+  --color-warning:          #D25F0C;   /* → global-orangish-08 / Ocra D1 */
+  --color-warning-dark:     #926200;   /* → global-orangish-10 / Ocra D2 */
+  --color-warning-subtle:   rgba(210, 95, 12, 0.10);
+
+  /* --- Status: Info --- */
+  --color-info:             #0037FF;   /* → global-bluish-09 / Shock Accent */
+  --color-info-dark:        #002ED2;   /* → global-bluish-10 / Shock D1 */
+  --color-info-subtle:      rgba(0, 55, 255, 0.10);
+
+  /* --- Text --- */
+  --color-text:             #FFFFFF;   /* → t-primary */
+  --color-text-secondary:   #E5E5E5;   /* → t-secondary */
+  --color-text-tertiary:    #B2B2B2;   /* → t-tertiary */
+  --color-text-placeholder: #808080;   /* → t-placeholder */
+  --color-text-disabled:    #B2B2B2;   /* → t-disabled */
+  --color-text-inverse:     #010101;   /* → t-inverse */
+  --color-text-muted:       #666666;   /* → global-gray-06 */
+
+  /* --- Borders --- */
+  --color-border:           #303030;   /* → b-divider */
+  --color-border-subtle:    #202020;   /* → b-base */
+  --color-border-hover:     #4C4C4C;   /* → b-hover */
+  --color-border-strong:    #666666;   /* → b-dark */
+  --color-border-focus:     #FFFFFF;   /* → b-theme-focus */
+  --color-border-form:      #303030;   /* → b-form */
+  --color-border-disabled:  #666666;   /* → b-disabled */
+
+  /* --- Utility --- */
+  --color-utility-purple:   #7433CC;   /* → global-purple-dark / Indigo Accent */
+
+  /* --- Theme-aware interactive colors ---
+     Used by components that currently hardcode bg-white/text-black/etc.
+     These flip in light mode via [data-theme="light"] overrides.         */
+  --color-interactive:             #FFFFFF;   /* Primary btn bg, active sidebar, checked inputs */
+  --color-interactive-hover:       #E5E5E5;   /* → gray-02  (hover:bg-gray-100 equivalent) */
+  --color-interactive-active:      #CCCCCC;   /* → gray-03  (active:bg-gray-200 equivalent) */
+  --color-on-interactive:          #010101;   /* Text on interactive surfaces */
+  --color-interactive-muted:       rgba(255, 255, 255, 0.10);  /* hover overlay */
+  --color-interactive-muted-hover: rgba(255, 255, 255, 0.15);  /* active overlay */
+  --color-interactive-subtle:      rgba(255, 255, 255, 0.05);  /* subtle hover */
+  --color-interactive-border:      #FFFFFF;   /* Focus rings, interactive borders */
+  --color-backdrop:                rgba(0, 0, 0, 0.60);  /* Modal/overlay backdrop */
+  --color-divider-on-interactive:  rgba(0, 0, 0, 0.15);  /* Divider on primary btn */
+
+  /* --- Static colors — never change with theme --- */
+  --color-white-static:  #FFFFFF;   /* → t-white-static: always white (danger btn text) */
+  --color-black-static:  #202020;   /* → t-black-static: always dark  (tooltip text)    */
+}
+
+
+/* ================================================================
+   LIGHT MODE OVERRIDES
+   Overrides the CSS custom properties generated by @theme above.
+   Utilities like bg-surface, text-text, border-border auto-update.
+   Uses the bidirectional neutral scale from o9ds Foundation Library.
+   ================================================================ */
+[data-theme="light"] {
+  /* --- Surfaces --- */
+  --color-surface:          #FFFFFF;
+  --color-surface-raised:   #F2F2F2;   /* gray-01 */
+  --color-surface-overlay:  #E5E5E5;   /* gray-02 */
+  --color-surface-sunken:   #F2F2F2;   /* gray-01 */
+  --color-surface-input:    #FFFFFF;
+  --color-surface-chip:     #E5E5E5;   /* gray-02 */
+  --color-surface-menu:     #FFFFFF;
+
+  /* --- Primary interactive --- */
+  --color-primary:          #010101;
+  --color-primary-hover:    #202020;
+  --color-primary-active:   #303030;
+  --color-primary-subtle:   rgba(0, 0, 0, 0.05);
+  --color-on-primary:       #FFFFFF;
+
+  /* --- Danger / Error --- */
+  --color-danger:           #D9311B;   /* → global-redish-08 / Sienna Accent */
+  --color-danger-hover:     #931D07;   /* → Sienna D2 */
+  --color-danger-active:    #6A1505;   /* → Sienna D3 */
+  --color-danger-subtle:    rgba(217, 49, 27, 0.08);
+
+  /* --- Status: Success --- */
+  --color-success:          #00804F;   /* → global-grass-d2 / Grass D2 */
+  --color-success-hover:    #015132;   /* → grass-d3 */
+  --color-success-subtle:   rgba(0, 128, 79, 0.10);
+
+  /* --- Status: Warning --- */
+  --color-warning:          #D25F0C;   /* → global-orangish-08 / Ocra D1 */
+  --color-warning-dark:     #926200;   /* → Ocra D2 */
+  --color-warning-subtle:   rgba(210, 95, 12, 0.10);
+
+  /* --- Status: Info --- */
+  --color-info:             #0037FF;   /* → global-bluish-09 / Shock Accent */
+  --color-info-dark:        #002ED2;   /* → Shock D1 */
+  --color-info-subtle:      rgba(0, 55, 255, 0.08);
+
+  /* --- Text --- */
+  --color-text:             #121212;   /* gray-10 */
+  --color-text-secondary:   #303030;   /* gray-08 */
+  --color-text-tertiary:    #666666;   /* gray-06 */
+  --color-text-placeholder: #808080;   /* gray-05 */
+  --color-text-disabled:    #B2B2B2;   /* gray-04 */
+  --color-text-inverse:     #FFFFFF;
+  --color-text-muted:       #808080;
+
+  /* --- Borders --- */
+  --color-border:           #E5E5E5;   /* gray-02 */
+  --color-border-subtle:    #F2F2F2;   /* gray-01 */
+  --color-border-hover:     #B2B2B2;   /* gray-04 */
+  --color-border-strong:    #B2B2B2;   /* gray-04 */
+  --color-border-focus:     #010101;
+  --color-border-form:      #CCCCCC;   /* gray-03 */
+  --color-border-disabled:  #E5E5E5;
+
+  /* --- Theme-aware interactive --- */
+  --color-interactive:             #010101;
+  --color-interactive-hover:       #202020;
+  --color-interactive-active:      #303030;
+  --color-on-interactive:          #FFFFFF;
+  --color-interactive-muted:       rgba(0, 0, 0, 0.06);
+  --color-interactive-muted-hover: rgba(0, 0, 0, 0.10);
+  --color-interactive-subtle:      rgba(0, 0, 0, 0.04);
+  --color-interactive-border:      #010101;
+  --color-backdrop:                rgba(0, 0, 0, 0.40);
+  --color-divider-on-interactive:  rgba(255, 255, 255, 0.15);
+
+  /* --- Utility --- */
+  --color-utility-purple:   #7433CC;   /* Indigo Accent — darker for white bg */
+}

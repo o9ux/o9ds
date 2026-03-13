@@ -1,0 +1,84 @@
+/* ================================================================
+   o9ds Typography System — Foundation Library
+   Source: TYPOGRAPHY TOKENS/STYLE (Figma Foundation Library)
+
+   Two-tier architecture:
+     Primitive tokens  → :root  (raw values — never in components)
+     Tailwind @theme   → utility class generation
+   ================================================================ */
+
+
+/* ----------------------------------------------------------------
+   PRIMITIVE TOKENS — raw font values from Figma
+   ---------------------------------------------------------------- */
+:root {
+  /* Font Family Stack */
+  --font-family-o9sans: 'o9Sans', 'Roboto', 'Noto Sans', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-family-mono:   'JetBrains Mono', 'Fira Code', 'Cascadia Code', ui-monospace, monospace;
+
+  /* Base root size = 16px */
+
+  /* Font Size Primitives — o9ds-font-size-* */
+  --font-size-10: 0.625rem;   /* 10px */
+  --font-size-12: 0.75rem;    /* 12px */
+  --font-size-14: 0.875rem;   /* 14px */
+  --font-size-16: 1rem;       /* 16px — base */
+  --font-size-18: 1.125rem;   /* 18px */
+  --font-size-20: 1.25rem;    /* 20px */
+  --font-size-32: 2rem;       /* 32px */
+
+  /* Font Weight Primitives — o9ds-{weight} */
+  --font-weight-regular: 400;   /* o9ds-regular */
+  --font-weight-medium:  500;   /* o9ds-medium  */
+  --font-weight-bold:    700;   /* o9ds-bold    */
+
+  /* Letter Spacing — absolute rem values (base 16px)
+     Used as-defined in Figma token CSS mappings            */
+  --letter-spacing-h32:   -0.003rem;  /* ≈ -0.05px  · 32px headings          */
+  --letter-spacing-h20:   -0.031rem;  /* ≈ -0.5px   · 18–20px headings       */
+  --letter-spacing-body:  -0.013rem;  /* ≈ -0.2px   · body, labels, 12–16px  */
+  --letter-spacing-caps:   0.013rem;  /* ≈ +0.2px   · small uppercase labels  */
+  --letter-spacing-zero:   0rem;      /*    0px      · 10px paragraph text     */
+}
+
+
+/* ----------------------------------------------------------------
+   TAILWIND @theme — generates text-* / font-* utility classes
+   ---------------------------------------------------------------- */
+@theme {
+  /* --- Font families --- */
+  --font-sans: 'o9Sans', 'Roboto', 'Noto Sans', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', ui-monospace, monospace;
+
+  /* --- Type scale (7 Figma stops + extended for display use) --- */
+  --text-2xs:  0.625rem;   /* 10px  · o9ds-font-size-10 */
+  --text-xs:   0.75rem;    /* 12px  · o9ds-font-size-12 */
+  --text-sm:   0.875rem;   /* 14px  · o9ds-font-size-14 */
+  --text-base: 1rem;       /* 16px  · o9ds-font-size-16 */
+  --text-lg:   1.125rem;   /* 18px  · o9ds-font-size-18 */
+  --text-xl:   1.25rem;    /* 20px  · o9ds-font-size-20 */
+  --text-2xl:  2rem;       /* 32px  · o9ds-font-size-32 (display heading) */
+
+  /* Extended — beyond Figma spec; used only in landing page / hero */
+  --text-3xl:  2.5rem;     /* 40px */
+  --text-4xl:  3.25rem;    /* 52px */
+  --text-5xl:  4rem;       /* 64px */
+
+  /* --- Line heights --- */
+  --leading-none:    1;
+  --leading-tight:   1.1;
+  --leading-snug:    1.25;
+  --leading-normal:  1.5;
+  --leading-relaxed: 1.65;
+
+  /* --- Letter spacing (em-based Tailwind utilities) ---
+     These generate tracking-* utility classes for responsive use.
+     See :root for absolute rem values used in Figma CSS snippets.  */
+  --tracking-tightest: -0.03em;
+  --tracking-tighter:  -0.02em;
+  --tracking-tight:    -0.01em;
+  --tracking-normal:    0em;
+  --tracking-wide:      0.04em;
+  --tracking-wider:     0.08em;
+  --tracking-widest:    0.12em;
+}

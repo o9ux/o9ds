@@ -1,0 +1,70 @@
+/* ================================================================
+   o9ds Spacing & Border System — Foundation Library
+   Source: SPACING STYLE GUIDE + BORDER GUIDE (Figma Foundation Library)
+
+   Two-tier architecture:
+     Primitive tokens  → :root  (o9ds-space-N, o9ds-border-N, o9ds-radius-* raw values)
+     Tailwind @theme   → border-radius + border-width utility classes
+
+   Spacing: 15 stops (1–80px), base root = 16px.
+   All spacing tokens map 1:1 to standard Tailwind utilities (1 unit = 0.25rem = 4px).
+   Border widths: 3 tokens (1px, 1.5px, 2px).
+   Radius: sharp rectangles (0px) everywhere; pill/circle shape only.
+   ================================================================ */
+
+
+/* ----------------------------------------------------------------
+   PRIMITIVE TOKENS — Figma o9ds-space-* raw values
+   Never use directly in components; prefer Tailwind utilities.
+   ---------------------------------------------------------------- */
+:root {
+  --o9ds-space-1:   0.0625rem;   /*  1px  → tw: p-px      */
+  --o9ds-space-2:   0.125rem;    /*  2px  → tw: p-0.5     */
+  --o9ds-space-4:   0.25rem;     /*  4px  → tw: p-1       */
+  --o9ds-space-6:   0.375rem;    /*  6px  → tw: p-1.5     */
+  --o9ds-space-8:   0.5rem;      /*  8px  → tw: p-2       */
+  --o9ds-space-10:  0.625rem;    /* 10px  → tw: p-2.5     */
+  --o9ds-space-12:  0.75rem;     /* 12px  → tw: p-3       */
+  --o9ds-space-16:  1rem;        /* 16px  → tw: p-4       */
+  --o9ds-space-20:  1.25rem;     /* 20px  → tw: p-5       */
+  --o9ds-space-24:  1.5rem;      /* 24px  → tw: p-6       */
+  --o9ds-space-32:  2rem;        /* 32px  → tw: p-8       */
+  --o9ds-space-40:  2.5rem;      /* 40px  → tw: p-10      */
+  --o9ds-space-48:  3rem;        /* 48px  → tw: p-12      */
+  --o9ds-space-64:  4rem;        /* 64px  → tw: p-16      */
+  --o9ds-space-80:  5rem;        /* 80px  → tw: p-20      */
+
+  /* --- Border Width Primitives — o9ds-border-* --- */
+  --o9ds-border-1:  0.0625rem;   /*  1px   — default UI borders, dividers   */
+  --o9ds-border-2:  0.125rem;    /*  2px   — focus rings, selected states   */
+  --o9ds-border-3:  0.09375rem;  /*  1.5px — medium emphasis, hover states  */
+
+  /* --- Border Radius Primitives — o9ds-radius-* --- */
+  --o9ds-radius-none:   0px;      /* Sharp rectangles — all UI surfaces      */
+  --o9ds-radius-circle: 9999px;   /* Pill / circle — badges, tags, avatars   */
+}
+
+
+/* ----------------------------------------------------------------
+   TAILWIND @theme — generates radius-* + border-* utility classes
+   ---------------------------------------------------------------- */
+@theme {
+  /* --- Border Radius ---
+     o9ds uses sharp (0px) rectangles for all UI surfaces.
+     Only pill shapes are used for badges and indicators.     */
+  --radius-none:  var(--o9ds-radius-none);    /* 0px — sharp (default)     */
+  --radius-xs:    var(--o9ds-radius-none);    /* 0px                       */
+  --radius-sm:    var(--o9ds-radius-none);    /* 0px                       */
+  --radius-md:    var(--o9ds-radius-none);    /* 0px                       */
+  --radius-lg:    var(--o9ds-radius-none);    /* 0px                       */
+  --radius-xl:    var(--o9ds-radius-none);    /* 0px                       */
+  --radius-2xl:   var(--o9ds-radius-none);    /* 0px                       */
+  --radius-full:  var(--o9ds-radius-circle);  /* 9999px — pills / circles  */
+
+  /* --- Border Widths ---
+     Mapped from Figma o9ds-border-* primitives.             */
+  --border-thin:   var(--o9ds-border-1);   /* 1px   — default UI borders  */
+  --border-base:   var(--o9ds-border-1);   /* 1px   — form inputs, cards  */
+  --border-medium: var(--o9ds-border-3);   /* 1.5px — hover / emphasis    */
+  --border-thick:  var(--o9ds-border-2);   /* 2px   — focus rings         */
+}

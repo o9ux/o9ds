@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:m3.material.io)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(ls /Users/atulmeshram/o9cons/svgs/*.svg)",
+      "mcp__mcp-registry__search_mcp_registry",
+      "Bash(python3 -c \":*)",
+      "Bash(python3:*)",
+      "Bash(cat /Users/atulmeshram/Development/o9ds/src/tokens/*.js)",
+      "Bash(# Check if Figma MCP is configured cat ~/.config/claude/claude_desktop_config.json)",
+      "Bash(npx vite build)",
+      "Bash(npm run build)",
+      "WebFetch(domain:codepen.io)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(npm install three)",
+      "WebFetch(domain:gist.github.com)",
+      "Bash(ls /Users/atulmeshram/Development/o9ds/src/assets/icons/*.svg)"
+    ]
+  }
+}

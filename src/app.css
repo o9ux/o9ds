@@ -1,0 +1,148 @@
+@import "./tokens/fonts.css";
+@import "tailwindcss";
+@import "./tokens/colors.css";
+@import "./tokens/typography.css";
+@import "./tokens/spacing.css";
+@import "./tokens/effects.css";
+@import "./tokens/icons.css";
+
+/* === Base Styles === */
+html {
+  color-scheme: dark;
+}
+[data-theme="light"] {
+  color-scheme: light;
+}
+
+body {
+  @apply bg-surface text-text font-sans antialiased;
+  margin: 0;
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Remove ALL default border-radius from everything */
+*, *::before, *::after {
+  border-radius: 0 !important;
+}
+/* Re-allow full radius for specific utilities */
+.rounded-full { border-radius: 9999px !important; }
+
+/* === Scrollbar Styling — thin === */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-global-gray-08);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-global-gray-07);
+}
+
+[data-theme="light"] ::-webkit-scrollbar-thumb {
+  background: var(--color-global-gray-03);
+}
+[data-theme="light"] ::-webkit-scrollbar-thumb:hover {
+  background: var(--color-global-gray-04);
+}
+
+/* === Prism.js Theme (High Contrast Dark) === */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #E8E8E8;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  line-height: 1.65;
+  tab-size: 2;
+  hyphens: none;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata { color: #555555; font-style: italic; }
+.token.punctuation { color: #888888; }
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol { color: #B0C4FF; }
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin { color: #86E1B5; }
+.token.operator,
+.token.entity,
+.token.url { color: #FFD580; }
+.token.atrule,
+.token.attr-value,
+.token.keyword { color: #C792EA; }
+.token.function,
+.token.class-name { color: #80CBFF; }
+.token.regex,
+.token.important,
+.token.variable { color: #FF8B8B; }
+
+/* === Prism.js Light Theme Override === */
+[data-theme="light"] code[class*="language-"],
+[data-theme="light"] pre[class*="language-"] {
+  color: #1e1e1e;
+}
+
+[data-theme="light"] .token.comment,
+[data-theme="light"] .token.prolog,
+[data-theme="light"] .token.doctype,
+[data-theme="light"] .token.cdata { color: #999999; }
+[data-theme="light"] .token.punctuation { color: #666666; }
+[data-theme="light"] .token.property,
+[data-theme="light"] .token.tag,
+[data-theme="light"] .token.boolean,
+[data-theme="light"] .token.number,
+[data-theme="light"] .token.constant,
+[data-theme="light"] .token.symbol { color: #002ED2; }
+[data-theme="light"] .token.selector,
+[data-theme="light"] .token.attr-name,
+[data-theme="light"] .token.string,
+[data-theme="light"] .token.char,
+[data-theme="light"] .token.builtin { color: #0C7951; }
+[data-theme="light"] .token.operator,
+[data-theme="light"] .token.entity,
+[data-theme="light"] .token.url { color: #926200; }
+[data-theme="light"] .token.atrule,
+[data-theme="light"] .token.attr-value,
+[data-theme="light"] .token.keyword { color: #7433CC; }
+[data-theme="light"] .token.function,
+[data-theme="light"] .token.class-name { color: #005D8D; }
+[data-theme="light"] .token.regex,
+[data-theme="light"] .token.important,
+[data-theme="light"] .token.variable { color: #D9311B; }
+
+/* === Selection === */
+::selection {
+  background: rgba(255, 255, 255, 0.15);
+  color: #FFFFFF;
+}
+[data-theme="light"] ::selection {
+  background: rgba(0, 0, 0, 0.12);
+  color: #121212;
+}
+
+/* === Focus visible === */
+:focus-visible {
+  outline: 1px solid var(--color-border-focus);
+  outline-offset: 2px;
+}

@@ -1,0 +1,12 @@
+@theme {
+  /* Hard geometric shadows — no blur, offset only (brutalist/boxy) */
+  --shadow-xs: 2px 2px 0px 0px rgba(255, 255, 255, 0.06);
+  --shadow-sm: 3px 3px 0px 0px rgba(255, 255, 255, 0.08);
+  --shadow-md: 4px 4px 0px 0px rgba(255, 255, 255, 0.10);
+  --shadow-lg: 6px 6px 0px 0px rgba(255, 255, 255, 0.08);
+  --shadow-xl: 8px 8px 0px 0px rgba(255, 255, 255, 0.06);
+
+  /* Inner border glow — for focused states */
+  --shadow-focus: 0 0 0 2px #FFFFFF;
+  --shadow-focus-danger: 0 0 0 2px #D9311B;
+}
