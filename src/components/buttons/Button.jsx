@@ -4,8 +4,8 @@ import { cn } from '@/utils/cn';
 const variantStyles = {
   primary:
     'bg-interactive text-on-interactive border border-interactive hover:bg-interactive-hover active:bg-interactive-active focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-interactive-border focus-visible:ring-offset-1 focus-visible:ring-offset-surface',
-  tertiary:
-    'bg-transparent text-text border border-transparent hover:bg-interactive-muted active:bg-interactive-muted-hover focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-interactive-border/50',
+  secondary:
+    'bg-surface-raised text-text border border-transparent hover:bg-interactive-muted active:bg-interactive-muted-hover focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-interactive-border/50',
   outline:
     'bg-transparent text-text border border-border-strong hover:border-interactive-border hover:bg-interactive-subtle active:bg-interactive-muted focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-interactive-border/50',
   danger:

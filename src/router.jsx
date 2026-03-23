@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { createHashRouter } from 'react-router-dom';
 import DocsLayout from './layouts/DocsLayout';
 import Home from './pages/Home';
 import GetStarted from './pages/GetStarted';
@@ -10,6 +10,7 @@ import IconsPage from './pages/foundations/IconsPage';
 import SpacingPage from './pages/foundations/SpacingPage';
 import EffectsPage from './pages/foundations/EffectsPage';
 import IllustrationsPage from './pages/foundations/IllustrationsPage';
+import MotionPage from './pages/foundations/MotionPage';
 // Components — Buttons & Actions
 import ButtonPage from './pages/components/buttons/ButtonPage';
 import IconButtonPage from './pages/components/buttons/IconButtonPage';
@@ -24,41 +25,46 @@ import BreadcrumbPage from './pages/components/navigation/BreadcrumbPage';
 // Components — Containers
 import AvatarPage from './pages/components/containers/AvatarPage';
 import AvatarGroupPage from './pages/components/containers/AvatarGroupPage';
-import CardPage from './pages/components/containers/CardPage';
 import TooltipPage from './pages/components/containers/TooltipPage';
 import PopoverPage from './pages/components/containers/PopoverPage';
-import ActionMenuPage from './pages/components/containers/ActionMenuPage';
-import FeedPage from './pages/components/containers/FeedPage';
+import DialogWindowPage from './pages/components/containers/DialogWindowPage';
+import SidepanelPage from './pages/components/containers/SidepanelPage';
+import ListItemPage from './pages/components/containers/ListItemPage';
 // Components — Status & System Feedback
-import BadgePage from './pages/components/feedback/BadgePage';
-import SpinnerPage from './pages/components/feedback/SpinnerPage';
+import PillPage from './pages/components/feedback/PillPage';
+import ProgressPage from './pages/components/feedback/ProgressPage';
 import InlineAlertPage from './pages/components/feedback/InlineAlertPage';
-import AlertDialogPage from './pages/components/feedback/AlertDialogPage';
 import ToastPage from './pages/components/feedback/ToastPage';
-import BannerAlertPage from './pages/components/feedback/BannerAlertPage';
 import CounterPage from './pages/components/feedback/CounterPage';
-import EmptyStatePage from './pages/components/feedback/EmptyStatePage';
+import BadgeAlertPage from './pages/components/feedback/BadgeAlertPage';
 import IndicatorPage from './pages/components/feedback/IndicatorPage';
 import SplitterPage from './pages/components/feedback/SplitterPage';
 // Components — Input & Form Controls
 import TextboxPage from './pages/components/inputs/TextboxPage';
 import CheckboxRadioPage from './pages/components/inputs/CheckboxRadioPage';
+import CheckboxPage from './pages/components/inputs/CheckboxPage';
+import RadioPage from './pages/components/inputs/RadioPage';
+import SwitchPage from './pages/components/inputs/SwitchPage';
 import LabelPage from './pages/components/inputs/LabelPage';
 import SearchPage from './pages/components/inputs/SearchPage';
 import TextareaPage from './pages/components/inputs/TextareaPage';
 import SliderPage from './pages/components/inputs/SliderPage';
 import NumberInputPage from './pages/components/inputs/NumberInputPage';
 import ChipPage from './pages/components/inputs/ChipPage';
+import ChipListPage from './pages/components/inputs/ChipListPage';
 import SelectDropdownPage from './pages/components/inputs/SelectDropdownPage';
-import MultiSelectPage from './pages/components/inputs/MultiSelectPage';
-import ComboboxPage from './pages/components/inputs/ComboboxPage';
+import MultiSelectChipInputPage from './pages/components/inputs/MultiSelectChipInputPage';
+import ColorPickerPage from './pages/components/inputs/ColorPickerPage';
 import DatePickerPage from './pages/components/inputs/DatePickerPage';
 import TimePickerPage from './pages/components/inputs/TimePickerPage';
+import DateTimePickerPage from './pages/components/inputs/DateTimePickerPage';
+import DateRangePickerPage from './pages/components/inputs/DateRangePickerPage';
 import FileInputPage from './pages/components/inputs/FileInputPage';
 import UploadPage from './pages/components/inputs/UploadPage';
 import TextEditorPage from './pages/components/inputs/TextEditorPage';
+import UrlInputPage from './pages/components/inputs/UrlInputPage';
 
-export const router = createBrowserRouter([
+export const router = createHashRouter([
   {
     path: '/',
     element: <Home />,
@@ -74,6 +80,7 @@ export const router = createBrowserRouter([
       { path: 'foundations/typography',   element: <TypographyPage /> },
       { path: 'foundations/spacing',      element: <SpacingPage /> },
       { path: 'foundations/effects',      element: <EffectsPage /> },
+      { path: 'foundations/motion',       element: <MotionPage /> },
       { path: 'foundations/icons',        element: <IconsPage /> },
       { path: 'foundations/illustrations', element: <IllustrationsPage /> },
       // Buttons & Actions
@@ -90,39 +97,44 @@ export const router = createBrowserRouter([
       // Containers
       { path: 'components/avatar',         element: <AvatarPage /> },
       { path: 'components/avatar-group',   element: <AvatarGroupPage /> },
-      { path: 'components/card',           element: <CardPage /> },
       { path: 'components/tooltip',        element: <TooltipPage /> },
       { path: 'components/popover',        element: <PopoverPage /> },
-      { path: 'components/action-menu',    element: <ActionMenuPage /> },
-      { path: 'components/feed',            element: <FeedPage /> },
+      { path: 'components/dialog-window',  element: <DialogWindowPage /> },
+      { path: 'components/sidepanel',     element: <SidepanelPage /> },
+      { path: 'components/list-item',       element: <ListItemPage /> },
       // Status & System Feedback
-      { path: 'components/badge',          element: <BadgePage /> },
-      { path: 'components/spinner',        element: <SpinnerPage /> },
+      { path: 'components/pill',           element: <PillPage /> },
+      { path: 'components/progress',      element: <ProgressPage /> },
       { path: 'components/inline-alert',   element: <InlineAlertPage /> },
-      { path: 'components/alert-dialog',   element: <AlertDialogPage /> },
       { path: 'components/toast',          element: <ToastPage /> },
-      { path: 'components/banner-alerts',  element: <BannerAlertPage /> },
       { path: 'components/counter',        element: <CounterPage /> },
-      { path: 'components/empty-state',    element: <EmptyStatePage /> },
+      { path: 'components/badge-alert',   element: <BadgeAlertPage /> },
       { path: 'components/indicators',     element: <IndicatorPage /> },
       { path: 'components/splitter',       element: <SplitterPage /> },
       // Input & Form Controls
       { path: 'components/textbox',          element: <TextboxPage /> },
-      { path: 'components/checkbox',         element: <CheckboxRadioPage /> },
+      { path: 'components/checkbox',         element: <CheckboxPage /> },
+      { path: 'components/radio',                  element: <RadioPage /> },
+      { path: 'components/switch',                element: <SwitchPage /> },
+      { path: 'components/checkbox-radio-switch', element: <CheckboxRadioPage /> },
       { path: 'components/label',            element: <LabelPage /> },
       { path: 'components/search',           element: <SearchPage /> },
       { path: 'components/textarea',         element: <TextareaPage /> },
       { path: 'components/slider',           element: <SliderPage /> },
       { path: 'components/number-input',     element: <NumberInputPage /> },
       { path: 'components/chip',             element: <ChipPage /> },
+      { path: 'components/chip-list',        element: <ChipListPage /> },
       { path: 'components/select-dropdown',  element: <SelectDropdownPage /> },
-      { path: 'components/multi-select',    element: <MultiSelectPage /> },
-      { path: 'components/combobox',        element: <ComboboxPage /> },
+      { path: 'components/multi-select-chip-input', element: <MultiSelectChipInputPage /> },
+      { path: 'components/color-picker',    element: <ColorPickerPage /> },
       { path: 'components/date-picker',     element: <DatePickerPage /> },
       { path: 'components/time-picker',     element: <TimePickerPage /> },
+      { path: 'components/date-time-picker', element: <DateTimePickerPage /> },
+      { path: 'components/date-range-picker', element: <DateRangePickerPage /> },
       { path: 'components/file-input',      element: <FileInputPage /> },
       { path: 'components/upload',          element: <UploadPage /> },
       { path: 'components/text-editor',     element: <TextEditorPage /> },
+      { path: 'components/url-input',       element: <UrlInputPage /> },
     ],
   },
 ]);

@@ -33,9 +33,26 @@ export default function LabelPage() {
           { type: 'checkbox', label: 'Optional', value: optional, onChange: setOptional },
           { type: 'checkbox', label: 'Disabled', value: disabled, onChange: setDisabled },
         ]}>
-          <Label required={required} optional={!required && optional} disabled={disabled} htmlFor="demo-input">
-            Field Label
-          </Label>
+          <div className="flex flex-col gap-3">
+            <div className="flex items-center gap-2">
+              <span className="text-[10px] text-text-tertiary w-6 shrink-0">sm</span>
+              <Label size="sm" required={required} optional={!required && optional} disabled={disabled}>
+                Field Label
+              </Label>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-[10px] text-text-tertiary w-6 shrink-0">md</span>
+              <Label size="md" required={required} optional={!required && optional} disabled={disabled}>
+                Field Label
+              </Label>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-[10px] text-text-tertiary w-6 shrink-0">lg</span>
+              <Label size="lg" required={required} optional={!required && optional} disabled={disabled}>
+                Field Label
+              </Label>
+            </div>
+          </div>
         </ComponentDemo>
       </section>
 
@@ -71,10 +88,10 @@ export default function LabelPage() {
       </section>
 
       <section className="mb-12">
-        <h2 id="accessibility" className="text-xl font-black tracking-tight text-text mb-2">Accessibility</h2>
+        <h2 id="accessibility" className="text-lg font-semibold text-text mb-4">Accessibility</h2>
         <ul className="space-y-3 border border-border p-6">
           {['Uses the native <label> element for inherent form association.', 'The required asterisk uses aria-hidden to prevent screen readers from reading it as "star".', 'The htmlFor prop links the label to its input for click-to-focus behavior.'].map((item, i) => (
-            <li key={i} className="flex gap-3 text-xs text-text-secondary"><span className="mt-px text-white font-bold shrink-0">—</span>{item}</li>
+            <li key={i} className="flex gap-3 text-xs text-text-secondary"><span className="mt-px text-text font-bold shrink-0">—</span>{item}</li>
           ))}
         </ul>
       </section>

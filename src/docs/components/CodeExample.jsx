@@ -2,13 +2,13 @@ import { useState } from 'react';
 import CodeBlock from './CodeBlock';
 import { cn } from '@/utils/cn';
 
-export default function CodeExample({ children, code, language = 'jsx' }) {
+export default function CodeExample({ children, code, language = 'jsx', previewClassName }) {
   const [showCode, setShowCode] = useState(false);
 
   return (
-    <div className="mt-4 border border-border overflow-hidden">
+    <div className="mt-4 border border-border overflow-visible">
       {/* Preview */}
-      <div className="flex items-center justify-center bg-surface-overlay p-8">
+      <div className={cn('flex items-center justify-center bg-surface-overlay p-8', previewClassName)}>
         {children}
       </div>
 

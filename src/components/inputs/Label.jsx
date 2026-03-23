@@ -2,7 +2,7 @@ import { forwardRef } from 'react';
 import { cn } from '@/utils/cn';
 
 const sizeStyles = {
-  sm: 'text-xs',
+  sm: 'text-[10px]',
   md: 'text-xs',
   lg: 'text-sm',
 };

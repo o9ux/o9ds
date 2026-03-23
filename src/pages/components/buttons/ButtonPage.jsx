@@ -16,7 +16,7 @@ import starSvg from '@/assets/icons/o9con-star.svg?raw';
 const buttonProps = [
   {
     name: 'variant',
-    type: "'primary' | 'tertiary' | 'outline' | 'danger'",
+    type: "'primary' | 'secondary' | 'outline' | 'danger'",
     default: "'primary'",
     description: 'Visual style variant of the button',
   },
@@ -87,7 +87,7 @@ export default function ButtonPage() {
               label: 'Variant',
               value: variant,
               onChange: setVariant,
-              options: ['primary', 'tertiary', 'outline', 'danger'],
+              options: ['primary', 'secondary', 'outline', 'danger'],
             },
             {
               type: 'select',
@@ -120,13 +120,13 @@ export default function ButtonPage() {
         </p>
         <CodeExample
           code={`<Button variant="primary">Primary</Button>
-<Button variant="tertiary">Tertiary</Button>
+<Button variant="secondary">Secondary</Button>
 <Button variant="outline">Outline</Button>
 <Button variant="danger">Danger</Button>`}
         >
           <div className="flex flex-wrap items-center gap-4">
             <Button variant="primary">Primary</Button>
-            <Button variant="tertiary">Tertiary</Button>
+            <Button variant="secondary">Secondary</Button>
             <Button variant="outline">Outline</Button>
             <Button variant="danger">Danger</Button>
           </div>
@@ -208,7 +208,7 @@ export default function ButtonPage() {
           With Icons
         </h2>
         <p className="text-sm text-text-secondary mb-4">
-          Leading and trailing icon slots using <code className="bg-surface-overlay px-1.5 py-0.5 text-xs border border-border text-white">o9con</code> icons from the icon system.
+          Leading and trailing icon slots using <code className="bg-surface-overlay px-1.5 py-0.5 text-xs border border-border text-text">o9con</code> icons from the icon system.
           Icons auto-size per tier (o9con-14 → o9con-24).
         </p>
         <CodeExample
@@ -266,7 +266,7 @@ import arrowRightSvg from '@/assets/icons/o9con-arrow-right.svg?raw';
           <p className="text-xs font-bold tracking-widest uppercase text-text-tertiary mb-3">All Variants — Disabled State</p>
           <div className="flex flex-wrap items-center gap-4 border border-border bg-surface-overlay p-6">
             <Button variant="primary" disabled>Primary</Button>
-            <Button variant="tertiary" disabled>Tertiary</Button>
+            <Button variant="secondary" disabled>Tertiary</Button>
             <Button variant="outline" disabled>Outline</Button>
             <Button variant="danger" disabled>Danger</Button>
           </div>
@@ -282,7 +282,7 @@ import arrowRightSvg from '@/assets/icons/o9con-arrow-right.svg?raw';
           doItems={[
             'Use primary buttons for the single most important action on the page',
             'Use clear, verb-first labels: "Save changes", "Delete item", "Create new"',
-            'Use outline or tertiary buttons for secondary actions',
+            'Use outline or secondary buttons for lower-emphasis actions',
             'Pair danger buttons with a confirmation dialog for destructive actions',
           ]}
           dontItems={[
@@ -296,19 +296,19 @@ import arrowRightSvg from '@/assets/icons/o9con-arrow-right.svg?raw';
 
       {/* Accessibility */}
       <section className="mb-12">
-        <h2 id="accessibility" className="text-xl font-black tracking-tight text-text mb-2">
+        <h2 id="accessibility" className="text-lg font-semibold text-text mb-4">
           Accessibility
         </h2>
         <ul className="space-y-3 border border-border p-6">
           {[
-            <>Uses the native <code className="bg-surface-overlay px-1.5 py-0.5 text-xs border border-border text-white">&lt;button&gt;</code> element for full keyboard and screen reader support.</>,
-            <>Focus ring is visible only on keyboard navigation via <code className="bg-surface-overlay px-1.5 py-0.5 text-xs border border-border text-white">:focus-visible</code>.</>,
-            <>Disabled buttons use the native <code className="bg-surface-overlay px-1.5 py-0.5 text-xs border border-border text-white">disabled</code> attribute, preventing interaction and announcing state to assistive technologies.</>,
+            <>Uses the native <code className="bg-surface-overlay px-1.5 py-0.5 text-xs border border-border text-text">&lt;button&gt;</code> element for full keyboard and screen reader support.</>,
+            <>Focus ring is visible only on keyboard navigation via <code className="bg-surface-overlay px-1.5 py-0.5 text-xs border border-border text-text">:focus-visible</code>.</>,
+            <>Disabled buttons use the native <code className="bg-surface-overlay px-1.5 py-0.5 text-xs border border-border text-text">disabled</code> attribute, preventing interaction and announcing state to assistive technologies.</>,
             'Color contrast ratios meet WCAG 2.1 AA requirements for all variants.',
-            <>Supports <code className="bg-surface-overlay px-1.5 py-0.5 text-xs border border-border text-white">ref</code> forwarding for advanced focus management.</>,
+            <>Supports <code className="bg-surface-overlay px-1.5 py-0.5 text-xs border border-border text-text">ref</code> forwarding for advanced focus management.</>,
           ].map((item, i) => (
             <li key={i} className="flex gap-3 text-xs text-text-secondary">
-              <span className="mt-px text-white font-bold shrink-0">—</span>
+              <span className="mt-px text-text font-bold shrink-0">—</span>
               {item}
             </li>
           ))}

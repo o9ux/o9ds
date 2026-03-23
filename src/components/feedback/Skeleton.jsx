@@ -15,8 +15,8 @@ export function Skeleton({ variant = 'text', width, height, className }) {
     text:   'h-3.5 w-full',
     title:  'h-5 w-3/5',
     rect:   'h-24 w-full',
-    circle: 'rounded-full h-10 w-10',
-    avatar: 'rounded-full h-8 w-8',
+    circle: 'rounded-circle h-10 w-10',
+    avatar: 'rounded-circle h-8 w-8',
   };
 
   const inlineStyle = {};

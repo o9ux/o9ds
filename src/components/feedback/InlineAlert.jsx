@@ -1,83 +1,227 @@
+import { forwardRef, useState } from 'react';
 import { cn } from '@/utils/cn';
+import O9Icon from '@/components/O9Icon';
+import Link from '@/components/navigation/Link';
+import Button from '@/components/buttons/Button';
 
-const variantConfig = {
+import infoCircleFilledSvg from '@/assets/icons/o9con-info-circle-filled.svg?raw';
+import checkCircleSvg from '@/assets/icons/o9con-check-circle.svg?raw';
+import exclamationTriangleFilledSvg from '@/assets/icons/o9con-exclamation-triangle-filled.svg?raw';
+import blockerActionFilledAltSvg from '@/assets/icons/o9con-blocker-action-filled-alt.svg?raw';
+import blockerActionFilledSvg from '@/assets/icons/o9con-blocker-action-filled.svg?raw';
+import volumeMidSvg from '@/assets/icons/o9con-volume-mid.svg?raw';
+import closeSvg from '@/assets/icons/o9con-close.svg?raw';
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   VARIANT CONFIG — icon + accent color per semantic type
+   Matches Figma o9ds-banner [ALPHA 2.0] (node 19956-19852)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+const VARIANT_CONFIG = {
   info: {
-    border: 'border-info/40',
-    icon: (
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" className="text-info shrink-0 mt-px">
-        <path fillRule="evenodd" d="M8 1a7 7 0 100 14A7 7 0 008 1zm0 5.5a.75.75 0 01.75.75v3.5a.75.75 0 01-1.5 0v-3.5A.75.75 0 018 6.5zm0-2.5a.875.875 0 110 1.75A.875.875 0 018 4z" />
-      </svg>
-    ),
+    icon: infoCircleFilledSvg,
+    accent: 'border-l-info',
     titleColor: 'text-info',
+    iconColor: 'text-info',
   },
   success: {
-    border: 'border-success/40',
-    icon: (
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" className="text-success shrink-0 mt-px">
-        <path fillRule="evenodd" d="M8 1a7 7 0 100 14A7 7 0 008 1zm3.28 5.28a.75.75 0 00-1.06-1.06L7 8.44 5.78 7.22a.75.75 0 00-1.06 1.06l1.75 1.75a.75.75 0 001.06 0l3.75-3.75z" />
-      </svg>
-    ),
+    icon: checkCircleSvg,
+    accent: 'border-l-success',
     titleColor: 'text-success',
+    iconColor: 'text-success',
   },
   warning: {
-    border: 'border-warning/40',
-    icon: (
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" className="text-warning shrink-0 mt-px">
-        <path fillRule="evenodd" d="M6.457 1.047a1.75 1.75 0 013.086 0l6.25 11.5A1.75 1.75 0 0114.25 15H1.75a1.75 1.75 0 01-1.543-2.453l6.25-11.5zM8 5.5a.75.75 0 01.75.75v3a.75.75 0 01-1.5 0v-3A.75.75 0 018 5.5zm0 6.5a.875.875 0 110-1.75A.875.875 0 018 12z" />
-      </svg>
-    ),
+    icon: exclamationTriangleFilledSvg,
+    accent: 'border-l-warning',
     titleColor: 'text-warning',
+    iconColor: 'text-warning',
   },
   danger: {
-    border: 'border-danger/40',
-    icon: (
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" className="text-danger shrink-0 mt-px">
-        <path fillRule="evenodd" d="M8 1a7 7 0 100 14A7 7 0 008 1zM6.53 5.47a.75.75 0 00-1.06 1.06L6.94 8 5.47 9.47a.75.75 0 101.06 1.06L8 9.06l1.47 1.47a.75.75 0 101.06-1.06L9.06 8l1.47-1.47a.75.75 0 00-1.06-1.06L8 6.94 6.53 5.47z" />
-      </svg>
-    ),
-    titleColor: 'text-danger',
+    icon: blockerActionFilledAltSvg,
+    accent: 'border-l-[var(--color-global-scarlet-l1)]',
+    titleColor: 'text-[var(--color-global-scarlet-l1)]',
+    iconColor: 'text-[var(--color-global-scarlet-l1)]',
+  },
+  block: {
+    icon: blockerActionFilledSvg,
+    accent: 'border-l-[var(--color-global-scarlet-d1)]',
+    titleColor: 'text-[var(--color-global-scarlet-d1)]',
+    iconColor: 'text-[var(--color-global-scarlet-d1)]',
+  },
+  neutral: {
+    icon: volumeMidSvg,
+    accent: 'border-l-text',
+    titleColor: 'text-text',
+    iconColor: 'text-text',
   },
 };
 
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   INLINE ALERT COMPONENT
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
 /**
- * InlineAlert — contextual, inline feedback strip.
+ * InlineAlert — contextual, non-blocking feedback strip.
  *
- * @param {'info'|'success'|'warning'|'danger'} props.variant
- * @param {string}    props.title    — short headline (optional)
- * @param {ReactNode} props.children — body / description text
- * @param {boolean}   props.compact  — single-line layout
- * @param {string}    props.className
+ * Figma: o9ds-banner [ALPHA 2.0] (node 19956-19852)
+ *
+ * Features:
+ * - Six semantic variants: info, success, warning, danger, block, neutral
+ * - Left accent border with variant color
+ * - O9Icon-based icons (o9con icon set)
+ * - Optional title, message body, action button, action link, secondary text
+ * - Compact single-line layout mode
+ * - Dismissible with close button
+ * - Custom icon override
+ * - Uses Link component for action links
+ * - Uses Button component for action buttons
+ *
+ * Layout order (non-compact):
+ *   Icon | Title + Message + [ActionButton] + [Link] + [SecondaryText] | [CloseBtn]
  */
-export default function InlineAlert({
-  variant = 'info',
-  title,
-  compact = false,
-  className,
-  children,
-}) {
-  const cfg = variantConfig[variant];
+const InlineAlert = forwardRef(function InlineAlert(
+  {
+    variant = 'info',
+    title,
+    children,
+    compact = false,
+    dismissible = false,
+    onDismiss,
+
+    /* Action button — outline button in content area (above the link) */
+    actionLabel,
+    onActionClick,
+
+    /* Action link — below the action button */
+    link,
+    linkHref,
+    onLinkClick,
+
+    /* Secondary text — below the link */
+    secondaryText,
+
+    icon: customIcon,
+    className,
+    ...rest
+  },
+  ref
+) {
+  const [visible, setVisible] = useState(true);
+  const config = VARIANT_CONFIG[variant] || VARIANT_CONFIG.info;
+
+  if (!visible) return null;
+
+  const handleDismiss = () => {
+    setVisible(false);
+    onDismiss?.();
+  };
+
+  /* ── Icon selection ── */
+  const iconSvg = customIcon || config.icon;
 
   return (
     <div
+      ref={ref}
       role="alert"
       className={cn(
-        'flex gap-3 border bg-surface-raised px-4',
-        compact ? 'items-center py-2' : 'py-3.5',
-        cfg.border,
+        'flex border-l-2 bg-surface-raised',
+        compact ? 'items-center gap-1 pl-3 py-2' : 'items-start gap-1 pl-3',
+        dismissible ? 'pr-1' : 'pr-3',
+        config.accent,
         className
       )}
+      {...rest}
     >
-      {cfg.icon}
-      <div className={cn('min-w-0', compact ? 'flex items-center gap-2' : 'space-y-0.5')}>
-        {title && (
-          <p className={cn('text-xs font-semibold', cfg.titleColor)}>
-            {title}
+      {/* Type icon */}
+      <span
+        className={cn(
+          'shrink-0 w-4 h-4 flex items-center justify-center',
+          compact ? '' : 'mt-[13px]',
+          config.iconColor,
+        )}
+        aria-hidden="true"
+      >
+        <O9Icon svg={iconSvg} />
+      </span>
+
+      {/* Content area */}
+      <div
+        className={cn(
+          'flex-1 min-w-0',
+          compact
+            ? 'flex items-center gap-2 py-2'
+            : 'flex flex-col gap-1 py-3',
+        )}
+      >
+        {/* Title + primary message */}
+        {(title || children) && (
+          <div className="flex flex-col gap-1">
+            {title && (
+              <p className={cn('text-sm font-medium leading-4', config.titleColor)}>
+                {title}
+              </p>
+            )}
+            {children && (
+              <p className="text-xs text-text-secondary leading-normal">
+                {children}
+              </p>
+            )}
+          </div>
+        )}
+
+        {/* Action button — outline, small */}
+        {!compact && actionLabel && (
+          <div className="mt-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={onActionClick}
+            >
+              {actionLabel}
+            </Button>
+          </div>
+        )}
+
+        {/* Action link */}
+        {!compact && link && (
+          <div className="mt-1">
+            <Link
+              size="sm"
+              variant="primary"
+              href={linkHref || '#'}
+              onClick={(e) => {
+                if (onLinkClick) { e.preventDefault(); onLinkClick(); }
+              }}
+            >
+              {link}
+            </Link>
+          </div>
+        )}
+
+        {/* Secondary text */}
+        {!compact && secondaryText && (
+          <p className="text-xs text-text-secondary leading-normal mt-2">
+            {secondaryText}
           </p>
         )}
-        {children && (
-          <p className="text-xs text-text-secondary">{children}</p>
-        )}
       </div>
+
+      {/* Close (dismiss) button */}
+      {dismissible && (
+        <div className="flex items-start shrink-0 py-3 pr-2 pl-2">
+          <button
+            type="button"
+            tabIndex={0}
+            onClick={handleDismiss}
+            className="shrink-0 w-4 h-4 flex items-center justify-center text-text-tertiary hover:text-text transition-colors cursor-pointer mt-0.5"
+            aria-label="Dismiss alert"
+          >
+            <O9Icon svg={closeSvg} />
+          </button>
+        </div>
+      )}
     </div>
   );
-}
+});
+
+export default InlineAlert;

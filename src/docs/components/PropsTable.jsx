@@ -19,7 +19,7 @@ export default function PropsTable({ props }) {
                 </code>
               </td>
               <td className="whitespace-nowrap px-4 py-3">
-                <code className="text-xs text-gray-300">{prop.type}</code>
+                <code className="text-xs text-text-secondary">{prop.type}</code>
               </td>
               <td className="whitespace-nowrap px-4 py-3">
                 <code className="text-xs text-text-tertiary">{prop.default}</code>

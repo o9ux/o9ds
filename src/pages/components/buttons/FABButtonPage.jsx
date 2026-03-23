@@ -35,7 +35,25 @@ const fabButtonProps = [
     name: 'extended',
     type: 'boolean',
     default: 'false',
-    description: 'When true, shows the label next to the icon in a pill shape',
+    description: 'When true, shows the label next to the icon',
+  },
+  {
+    name: 'tooltip',
+    type: 'string',
+    default: 'undefined',
+    description: 'Tooltip label shown on hover. Wraps the FAB in a Tooltip component for visual context on icon-only buttons.',
+  },
+  {
+    name: 'tooltipPlacement',
+    type: 'string',
+    default: "'top'",
+    description: 'Tooltip placement relative to the button (top, bottom, left, right)',
+  },
+  {
+    name: 'indicator',
+    type: "boolean | number | 'danger' | 'success' | 'warning' | 'info'",
+    default: 'undefined',
+    description: 'Adds a notification indicator bubble. Boolean for dot, number for count badge, string for color variant.',
   },
   {
     name: 'disabled',
@@ -67,7 +85,7 @@ export default function FABButtonPage() {
     <article>
       <PageHeader
         title="FAB Button"
-        description="The Floating Action Button (FAB) represents the single most prominent action on a screen. It appears in front of all content as a circular button with an icon, with an optional extended label."
+        description="The Floating Action Button (FAB) represents the single most prominent action on a screen. It appears in front of all content as a sharp-edged button with an icon, with an optional extended label, indicator bubble, and Tooltip on hover."
         status="stable"
         category="Buttons & Actions"
       />
@@ -116,6 +134,7 @@ export default function FABButtonPage() {
             extended={extended}
             disabled={disabled}
             icon={<O9Icon svg={plusSvg} />}
+            tooltip={!extended ? 'Create' : undefined}
           >
             Create
           </FABButton>
@@ -131,16 +150,12 @@ export default function FABButtonPage() {
           Primary for the main action, Danger for destructive actions.
         </p>
         <CodeExample
-          code={`import O9Icon from '@/components/O9Icon';
-import plusSvg from '@/assets/icons/o9con-plus.svg?raw';
-import binSvg from '@/assets/icons/o9con-bin.svg?raw';
-
-<FABButton variant="primary" icon={<O9Icon svg={plusSvg} />} />
-<FABButton variant="danger" icon={<O9Icon svg={binSvg} />} />`}
+          code={`<FABButton variant="primary" icon={<O9Icon svg={plusSvg} />} tooltip="Add" />
+<FABButton variant="danger" icon={<O9Icon svg={binSvg} />} tooltip="Delete" />`}
         >
           <div className="flex flex-wrap items-center gap-6">
-            <FABButton variant="primary" icon={<O9Icon svg={plusSvg} />} aria-label="Add" />
-            <FABButton variant="danger" icon={<O9Icon svg={binSvg} />} aria-label="Delete" />
+            <FABButton variant="primary" icon={<O9Icon svg={plusSvg} />} tooltip="Add" aria-label="Add" />
+            <FABButton variant="danger" icon={<O9Icon svg={binSvg} />} tooltip="Delete" aria-label="Delete" />
           </div>
         </CodeExample>
       </section>
@@ -154,14 +169,14 @@ import binSvg from '@/assets/icons/o9con-bin.svg?raw';
           Three sizes — Small (40px), Medium (48px), Large (56px). Icon scales proportionally via o9con tokens.
         </p>
         <CodeExample
-          code={`<FABButton size="sm" icon={<O9Icon svg={plusSvg} />} />
-<FABButton size="md" icon={<O9Icon svg={plusSvg} />} />
-<FABButton size="lg" icon={<O9Icon svg={plusSvg} />} />`}
+          code={`<FABButton size="sm" icon={<O9Icon svg={plusSvg} />} tooltip="Add" />
+<FABButton size="md" icon={<O9Icon svg={plusSvg} />} tooltip="Add" />
+<FABButton size="lg" icon={<O9Icon svg={plusSvg} />} tooltip="Add" />`}
         >
           <div className="flex flex-wrap items-center gap-6">
-            <FABButton size="sm" icon={<O9Icon svg={plusSvg} />} aria-label="Add" />
-            <FABButton size="md" icon={<O9Icon svg={plusSvg} />} aria-label="Add" />
-            <FABButton size="lg" icon={<O9Icon svg={plusSvg} />} aria-label="Add" />
+            <FABButton size="sm" icon={<O9Icon svg={plusSvg} />} tooltip="Add" aria-label="Add" />
+            <FABButton size="md" icon={<O9Icon svg={plusSvg} />} tooltip="Add" aria-label="Add" />
+            <FABButton size="lg" icon={<O9Icon svg={plusSvg} />} tooltip="Add" aria-label="Add" />
           </div>
         </CodeExample>
 
@@ -180,7 +195,7 @@ import binSvg from '@/assets/icons/o9con-bin.svg?raw';
               {[
                 ['sm', '40 px', 'o9con-20', '20 px'],
                 ['md', '48 px', 'o9con-24', '24 px'],
-                ['lg', '56 px', 'o9con-28', '28 px'],
+                ['lg', '56 px', 'o9con-32', '32 px'],
               ].map(([sz, h, tok, ipx]) => (
                 <tr key={sz} className="border-b border-border last:border-0">
                   <td className="px-4 py-2 font-bold text-text">{sz}</td>
@@ -236,13 +251,70 @@ import commentSvg from '@/assets/icons/o9con-comment.svg?raw';
   />
 </div>`}
         >
-          <div className="relative h-48 border border-border border-dashed bg-surface-overlay">
+          <div className="relative h-48 border border-border-strong border-dashed bg-surface-overlay">
             <span className="absolute top-4 left-4 text-xs text-text-tertiary">Content area</span>
-            <FABButton
-              className="absolute bottom-4 right-4"
-              icon={<O9Icon svg={plusSvg} />}
-              aria-label="Add"
-            />
+            <div className="absolute bottom-4 right-4">
+              <FABButton
+                icon={<O9Icon svg={plusSvg} />}
+                tooltip="Add"
+                aria-label="Add"
+              />
+            </div>
+          </div>
+        </CodeExample>
+      </section>
+
+      {/* Indicator Bubble */}
+      <section className="mb-12">
+        <h2 id="indicator" className="text-xl font-black tracking-tight text-text mb-2">
+          Indicator Bubble
+        </h2>
+        <p className="text-sm text-text-secondary mb-4">
+          Add a notification indicator bubble to the FAB. Use a boolean for a dot, a number for a count badge, or a variant string for different colors.
+        </p>
+        <CodeExample
+          code={`// Dot indicator
+<FABButton icon={<O9Icon svg={plusSvg} />} indicator />
+
+// Count badge
+<FABButton icon={<O9Icon svg={plusSvg} />} indicator={3} />
+
+// Color variants
+<FABButton icon={<O9Icon svg={plusSvg} />} indicator="success" />
+<FABButton icon={<O9Icon svg={plusSvg} />} indicator="warning" />`}
+        >
+          <div className="flex flex-wrap items-center gap-6">
+            <div className="flex flex-col items-center gap-2">
+              <FABButton icon={<O9Icon svg={plusSvg} />} indicator tooltip="Add" aria-label="Add (new)" />
+              <span className="text-2xs text-text-tertiary">Dot</span>
+            </div>
+            <div className="flex flex-col items-center gap-2">
+              <FABButton icon={<O9Icon svg={plusSvg} />} indicator={3} tooltip="Add" aria-label="Add (3 new)" />
+              <span className="text-2xs text-text-tertiary">Count</span>
+            </div>
+            <div className="flex flex-col items-center gap-2">
+              <FABButton icon={<O9Icon svg={plusSvg} />} indicator="success" tooltip="Add" aria-label="Add (success)" />
+              <span className="text-2xs text-text-tertiary">Success</span>
+            </div>
+            <div className="flex flex-col items-center gap-2">
+              <FABButton icon={<O9Icon svg={plusSvg} />} indicator="warning" tooltip="Add" aria-label="Add (warning)" />
+              <span className="text-2xs text-text-tertiary">Warning</span>
+            </div>
+          </div>
+        </CodeExample>
+
+        <p className="text-sm text-text-secondary mt-6 mb-4">
+          Indicator with different sizes:
+        </p>
+        <CodeExample
+          code={`<FABButton size="sm" icon={<O9Icon svg={plusSvg} />} indicator />
+<FABButton size="md" icon={<O9Icon svg={plusSvg} />} indicator={5} />
+<FABButton size="lg" icon={<O9Icon svg={plusSvg} />} indicator={12} />`}
+        >
+          <div className="flex flex-wrap items-center gap-6">
+            <FABButton size="sm" icon={<O9Icon svg={plusSvg} />} indicator tooltip="Add" aria-label="Add" />
+            <FABButton size="md" icon={<O9Icon svg={plusSvg} />} indicator={5} tooltip="Add" aria-label="Add (5 new)" />
+            <FABButton size="lg" icon={<O9Icon svg={plusSvg} />} indicator={12} tooltip="Add" aria-label="Add (12 new)" />
           </div>
         </CodeExample>
       </section>
@@ -255,6 +327,7 @@ import commentSvg from '@/assets/icons/o9con-comment.svg?raw';
         <DoDont
           doItems={[
             'Use a single FAB per screen for the most important action',
+            'Always provide a tooltip for icon-only (non-extended) FABs for visual context on hover',
             'Use the extended variant when the icon alone is not clear enough',
             'Position in the bottom-right corner for easy thumb reach on mobile',
             'Use a prominent o9con icon (plus for create, pencil for compose)',
@@ -270,18 +343,20 @@ import commentSvg from '@/assets/icons/o9con-comment.svg?raw';
 
       {/* Accessibility */}
       <section className="mb-12">
-        <h2 id="accessibility" className="text-xl font-black tracking-tight text-text mb-2">
+        <h2 id="accessibility" className="text-lg font-semibold text-text mb-4">
           Accessibility
         </h2>
         <ul className="space-y-3 border border-border p-6">
           {[
-            <>Non-extended FABs require an <code className="bg-surface-overlay px-1.5 py-0.5 text-xs border border-border text-white">aria-label</code> since there is no visible text.</>,
+            <>Non-extended FABs require an <code className="bg-surface-overlay px-1.5 py-0.5 text-xs border border-border text-text">aria-label</code> since there is no visible text.</>,
+            <>The <code className="bg-surface-overlay px-1.5 py-0.5 text-xs border border-border text-text">tooltip</code> prop wraps the FAB in a Tooltip component, providing a visual label on hover and keyboard focus.</>,
             'Extended FABs with text labels are self-documenting for screen readers.',
-            <>Uses the native <code className="bg-surface-overlay px-1.5 py-0.5 text-xs border border-border text-white">&lt;button&gt;</code> element for full keyboard support.</>,
+            <>Uses the native <code className="bg-surface-overlay px-1.5 py-0.5 text-xs border border-border text-text">&lt;button&gt;</code> element for full keyboard support.</>,
+            'Tooltip is keyboard-accessible — appears on focus and dismisses on Escape.',
             'The elevated shadow provides visual distinction from surrounding content.',
           ].map((item, i) => (
             <li key={i} className="flex gap-3 text-xs text-text-secondary">
-              <span className="mt-px text-white font-bold shrink-0">—</span>
+              <span className="mt-px text-text font-bold shrink-0">—</span>
               {item}
             </li>
           ))}

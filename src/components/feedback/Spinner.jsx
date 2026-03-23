@@ -30,7 +30,7 @@ export default function Spinner({
     <span role="status" aria-label={label} className={cn('inline-flex items-center justify-center', className)}>
       <span
         className={cn(
-          'animate-spin rounded-full',
+          'animate-spin rounded-circle',
           sizeMap[size],
           colorMap[variant]
         )}

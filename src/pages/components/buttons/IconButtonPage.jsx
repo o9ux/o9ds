@@ -15,11 +15,14 @@ import cogSvg from '@/assets/icons/o9con-cog.svg?raw';
 import plusSvg from '@/assets/icons/o9con-plus.svg?raw';
 import starSvg from '@/assets/icons/o9con-star.svg?raw';
 import searchSvg from '@/assets/icons/o9con-search.svg?raw';
+import downloadSvg from '@/assets/icons/o9con-download.svg?raw';
+import shareSvg from '@/assets/icons/o9con-share.svg?raw';
+import filterSvg from '@/assets/icons/o9con-filter.svg?raw';
 
 const iconButtonProps = [
   {
     name: 'variant',
-    type: "'primary' | 'tertiary' | 'outline' | 'danger'",
+    type: "'primary' | 'secondary' | 'outline' | 'danger'",
     default: "'primary'",
     description: 'Visual style variant of the icon button',
   },
@@ -34,6 +37,24 @@ const iconButtonProps = [
     type: 'ReactNode',
     default: 'undefined',
     description: 'Icon element to render inside the button',
+  },
+  {
+    name: 'tooltip',
+    type: 'string',
+    default: 'undefined',
+    description: 'Tooltip label shown on hover and keyboard focus. Wraps the button in a Tooltip component.',
+  },
+  {
+    name: 'tooltipPlacement',
+    type: 'string',
+    default: "'top'",
+    description: 'Tooltip placement relative to the button (top, bottom, left, right)',
+  },
+  {
+    name: 'tooltipShortcut',
+    type: 'string',
+    default: 'undefined',
+    description: 'Keyboard shortcut badge displayed inside the tooltip',
   },
   {
     name: 'disabled',
@@ -64,7 +85,7 @@ export default function IconButtonPage() {
     <article>
       <PageHeader
         title="Icon Button"
-        description="Icon buttons render a single icon without a text label. Use them for compact, recognizable actions like close, edit, or delete where the icon alone communicates the action."
+        description="Icon buttons render a single icon without a text label. Every icon button includes a Tooltip on hover to provide context. Use them for compact, recognizable actions like close, edit, or delete."
         status="stable"
         category="Buttons & Actions"
       />
@@ -75,7 +96,7 @@ export default function IconButtonPage() {
           Interactive Demo
         </h2>
         <p className="text-sm text-text-secondary mb-4">
-          Experiment with the Icon Button component using the controls below.
+          Hover over the button to see the Tooltip. All icon buttons should include a tooltip for visual context.
         </p>
         <ComponentDemo
           controls={[
@@ -84,7 +105,7 @@ export default function IconButtonPage() {
               label: 'Variant',
               value: variant,
               onChange: setVariant,
-              options: ['primary', 'tertiary', 'outline', 'danger'],
+              options: ['primary', 'secondary', 'outline', 'danger'],
             },
             {
               type: 'select',
@@ -106,6 +127,7 @@ export default function IconButtonPage() {
             size={size}
             disabled={disabled}
             aria-label="Close"
+            tooltip="Close"
             icon={<O9Icon svg={closeSvg} />}
           />
         </ComponentDemo>
@@ -117,24 +139,40 @@ export default function IconButtonPage() {
           Variants
         </h2>
         <p className="text-sm text-text-secondary mb-4">
-          Four visual variants matching the Button component to communicate hierarchy and intent.
+          Four visual variants matching the Button component. Each icon button displays a Tooltip on hover describing its action.
         </p>
         <CodeExample
-          code={`import closeSvg from '@/assets/icons/o9con-close.svg?raw';
-import cogSvg from '@/assets/icons/o9con-cog.svg?raw';
-import plusSvg from '@/assets/icons/o9con-plus.svg?raw';
-import binSvg from '@/assets/icons/o9con-bin.svg?raw';
-
-<IconButton variant="primary" icon={<O9Icon svg={closeSvg} />} aria-label="Close" />
-<IconButton variant="tertiary" icon={<O9Icon svg={cogSvg} />} aria-label="Settings" />
-<IconButton variant="outline" icon={<O9Icon svg={plusSvg} />} aria-label="Add" />
-<IconButton variant="danger" icon={<O9Icon svg={binSvg} />} aria-label="Delete" />`}
+          code={`<IconButton variant="primary" icon={<O9Icon svg={closeSvg} />} tooltip="Close" aria-label="Close" />
+<IconButton variant="secondary" icon={<O9Icon svg={cogSvg} />} tooltip="Settings" aria-label="Settings" />
+<IconButton variant="outline" icon={<O9Icon svg={plusSvg} />} tooltip="Add item" aria-label="Add" />
+<IconButton variant="danger" icon={<O9Icon svg={binSvg} />} tooltip="Delete" aria-label="Delete" />`}
         >
           <div className="flex flex-wrap items-center gap-4">
-            <IconButton variant="primary" icon={<O9Icon svg={closeSvg} />} aria-label="Close" />
-            <IconButton variant="tertiary" icon={<O9Icon svg={cogSvg} />} aria-label="Settings" />
-            <IconButton variant="outline" icon={<O9Icon svg={plusSvg} />} aria-label="Add" />
-            <IconButton variant="danger" icon={<O9Icon svg={binSvg} />} aria-label="Delete" />
+            <IconButton variant="primary" icon={<O9Icon svg={closeSvg} />} tooltip="Close" aria-label="Close" />
+            <IconButton variant="secondary" icon={<O9Icon svg={cogSvg} />} tooltip="Settings" aria-label="Settings" />
+            <IconButton variant="outline" icon={<O9Icon svg={plusSvg} />} tooltip="Add item" aria-label="Add" />
+            <IconButton variant="danger" icon={<O9Icon svg={binSvg} />} tooltip="Delete" aria-label="Delete" />
+          </div>
+        </CodeExample>
+      </section>
+
+      {/* Tooltip with Shortcut */}
+      <section className="mb-12">
+        <h2 id="tooltip-shortcut" className="text-xl font-black tracking-tight text-text mb-2">
+          Tooltip with Shortcut
+        </h2>
+        <p className="text-sm text-text-secondary mb-4">
+          Use <code className="bg-surface-overlay px-1.5 py-0.5 text-xs border border-border text-text">tooltipShortcut</code> to show a keyboard shortcut badge inside the tooltip.
+        </p>
+        <CodeExample
+          code={`<IconButton icon={<O9Icon svg={searchSvg} />} tooltip="Search" tooltipShortcut="/" aria-label="Search" />
+<IconButton icon={<O9Icon svg={downloadSvg} />} tooltip="Download" tooltipShortcut="Ctrl+D" aria-label="Download" />
+<IconButton icon={<O9Icon svg={filterSvg} />} tooltip="Filter" tooltipShortcut="F" aria-label="Filter" />`}
+        >
+          <div className="flex flex-wrap items-center gap-4">
+            <IconButton variant="secondary" icon={<O9Icon svg={searchSvg} />} tooltip="Search" tooltipShortcut="/" aria-label="Search" />
+            <IconButton variant="secondary" icon={<O9Icon svg={downloadSvg} />} tooltip="Download" tooltipShortcut="Ctrl+D" aria-label="Download" />
+            <IconButton variant="secondary" icon={<O9Icon svg={filterSvg} />} tooltip="Filter" tooltipShortcut="F" aria-label="Filter" />
           </div>
         </CodeExample>
       </section>
@@ -148,16 +186,16 @@ import binSvg from '@/assets/icons/o9con-bin.svg?raw';
           Four sizes following the strict Figma spec. Icon scales proportionally within each size tier.
         </p>
         <CodeExample
-          code={`<IconButton size="xm" icon={<O9Icon svg={closeSvg} />} aria-label="Close" />
-<IconButton size="sm" icon={<O9Icon svg={closeSvg} />} aria-label="Close" />
-<IconButton size="md" icon={<O9Icon svg={closeSvg} />} aria-label="Close" />
-<IconButton size="lg" icon={<O9Icon svg={closeSvg} />} aria-label="Close" />`}
+          code={`<IconButton size="xm" icon={<O9Icon svg={closeSvg} />} tooltip="Close" aria-label="Close" />
+<IconButton size="sm" icon={<O9Icon svg={closeSvg} />} tooltip="Close" aria-label="Close" />
+<IconButton size="md" icon={<O9Icon svg={closeSvg} />} tooltip="Close" aria-label="Close" />
+<IconButton size="lg" icon={<O9Icon svg={closeSvg} />} tooltip="Close" aria-label="Close" />`}
         >
           <div className="flex flex-wrap items-center gap-4">
-            <IconButton size="xm" icon={<O9Icon svg={closeSvg} />} aria-label="Close" />
-            <IconButton size="sm" icon={<O9Icon svg={closeSvg} />} aria-label="Close" />
-            <IconButton size="md" icon={<O9Icon svg={closeSvg} />} aria-label="Close" />
-            <IconButton size="lg" icon={<O9Icon svg={closeSvg} />} aria-label="Close" />
+            <IconButton size="xm" icon={<O9Icon svg={closeSvg} />} tooltip="Close" aria-label="Close" />
+            <IconButton size="sm" icon={<O9Icon svg={closeSvg} />} tooltip="Close" aria-label="Close" />
+            <IconButton size="md" icon={<O9Icon svg={closeSvg} />} tooltip="Close" aria-label="Close" />
+            <IconButton size="lg" icon={<O9Icon svg={closeSvg} />} tooltip="Close" aria-label="Close" />
           </div>
         </CodeExample>
 
@@ -197,19 +235,19 @@ import binSvg from '@/assets/icons/o9con-bin.svg?raw';
           Icons at Every Size
         </h2>
         <p className="text-sm text-text-secondary mb-4">
-          All o9con icons scale correctly across the four size tiers.
+          All o9con icons scale correctly across the four size tiers. Hover over any icon button to see its tooltip.
         </p>
         <div className="border border-border bg-surface-overlay p-6 space-y-4">
           {(['xm', 'sm', 'md', 'lg']).map((sz) => (
             <div key={sz} className="flex items-center gap-3">
               <span className="w-8 text-xs font-bold text-text-tertiary">{sz}</span>
-              <IconButton size={sz} variant="primary" icon={<O9Icon svg={closeSvg} />} aria-label="Close" />
-              <IconButton size={sz} variant="tertiary" icon={<O9Icon svg={pencilSvg} />} aria-label="Edit" />
-              <IconButton size={sz} variant="outline" icon={<O9Icon svg={plusSvg} />} aria-label="Add" />
-              <IconButton size={sz} variant="danger" icon={<O9Icon svg={binSvg} />} aria-label="Delete" />
-              <IconButton size={sz} variant="primary" icon={<O9Icon svg={searchSvg} />} aria-label="Search" />
-              <IconButton size={sz} variant="tertiary" icon={<O9Icon svg={starSvg} />} aria-label="Favorite" />
-              <IconButton size={sz} variant="outline" icon={<O9Icon svg={cogSvg} />} aria-label="Settings" />
+              <IconButton size={sz} variant="primary" icon={<O9Icon svg={closeSvg} />} tooltip="Close" aria-label="Close" />
+              <IconButton size={sz} variant="secondary" icon={<O9Icon svg={pencilSvg} />} tooltip="Edit" aria-label="Edit" />
+              <IconButton size={sz} variant="outline" icon={<O9Icon svg={plusSvg} />} tooltip="Add" aria-label="Add" />
+              <IconButton size={sz} variant="danger" icon={<O9Icon svg={binSvg} />} tooltip="Delete" aria-label="Delete" />
+              <IconButton size={sz} variant="primary" icon={<O9Icon svg={searchSvg} />} tooltip="Search" aria-label="Search" />
+              <IconButton size={sz} variant="secondary" icon={<O9Icon svg={starSvg} />} tooltip="Favorite" aria-label="Favorite" />
+              <IconButton size={sz} variant="outline" icon={<O9Icon svg={cogSvg} />} tooltip="Settings" aria-label="Settings" />
             </div>
           ))}
         </div>
@@ -221,25 +259,25 @@ import binSvg from '@/assets/icons/o9con-bin.svg?raw';
           States
         </h2>
         <p className="text-sm text-text-secondary mb-4">
-          Default, hover, active, focus (keyboard only), and disabled states.
+          Default, hover, active, focus (keyboard only), and disabled states. Tooltips appear on hover and keyboard focus.
         </p>
         <CodeExample
-          code={`<IconButton icon={<O9Icon svg={pencilSvg} />} aria-label="Edit" />
-<IconButton icon={<O9Icon svg={pencilSvg} />} aria-label="Edit" disabled />`}
+          code={`<IconButton icon={<O9Icon svg={pencilSvg} />} tooltip="Edit" aria-label="Edit" />
+<IconButton icon={<O9Icon svg={pencilSvg} />} tooltip="Edit" aria-label="Edit" disabled />`}
         >
           <div className="flex flex-wrap items-center gap-4">
-            <IconButton icon={<O9Icon svg={pencilSvg} />} aria-label="Edit" />
-            <IconButton icon={<O9Icon svg={pencilSvg} />} aria-label="Edit" disabled />
+            <IconButton icon={<O9Icon svg={pencilSvg} />} tooltip="Edit" aria-label="Edit" />
+            <IconButton icon={<O9Icon svg={pencilSvg} />} tooltip="Edit" aria-label="Edit" disabled />
           </div>
         </CodeExample>
 
         <div className="mt-5">
           <p className="text-xs font-bold tracking-widest uppercase text-text-tertiary mb-3">All Variants — Disabled State</p>
           <div className="flex flex-wrap items-center gap-4 border border-border bg-surface-overlay p-6">
-            <IconButton variant="primary" icon={<O9Icon svg={closeSvg} />} aria-label="Close" disabled />
-            <IconButton variant="tertiary" icon={<O9Icon svg={cogSvg} />} aria-label="Settings" disabled />
-            <IconButton variant="outline" icon={<O9Icon svg={plusSvg} />} aria-label="Add" disabled />
-            <IconButton variant="danger" icon={<O9Icon svg={binSvg} />} aria-label="Delete" disabled />
+            <IconButton variant="primary" icon={<O9Icon svg={closeSvg} />} tooltip="Close" aria-label="Close" disabled />
+            <IconButton variant="secondary" icon={<O9Icon svg={cogSvg} />} tooltip="Settings" aria-label="Settings" disabled />
+            <IconButton variant="outline" icon={<O9Icon svg={plusSvg} />} tooltip="Add" aria-label="Add" disabled />
+            <IconButton variant="danger" icon={<O9Icon svg={binSvg} />} tooltip="Delete" aria-label="Delete" disabled />
           </div>
         </div>
       </section>
@@ -251,37 +289,39 @@ import binSvg from '@/assets/icons/o9con-bin.svg?raw';
         </h2>
         <DoDont
           doItems={[
-            'Always provide an aria-label since there is no visible text',
+            'Always provide both aria-label and tooltip for every icon button',
             'Use universally recognized icons (close, edit, delete, search)',
             'Use icon buttons for repetitive or compact actions (toolbars, table rows)',
-            'Pair with a Tooltip for less common icons to provide context',
+            'Use tooltipShortcut to show keyboard shortcuts for power users',
             'Use o9con icons from the Icon system for consistency',
           ]}
           dontItems={[
-            'Do not use icon buttons for primary page actions — use a regular Button with a label',
-            'Avoid using obscure icons without a tooltip or aria-label',
+            'Do not use icon buttons without a tooltip - users need visual context for icon-only actions',
+            'Do not use icon buttons for primary page actions - use a regular Button with a label',
+            'Avoid using obscure icons even with a tooltip - choose recognizable icons',
             'Do not mix icon-only and labeled buttons in the same button group',
             'Avoid using danger variant for non-destructive actions',
-            'Do not use custom/inline SVGs — use o9con icon tokens',
           ]}
         />
       </section>
 
       {/* Accessibility */}
       <section className="mb-12">
-        <h2 id="accessibility" className="text-xl font-black tracking-tight text-text mb-2">
+        <h2 id="accessibility" className="text-lg font-semibold text-text mb-4">
           Accessibility
         </h2>
         <ul className="space-y-3 border border-border p-6">
           {[
-            <>An <code className="bg-surface-overlay px-1.5 py-0.5 text-xs border border-border text-white">aria-label</code> is required because icon buttons have no visible text label.</>,
-            <>Uses the native <code className="bg-surface-overlay px-1.5 py-0.5 text-xs border border-border text-white">&lt;button&gt;</code> element for keyboard and screen reader support.</>,
-            <>Focus ring is visible only on keyboard navigation via <code className="bg-surface-overlay px-1.5 py-0.5 text-xs border border-border text-white">:focus-visible</code>.</>,
+            <>An <code className="bg-surface-overlay px-1.5 py-0.5 text-xs border border-border text-text">aria-label</code> is required because icon buttons have no visible text label.</>,
+            <>The <code className="bg-surface-overlay px-1.5 py-0.5 text-xs border border-border text-text">tooltip</code> prop wraps the button in a Tooltip component, providing a visual label on hover and keyboard focus.</>,
+            <>Uses the native <code className="bg-surface-overlay px-1.5 py-0.5 text-xs border border-border text-text">&lt;button&gt;</code> element for keyboard and screen reader support.</>,
+            <>Focus ring is visible only on keyboard navigation via <code className="bg-surface-overlay px-1.5 py-0.5 text-xs border border-border text-text">:focus-visible</code>.</>,
             'Disabled buttons use the native disabled attribute, removing them from the tab order.',
-            <>Supports <code className="bg-surface-overlay px-1.5 py-0.5 text-xs border border-border text-white">ref</code> forwarding for advanced focus management.</>,
+            <>Supports <code className="bg-surface-overlay px-1.5 py-0.5 text-xs border border-border text-text">ref</code> forwarding for advanced focus management.</>,
+            'Tooltip is keyboard-accessible - appears on focus and dismisses on Escape.',
           ].map((item, i) => (
             <li key={i} className="flex gap-3 text-xs text-text-secondary">
-              <span className="mt-px text-white font-bold shrink-0">—</span>
+              <span className="mt-px text-text font-bold shrink-0">—</span>
               {item}
             </li>
           ))}

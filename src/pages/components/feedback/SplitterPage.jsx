@@ -67,7 +67,7 @@ export default function SplitterPage() {
 
       <section className="mb-12">
         <h2 id="constraints" className="text-xl font-black tracking-tight text-text mb-2">With Constraints</h2>
-        <p className="text-sm text-text-secondary mb-4">Set <code className="bg-white/10 px-1 rounded text-xs">minSize</code> and <code className="bg-white/10 px-1 rounded text-xs">maxSize</code> to limit panel resizing.</p>
+        <p className="text-sm text-text-secondary mb-4">Set <code className="bg-surface-overlay px-1 rounded text-xs">minSize</code> and <code className="bg-surface-overlay px-1 rounded text-xs">maxSize</code> to limit panel resizing.</p>
         <CodeExample code={`<Splitter minSize={20} maxSize={70}>\n  <div>Min 20%</div>\n  <div>Max 70%</div>\n</Splitter>`}>
           <div className="h-[150px] w-full border border-border rounded overflow-hidden">
             <Splitter minSize={20} maxSize={70} defaultSize={35} className="h-full">
@@ -79,11 +79,18 @@ export default function SplitterPage() {
       </section>
 
       <section className="mb-12">
-        <h2 id="accessibility" className="text-xl font-black tracking-tight text-text mb-2">Accessibility</h2>
-        <ul className="list-disc list-inside text-sm text-text-secondary space-y-1">
-          <li>Divider has <code className="bg-white/10 px-1 rounded text-xs">role="separator"</code> with proper ARIA attributes</li>
-          <li>Keyboard support: Arrow keys resize panels by 2% increments</li>
-          <li>Divider is focusable for keyboard-only users</li>
+        <h2 id="accessibility" className="text-lg font-semibold text-text mb-4">Accessibility</h2>
+        <ul className="space-y-3 border border-border p-6">
+          {[
+            <>Divider has <code className="bg-surface-overlay px-1.5 py-0.5 text-xs border border-border text-text">role="separator"</code> with proper ARIA attributes.</>,
+            'Keyboard support: Arrow keys resize panels by 2% increments.',
+            'Divider is focusable for keyboard-only users.',
+          ].map((item, i) => (
+            <li key={i} className="flex gap-3 text-xs text-text-secondary">
+              <span className="mt-px text-text font-bold shrink-0">—</span>
+              {item}
+            </li>
+          ))}
         </ul>
       </section>
 

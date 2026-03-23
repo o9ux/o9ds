@@ -1,37 +1,78 @@
-import { forwardRef, Children, isValidElement } from 'react';
+import { forwardRef, Children, isValidElement, cloneElement } from 'react';
 import { cn } from '@/utils/cn';
 
-const ChevronSeparator = () => (
+/* ── Size configuration ── */
+const SIZE_CONFIG = {
+  sm: {
+    text: 'text-[10px]',
+    icon: 'w-3 h-3 [&_svg]:h-3 [&_svg]:w-3',
+    gap: 'gap-1',
+    itemGap: 'gap-0.5',
+    ellipsis: 'text-[10px]',
+    svgSize: 10,
+    maxW: 'max-w-[160px]',
+  },
+  md: {
+    text: 'text-xs',
+    icon: 'w-3.5 h-3.5 [&_svg]:h-3.5 [&_svg]:w-3.5',
+    gap: 'gap-1.5',
+    itemGap: 'gap-1',
+    ellipsis: 'text-xs',
+    svgSize: 12,
+    maxW: 'max-w-[200px]',
+  },
+  lg: {
+    text: 'text-sm',
+    icon: 'w-4 h-4 [&_svg]:h-4 [&_svg]:w-4',
+    gap: 'gap-2',
+    itemGap: 'gap-1.5',
+    ellipsis: 'text-sm',
+    svgSize: 14,
+    maxW: 'max-w-[240px]',
+  },
+};
+
+/* ── Chevron separator (size-aware) ── */
+const ChevronSeparator = ({ size = 12 }) => (
   <svg
-    width="12"
-    height="12"
+    width={size}
+    height={size}
     viewBox="0 0 12 12"
     fill="none"
     stroke="currentColor"
     strokeWidth="1.5"
     strokeLinecap="round"
     strokeLinejoin="round"
-    className="text-text-tertiary"
+    className="text-text-tertiary shrink-0"
+    aria-hidden="true"
   >
     <path d="M4.5 2.5l3 3.5-3 3.5" />
   </svg>
 );
 
-const SlashSeparator = () => (
-  <span className="text-text-tertiary text-xs select-none">/</span>
+/* ── Slash separator (size-aware) ── */
+const SlashSeparator = ({ sizeClass = 'text-xs' }) => (
+  <span className={cn('text-text-tertiary select-none', sizeClass)} aria-hidden="true">/</span>
 );
 
-const separatorMap = {
-  chevron: ChevronSeparator,
-  slash: SlashSeparator,
-};
+/* ── Link-secondary styles for breadcrumb items ── */
+const linkStyles = cn(
+  'text-text',
+  'no-underline hover:underline hover:text-info-hover hover:underline-offset-2',
+  'active:font-medium active:text-info',
+  'visited:text-utility-purple',
+  'transition-colors duration-100 cursor-pointer',
+  'focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-interactive-border focus-visible:ring-offset-1 focus-visible:ring-offset-surface',
+);
 
 /* ─────────────────────────────────────────────
    Breadcrumb Root
+   Three sizes: sm (10px), md (12px), lg (14px)
    ───────────────────────────────────────────── */
 const Breadcrumb = forwardRef(function Breadcrumb(
   {
     separator = 'chevron',
+    size = 'md',
     maxItems,
     className,
     children,
@@ -40,7 +81,7 @@ const Breadcrumb = forwardRef(function Breadcrumb(
   ref
 ) {
   const items = Children.toArray(children).filter(isValidElement);
-  const SeparatorComponent = separatorMap[separator] || ChevronSeparator;
+  const sizeConfig = SIZE_CONFIG[size] || SIZE_CONFIG.md;
 
   let displayItems = items;
   let collapsed = false;
@@ -54,15 +95,22 @@ const Breadcrumb = forwardRef(function Breadcrumb(
     ];
   }
 
+  const renderSeparator = () => {
+    if (separator === 'slash') {
+      return <SlashSeparator sizeClass={sizeConfig.text} />;
+    }
+    return <ChevronSeparator size={sizeConfig.svgSize} />;
+  };
+
   return (
     <nav ref={ref} aria-label="Breadcrumb" className={cn('', className)} {...rest}>
-      <ol className="flex items-center gap-1.5">
+      <ol className={cn('flex items-center', sizeConfig.gap)}>
         {displayItems.map((item, i) => {
           if (item === 'ellipsis') {
             return (
-              <li key="ellipsis" className="flex items-center gap-1.5">
-                <span className="text-text-tertiary text-xs px-1 select-none">...</span>
-                <SeparatorComponent />
+              <li key="ellipsis" className={cn('flex items-center', sizeConfig.gap)}>
+                <span className={cn('text-text-tertiary px-1 select-none', sizeConfig.ellipsis)} aria-hidden="true">...</span>
+                {renderSeparator()}
               </li>
             );
           }
@@ -72,15 +120,22 @@ const Breadcrumb = forwardRef(function Breadcrumb(
             (collapsed && i === displayItems.length - 1);
 
           return (
-            <li key={i} className="flex items-center gap-1.5">
+            <li key={i} className={cn('flex items-center', sizeConfig.gap)} aria-current={isLast ? 'page' : undefined}>
               {isLast ? (
-                <span className="text-xs text-text font-medium truncate max-w-[200px]">
-                  {item.props?.children || item}
+                /* Current page — non-interactive, medium weight */
+                <span className={cn('inline-flex items-center text-text font-medium', sizeConfig.text, sizeConfig.itemGap, sizeConfig.maxW)}>
+                  {item.props?.icon && (
+                    <span className={cn('shrink-0 flex items-center justify-center', sizeConfig.icon)}>
+                      {item.props.icon}
+                    </span>
+                  )}
+                  {item.props?.children && <span className="truncate">{item.props.children}</span>}
                 </span>
               ) : (
-                item
+                /* Pass size down to BreadcrumbItem */
+                cloneElement(item, { _size: size })
               )}
-              {!isLast && <SeparatorComponent />}
+              {!isLast && renderSeparator()}
             </li>
           );
         })}
@@ -91,27 +146,41 @@ const Breadcrumb = forwardRef(function Breadcrumb(
 
 /* ─────────────────────────────────────────────
    BreadcrumbItem
+   Uses Link Secondary variant styles:
+   - Default: text-text (black/white)
+   - Hover: text-info-hover with underline
+   - Active: font-medium text-info
+   - Visited: text-utility-purple
    ───────────────────────────────────────────── */
 const BreadcrumbItem = forwardRef(function BreadcrumbItem(
-  { href, className, children, ...rest },
+  { href, icon, className, children, _size = 'md', ...rest },
   ref
 ) {
   const Tag = href ? 'a' : 'span';
+  const isIconOnly = icon && !children;
+  const sizeConfig = SIZE_CONFIG[_size] || SIZE_CONFIG.md;
 
   return (
     <Tag
       ref={ref}
       href={href}
+      aria-label={isIconOnly && rest['aria-label'] ? rest['aria-label'] : undefined}
       className={cn(
-        'text-xs truncate max-w-[200px]',
-        href
-          ? 'text-text-secondary hover:text-text transition-colors cursor-pointer'
-          : 'text-text-tertiary',
+        'inline-flex items-center',
+        sizeConfig.text,
+        sizeConfig.itemGap,
+        sizeConfig.maxW,
+        href ? linkStyles : 'text-text-tertiary',
         className
       )}
       {...rest}
     >
-      {children}
+      {icon && (
+        <span className={cn('shrink-0 flex items-center justify-center', sizeConfig.icon)}>
+          {icon}
+        </span>
+      )}
+      {children && <span className="truncate">{children}</span>}
     </Tag>
   );
 });

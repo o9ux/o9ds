@@ -53,20 +53,20 @@ const FeedItem = forwardRef(function FeedItem(
       {/* Timeline connector */}
       <div className="flex flex-col items-center shrink-0">
         {avatar ? (
-          <div className="h-8 w-8 rounded-full bg-surface-overlay overflow-hidden flex items-center justify-center text-xs font-bold text-text">
+          <div className="h-8 w-8 rounded-circle bg-surface-overlay overflow-hidden flex items-center justify-center text-xs font-bold text-text">
             {avatar}
           </div>
         ) : icon ? (
           <div
             className={cn(
-              'h-8 w-8 rounded-full flex items-center justify-center [&_svg]:h-4 [&_svg]:w-4',
+              'h-8 w-8 rounded-circle flex items-center justify-center [&_svg]:h-4 [&_svg]:w-4',
               typeStyles[type]
             )}
           >
             {icon}
           </div>
         ) : (
-          <div className={cn('h-8 w-8 rounded-full', typeStyles[type])} />
+          <div className={cn('h-8 w-8 rounded-circle', typeStyles[type])} />
         )}
       </div>
 

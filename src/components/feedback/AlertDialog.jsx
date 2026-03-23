@@ -138,7 +138,7 @@ const AlertDialog = forwardRef(function AlertDialog(
         </div>
 
         <div className="flex items-center justify-end gap-3 mt-6">
-          <Button variant="tertiary" size="sm" onClick={handleCancel}>
+          <Button variant="secondary" size="sm" onClick={handleCancel}>
             {cancelLabel}
           </Button>
           <Button

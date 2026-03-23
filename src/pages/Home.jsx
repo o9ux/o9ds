@@ -1,12 +1,15 @@
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useTheme } from '@/contexts/ThemeContext';
 import ParticleWaves from '@/components/ParticleWaves';
+import O9Icon from '@/components/O9Icon';
+import o9LogoSvg from '@/assets/icons/o9con-o9-logo.svg?raw';
 
 const stats = [
-  { value: '42+',   label: 'Components' },
-  { value: '5',     label: 'Categories' },
-  { value: '1000+', label: 'Icons' },
-  { value: 'A11Y',  label: 'Accessible' },
+  { value: '58+',   label: 'Components' },
+  { value: '7',     label: 'Foundation Categories' },
+  { value: '1,036', label: 'Icons' },
+  { value: '305',   label: 'Design Tokens' },
 ];
 
 const sections = [
@@ -14,48 +17,104 @@ const sections = [
     tag: '01',
     title: 'Foundation',
     description:
-      'Design tokens, color palettes, typography scales, icons, and illustrations. The language everything speaks.',
+      'Design tokens, color palettes, typography scales, spacing, effects, icons, illustrations, and motion. The language everything speaks.',
     links: [
       { label: 'Color',         path: '/docs/foundations/color' },
       { label: 'Typography',    path: '/docs/foundations/typography' },
+      { label: 'Spacing',       path: '/docs/foundations/spacing' },
       { label: 'Icons',         path: '/docs/foundations/icons' },
-      { label: 'Illustrations', path: '/docs/foundations/illustrations' },
+      { label: 'Motion',        path: '/docs/foundations/motion' },
     ],
   },
   {
     tag: '02',
     title: 'Components',
     description:
-      'Over 42 production-ready UI components — buttons, navigation, containers, feedback, inputs, and more.',
+      'Over 58 production-ready UI components — buttons, navigation, containers, feedback, inputs, and more.',
     links: [
       { label: 'Buttons & Actions',         path: '/docs/components/button' },
-      { label: 'Navigation',                path: '/docs/components/button' },
-      { label: 'Containers',                path: '/docs/components/button' },
-      { label: 'Status & Feedback',         path: '/docs/components/button' },
-      { label: 'Input & Form Controls',     path: '/docs/components/button' },
+      { label: 'Navigation',                path: '/docs/components/tabstrip' },
+      { label: 'Containers',                path: '/docs/components/tooltip' },
+      { label: 'Status & Feedback',         path: '/docs/components/pill' },
+      { label: 'Input & Form Controls',     path: '/docs/components/textbox' },
     ],
   },
 ];
 
+/* ── Inline keyframes for landing page animations ── */
+const LANDING_KEYFRAMES_ID = 'o9ds-landing-keyframes';
+function ensureLandingKeyframes() {
+  if (typeof document === 'undefined') return;
+  if (document.getElementById(LANDING_KEYFRAMES_ID)) return;
+  const style = document.createElement('style');
+  style.id = LANDING_KEYFRAMES_ID;
+  style.textContent = `
+    @keyframes o9-fade-in-up {
+      from { opacity: 0; transform: translateY(40px); filter: blur(8px); }
+      to   { opacity: 1; transform: translateY(0); filter: blur(0); }
+    }
+    @keyframes o9-hero-blur-in {
+      0%   { opacity: 0; transform: translateY(60px); filter: blur(16px); }
+      100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+    }
+    @keyframes o9-color-cycle {
+      0%      { color: var(--color-global-plum-accent); }
+      7.69%   { color: var(--color-global-scarlet-accent); }
+      15.38%  { color: var(--color-global-sienna-accent); }
+      23.08%  { color: var(--color-global-juice-accent); }
+      30.77%  { color: var(--color-global-ocra-accent); }
+      38.46%  { color: var(--color-global-sun-accent); }
+      46.15%  { color: var(--color-global-lavender-accent); }
+      53.85%  { color: var(--color-global-indigo-accent); }
+      61.54%  { color: var(--color-global-grass-accent); }
+      69.23%  { color: var(--color-global-leaf-accent); }
+      76.92%  { color: var(--color-global-glacier-accent); }
+      84.62%  { color: var(--color-global-shock-accent); }
+      92.31%  { color: var(--color-global-o9gray-accent); }
+      100%    { color: var(--color-global-plum-accent); }
+    }
+    .o9-fade-in-up {
+      animation: o9-fade-in-up 0.8s var(--o9ds-motion-ease-out) both;
+    }
+    .o9-hero-blur-in {
+      animation: o9-hero-blur-in 1.2s var(--o9ds-motion-ease-out) both;
+    }
+    .o9-hero-blur-in.o9-color-cycle {
+      animation: o9-hero-blur-in 1.2s var(--o9ds-motion-ease-out) both, o9-color-cycle 12s var(--o9ds-motion-ease-none) 1.7s infinite;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .o9-fade-in-up,
+      .o9-hero-blur-in { animation: none; opacity: 1; transform: none; filter: none; }
+      .o9-color-cycle { animation: none; }
+    }
+  `;
+  document.head.appendChild(style);
+}
+
 export default function Home() {
   const { theme, toggleTheme } = useTheme();
+  ensureLandingKeyframes();
+
+  /* Always start from top */
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div className="min-h-screen bg-surface-sunken text-text">
 
       {/* ── Navbar ── */}
-      <header className="border-b border-border">
-        <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-6">
+      <header className="flex h-14 items-center border-b border-border bg-surface-sunken px-4 lg:px-6">
           <Link to="/" className="flex items-center gap-3">
-            <span className="flex h-8 w-8 items-center justify-center bg-interactive text-xs font-black text-on-interactive">
-              o9
+            <span className="flex h-8 w-8 items-center justify-center bg-interactive border border-interactive text-on-interactive">
+              <O9Icon svg={o9LogoSvg} className="!w-5 !h-5" />
             </span>
             <span className="text-sm font-semibold tracking-tight">
               o9<span className="text-text-secondary font-normal">ds</span>
             </span>
           </Link>
-          <div className="flex items-center gap-6">
-            <span className="hidden text-[10px] font-bold tracking-widest uppercase text-text-tertiary sm:block">
+          <div className="ml-auto flex items-center gap-4">
+            <span className="hidden text-xs font-medium tracking-widest uppercase text-text-tertiary sm:block">
               Platform Design System
             </span>
 
@@ -84,8 +143,7 @@ export default function Home() {
               Documentation →
             </Link>
           </div>
-        </div>
-      </header>
+        </header>
 
       {/* ── Hero ── */}
       <section className="relative overflow-hidden border-b border-border">
@@ -93,18 +151,18 @@ export default function Home() {
         <ParticleWaves className="absolute inset-0 z-0" />
         <div className="relative z-10 mx-auto max-w-7xl px-6 py-24 lg:py-36">
           <div className="max-w-4xl">
-            <p className="mb-6 text-[10px] font-bold tracking-widest uppercase text-text-tertiary">
+            <p className="mb-6 text-[10px] font-bold tracking-widest uppercase text-text-tertiary o9-fade-in-up" style={{ animationDelay: '0.1s' }}>
               o9 Solutions — Platform Design System
             </p>
             <h1 className="text-5xl font-black leading-none tracking-tighter text-text sm:text-7xl lg:text-8xl">
-              Build.<br />
-              <span className="text-text-secondary">Ship.</span><br />
-              Scale.
+              <span className="o9-hero-blur-in inline-block" style={{ animationDelay: '0.2s' }}>Build.</span><br />
+              <span className="o9-hero-blur-in o9-color-cycle inline-block" style={{ animationDelay: '0.5s' }}>Ship.</span><br />
+              <span className="o9-hero-blur-in inline-block" style={{ animationDelay: '0.8s' }}>Scale.</span>
             </h1>
-            <p className="mt-8 max-w-xl text-base leading-relaxed text-text-secondary">
+            <p className="mt-8 max-w-xl text-base leading-relaxed text-text-secondary o9-fade-in-up" style={{ animationDelay: '1.1s' }}>
               A sharp, minimal design system for building consistent digital experiences across the o9 platform. Every token, component, and guideline — in one place.
             </p>
-            <div className="mt-10 flex flex-wrap items-center gap-4">
+            <div className="mt-10 flex flex-wrap items-center gap-4 o9-fade-in-up" style={{ animationDelay: '1.3s' }}>
               <Link
                 to="/docs/get-started"
                 className="inline-flex h-12 items-center bg-interactive px-8 text-xs font-bold tracking-wider uppercase text-on-interactive hover:bg-interactive-hover transition-colors"
@@ -126,8 +184,8 @@ export default function Home() {
       <section className="border-b border-border">
         <div className="mx-auto max-w-7xl">
           <div className="grid grid-cols-2 divide-x divide-border md:grid-cols-4">
-            {stats.map((s) => (
-              <div key={s.label} className="border-b border-border md:border-b-0 px-8 py-10">
+            {stats.map((s, i) => (
+              <div key={s.label} className="border-b border-border md:border-b-0 px-8 py-10 o9-fade-in-up" style={{ animationDelay: `${1.5 + i * 0.15}s` }}>
                 <p className="text-4xl font-black tracking-tighter text-text">{s.value}</p>
                 <p className="mt-1 text-[10px] font-bold tracking-widest uppercase text-text-tertiary">{s.label}</p>
               </div>
@@ -140,8 +198,8 @@ export default function Home() {
       <section className="border-b border-border">
         <div className="mx-auto max-w-7xl">
           <div className="grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-border">
-            {sections.map((sec) => (
-              <div key={sec.tag} className="p-10 lg:p-14">
+            {sections.map((sec, i) => (
+              <div key={sec.tag} className="p-10 lg:p-14 o9-fade-in-up" style={{ animationDelay: `${2.1 + i * 0.2}s` }}>
                 <p className="mb-2 text-[10px] font-bold tracking-widest uppercase text-text-tertiary">
                   {sec.tag}
                 </p>
@@ -171,16 +229,16 @@ export default function Home() {
       {/* ── Design Principles ── */}
       <section className="border-b border-border">
         <div className="mx-auto max-w-7xl px-6 py-16">
-          <p className="mb-10 text-[10px] font-bold tracking-widest uppercase text-text-tertiary">
+          <p className="mb-10 text-[10px] font-bold tracking-widest uppercase text-text-tertiary o9-fade-in-up" style={{ animationDelay: '2.5s' }}>
             Design Principles
           </p>
           <div className="grid gap-0 sm:grid-cols-3 border border-border divide-y sm:divide-y-0 sm:divide-x divide-border">
             {[
               { title: 'Sharp', body: 'Zero border-radius. Every element is a precise rectangle. Mathematical, intentional, and exact.' },
               { title: 'Minimal', body: 'Only what is necessary. No decoration for its own sake. Clarity through reduction.' },
-              { title: 'Consistent', body: 'A single design language across 42+ components. Tokens enforced at every level.' },
-            ].map((p) => (
-              <div key={p.title} className="p-8">
+              { title: 'Consistent', body: 'A single design language across 58+ components. Tokens enforced at every level.' },
+            ].map((p, i) => (
+              <div key={p.title} className="p-8 o9-fade-in-up" style={{ animationDelay: `${2.6 + i * 0.15}s` }}>
                 <h3 className="text-lg font-black tracking-tight text-text">{p.title}</h3>
                 <p className="mt-3 text-xs leading-relaxed text-text-secondary">{p.body}</p>
               </div>
@@ -192,7 +250,7 @@ export default function Home() {
       {/* ── CTA ── */}
       <section>
         <div className="mx-auto max-w-7xl px-6 py-20">
-          <div className="border border-border p-12 lg:p-20 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
+          <div className="border border-border p-12 lg:p-20 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 o9-fade-in-up" style={{ animationDelay: '3s' }}>
             <div>
               <h2 className="text-3xl font-black tracking-tighter text-text lg:text-4xl">
                 Start building.
@@ -212,8 +270,8 @@ export default function Home() {
       </section>
 
       {/* ── Footer ── */}
-      <footer className="border-t border-border px-6 py-8">
-        <div className="mx-auto max-w-7xl flex items-center justify-between">
+      <footer className="border-t border-border px-4 lg:px-6 py-8">
+        <div className="flex items-center justify-between">
           <span className="text-[10px] font-bold tracking-widest uppercase text-text-tertiary">
             o9ds — Platform Design System
           </span>

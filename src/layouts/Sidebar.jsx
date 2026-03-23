@@ -1,7 +1,24 @@
-import { useState } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { useState, useMemo } from 'react';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { cn } from '@/utils/cn';
 import { navigation } from '@/docs/data/navigation';
+import Search from '@/components/inputs/Search';
+
+/* ── Collect all linkable items from navigation tree ── */
+function flattenNav(items, category = '') {
+  const result = [];
+  for (const item of items) {
+    if (item.path) {
+      result.push({ ...item, category });
+    }
+    if (item.children) {
+      result.push(...flattenNav(item.children, item.title || category));
+    }
+  }
+  return result;
+}
+
+const allItems = flattenNav(navigation);
 
 function SidebarLink({ item, depth = 0 }) {
   const location = useLocation();
@@ -35,7 +52,11 @@ function SidebarLink({ item, depth = 0 }) {
           : 'text-text-secondary hover:bg-surface-overlay hover:text-text'
       )}
     >
-      {item.title}
+      {item.className ? (
+        <span className={item.className} style={item.style}>{item.title}</span>
+      ) : (
+        item.title
+      )}
       {item.status === 'beta' && (
         <span className="border border-amber-500/50 px-1 py-px text-[9px] font-bold tracking-wider uppercase text-amber-400">
           BETA
@@ -95,10 +116,98 @@ function SidebarSection({ item, depth = 0 }) {
   );
 }
 
+/* ── Search result item ── */
+function SearchResult({ item, onSelect }) {
+  const location = useLocation();
+  const isActive = location.pathname === item.path;
+
+  return (
+    <NavLink
+      to={item.path}
+      onClick={onSelect}
+      className={cn(
+        'flex flex-col px-3 py-2 text-xs transition-colors',
+        isActive
+          ? 'bg-interactive text-on-interactive'
+          : 'text-text-secondary hover:bg-surface-overlay hover:text-text'
+      )}
+    >
+      <span className="font-medium">{item.title}</span>
+      {item.category && (
+        <span className={cn('text-[10px] mt-0.5', isActive ? 'text-on-interactive/70' : 'text-text-tertiary')}>
+          {item.category}
+        </span>
+      )}
+    </NavLink>
+  );
+}
+
 export default function Sidebar({ className }) {
+  const [searchTerm, setSearchTerm] = useState('');
+  const navigate = useNavigate();
+
+  const isSearching = searchTerm.trim().length > 0;
+
+  const searchResults = useMemo(() => {
+    if (!isSearching) return [];
+    const term = searchTerm.toLowerCase();
+    return allItems.filter(
+      (item) =>
+        item.title.toLowerCase().includes(term) ||
+        item.category?.toLowerCase().includes(term)
+    );
+  }, [searchTerm, isSearching]);
+
   return (
     <nav className={cn('flex flex-col gap-0 p-4', className)}>
-      {navigation.map((item) => (
+      {/* Get Started */}
+      {!isSearching && <SidebarSection item={navigation[0]} depth={0} />}
+
+      {/* Search box — above Foundation */}
+      <div className="mt-4 mb-2 px-1">
+        <Search
+          variant="filter-search"
+          size="sm"
+          placeholder="Search..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          onClear={() => setSearchTerm('')}
+          onSearch={() => {
+            if (searchResults.length > 0) {
+              navigate(searchResults[0].path);
+              setSearchTerm('');
+            }
+          }}
+          shortcutKey="/"
+        />
+      </div>
+
+      {/* Search results */}
+      {isSearching && (
+        <div className="mb-2">
+          {searchResults.length > 0 ? (
+            <>
+              <p className="px-3 py-1 text-[10px] font-bold tracking-widest uppercase text-text-tertiary">
+                {searchResults.length} result{searchResults.length !== 1 ? 's' : ''}
+              </p>
+              {searchResults.map((item) => (
+                <SearchResult
+                  key={item.path}
+                  item={item}
+                  onSelect={() => setSearchTerm('')}
+                />
+              ))}
+            </>
+          ) : (
+            <p className="px-3 py-3 text-xs text-text-tertiary text-center">
+              No results for "{searchTerm}"
+            </p>
+          )}
+        </div>
+      )}
+
+      {/* Foundation + Components — hidden during search */}
+      {!isSearching && navigation.slice(1).map((item) => (
         <SidebarSection key={item.title} item={item} depth={0} />
       ))}
     </nav>

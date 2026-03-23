@@ -40,8 +40,9 @@
   --o9ds-border-3:  0.09375rem;  /*  1.5px — medium emphasis, hover states  */
 
   /* --- Border Radius Primitives — o9ds-radius-* --- */
-  --o9ds-radius-none:   0px;      /* Sharp rectangles — all UI surfaces      */
-  --o9ds-radius-circle: 9999px;   /* Pill / circle — badges, tags, avatars   */
+  --o9ds-radius-none:   0px;      /* Sharp rectangles — all UI surfaces                                    */
+  --o9ds-radius-circle: 50%;      /* True circle — avatars, radio dots, spinners (requires 1:1 aspect)     */
+  --o9ds-radius-pill:   9999px;   /* Pill / capsule — badges, tags, chips, switch tracks (any aspect ratio) */
 }
 
 
@@ -51,15 +52,16 @@
 @theme {
   /* --- Border Radius ---
      o9ds uses sharp (0px) rectangles for all UI surfaces.
-     Only pill shapes are used for badges and indicators.     */
-  --radius-none:  var(--o9ds-radius-none);    /* 0px — sharp (default)     */
-  --radius-xs:    var(--o9ds-radius-none);    /* 0px                       */
-  --radius-sm:    var(--o9ds-radius-none);    /* 0px                       */
-  --radius-md:    var(--o9ds-radius-none);    /* 0px                       */
-  --radius-lg:    var(--o9ds-radius-none);    /* 0px                       */
-  --radius-xl:    var(--o9ds-radius-none);    /* 0px                       */
-  --radius-2xl:   var(--o9ds-radius-none);    /* 0px                       */
-  --radius-full:  var(--o9ds-radius-circle);  /* 9999px — pills / circles  */
+     Circle (50%) for true circles; pill (9999px) for capsule shapes. */
+  --radius-none:    var(--o9ds-radius-none);    /* 0px — sharp (default)     */
+  --radius-xs:      var(--o9ds-radius-none);    /* 0px                       */
+  --radius-sm:      var(--o9ds-radius-none);    /* 0px                       */
+  --radius-md:      var(--o9ds-radius-none);    /* 0px                       */
+  --radius-lg:      var(--o9ds-radius-none);    /* 0px                       */
+  --radius-xl:      var(--o9ds-radius-none);    /* 0px                       */
+  --radius-2xl:     var(--o9ds-radius-none);    /* 0px                       */
+  --radius-full:    var(--o9ds-radius-pill);    /* 9999px — pills / capsules */
+  --radius-circle:  var(--o9ds-radius-circle);  /* 50%   — true circles      */
 
   /* --- Border Widths ---
      Mapped from Figma o9ds-border-* primitives.             */

@@ -202,8 +202,8 @@
   --color-global-indigo-d2:     #4A2083;
   --color-global-indigo-d1:     #5F29A8;
   --color-global-indigo-accent: #7433CC;
-  --color-global-indigo-l1:     #8068D1;
-  --color-global-indigo-l2:     #AA67DE;
+  --color-global-indigo-l1:     #8D58D5;
+  --color-global-indigo-l2:     #A67DDE;
   --color-global-indigo-l3:     #BFA2E7;
   --color-global-indigo-l4:     #D8C7F0;
   --color-global-indigo-l5:     #EEE6F8;
@@ -364,8 +364,10 @@
   --color-surface-overlay:  #202020;   /* → s-layer-03 */
   --color-surface-sunken:   #0A0A0A;   /* → s-base */
   --color-surface-input:    #2A2A2A;   /* → s-layer-04 */
+  --color-surface-input-hover: #4C4C4C; /* → global-gray-07 / Off Black L5 */
   --color-surface-chip:     #303030;   /* → s-layer-05 */
   --color-surface-menu:     #404040;   /* → s-layer-06 */
+  --color-surface-popover:  #202020;   /* → s-layer-03 (floating panel) */
 
   /* --- Primary interactive --- */
   --color-primary:          #FFFFFF;   /* → s-theme */
@@ -391,9 +393,10 @@
   --color-warning-subtle:   rgba(210, 95, 12, 0.10);
 
   /* --- Status: Info --- */
-  --color-info:             #0037FF;   /* → global-bluish-09 / Shock Accent */
+  --color-info:             #2E5BFF;   /* → global-shock-l1 / Indigo L1 — brighter for dark bg readability */
   --color-info-dark:        #002ED2;   /* → global-bluish-10 / Shock D1 */
-  --color-info-subtle:      rgba(0, 55, 255, 0.10);
+  --color-info-hover:       #2E5BFF;   /* → global-shock-l1 / Shock L1 */
+  --color-info-subtle:      rgba(46, 91, 255, 0.10);
 
   /* --- Text --- */
   --color-text:             #FFFFFF;   /* → t-primary */
@@ -414,7 +417,8 @@
   --color-border-disabled:  #666666;   /* → b-disabled */
 
   /* --- Utility --- */
-  --color-utility-purple:   #7433CC;   /* → global-purple-dark / Indigo Accent */
+  --color-utility-purple:       #7433CC;   /* → global-purple-dark / Indigo Accent */
+  --color-utility-purple-light: #A67DDE;   /* → global-purple-light / Indigo L2 */
 
   /* --- Theme-aware interactive colors ---
      Used by components that currently hardcode bg-white/text-black/etc.
@@ -429,6 +433,14 @@
   --color-interactive-border:      #FFFFFF;   /* Focus rings, interactive borders */
   --color-backdrop:                rgba(0, 0, 0, 0.60);  /* Modal/overlay backdrop */
   --color-divider-on-interactive:  rgba(0, 0, 0, 0.15);  /* Divider on primary btn */
+
+  /* --- Tooltip (inverted surface — dark bg in light, white bg in dark) --- */
+  --color-tooltip:            #FFFFFF;   /* → s-inverse: white bg in dark mode */
+  --color-tooltip-fg:         #010101;   /* → t-inverse: dark text in dark mode */
+  --color-tooltip-secondary:  #666666;   /* → secondary text in dark mode */
+  --color-tooltip-muted:      #E5E5E5;   /* → shortcut badge bg in dark mode */
+  --color-tooltip-btn:        #F2F2F2;   /* → learn-more btn bg in dark mode */
+  --color-tooltip-btn-fg:     #303030;   /* → learn-more btn text in dark mode */
 
   /* --- Static colors — never change with theme --- */
   --color-white-static:  #FFFFFF;   /* → t-white-static: always white (danger btn text) */
@@ -449,8 +461,10 @@
   --color-surface-overlay:  #E5E5E5;   /* gray-02 */
   --color-surface-sunken:   #F2F2F2;   /* gray-01 */
   --color-surface-input:    #FFFFFF;
+  --color-surface-input-hover: #F2F2F2; /* gray-01 */
   --color-surface-chip:     #E5E5E5;   /* gray-02 */
   --color-surface-menu:     #FFFFFF;
+  --color-surface-popover:  #FFFFFF;   /* white floating panel */
 
   /* --- Primary interactive --- */
   --color-primary:          #010101;
@@ -478,6 +492,7 @@
   /* --- Status: Info --- */
   --color-info:             #0037FF;   /* → global-bluish-09 / Shock Accent */
   --color-info-dark:        #002ED2;   /* → Shock D1 */
+  --color-info-hover:       #2E5BFF;   /* → global-shock-l1 / Shock L1 */
   --color-info-subtle:      rgba(0, 55, 255, 0.08);
 
   /* --- Text --- */
@@ -510,6 +525,15 @@
   --color-backdrop:                rgba(0, 0, 0, 0.40);
   --color-divider-on-interactive:  rgba(255, 255, 255, 0.15);
 
+  /* --- Tooltip (inverted — dark bg in light mode) --- */
+  --color-tooltip:            #010101;   /* → s-inverse: dark bg in light mode */
+  --color-tooltip-fg:         #FFFFFF;   /* → t-inverse: white text in light mode */
+  --color-tooltip-secondary:  #B2B2B2;   /* → secondary text in light mode */
+  --color-tooltip-muted:      #303030;   /* → shortcut badge bg in light mode */
+  --color-tooltip-btn:        #303030;   /* → learn-more btn bg in light mode */
+  --color-tooltip-btn-fg:     #E5E5E5;   /* → learn-more btn text in light mode */
+
   /* --- Utility --- */
-  --color-utility-purple:   #7433CC;   /* Indigo Accent — darker for white bg */
+  --color-utility-purple:       #7433CC;   /* Indigo Accent — darker for white bg */
+  --color-utility-purple-light: #7433CC;   /* Indigo Accent — same in light mode for contrast */
 }

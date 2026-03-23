@@ -56,8 +56,8 @@ export default function ActionMenuPage() {
 
       <section className="mb-12">
         <h2 id="basic" className="text-xl font-black tracking-tight text-text mb-2">Basic Usage</h2>
-        <CodeExample code={`<ActionMenu trigger={<IconButton icon={<MoreIcon />} variant="tertiary" />}>\n  <ActionMenuItem icon={<EditIcon />}>Edit</ActionMenuItem>\n  <ActionMenuItem icon={<CopyIcon />}>Duplicate</ActionMenuItem>\n  <ActionMenuDivider />\n  <ActionMenuItem icon={<TrashIcon />} danger>Delete</ActionMenuItem>\n</ActionMenu>`}>
-          <ActionMenu trigger={<IconButton icon={<MoreIcon />} variant="tertiary" aria-label="Actions" />}>
+        <CodeExample code={`<ActionMenu trigger={<IconButton icon={<MoreIcon />} variant="secondary" />}>\n  <ActionMenuItem icon={<EditIcon />}>Edit</ActionMenuItem>\n  <ActionMenuItem icon={<CopyIcon />}>Duplicate</ActionMenuItem>\n  <ActionMenuDivider />\n  <ActionMenuItem icon={<TrashIcon />} danger>Delete</ActionMenuItem>\n</ActionMenu>`}>
+          <ActionMenu trigger={<IconButton icon={<MoreIcon />} variant="secondary" aria-label="Actions" />}>
             <ActionMenuItem icon={<EditIcon />} shortcut="Ctrl+E">Edit</ActionMenuItem>
             <ActionMenuItem icon={<CopyIcon />} shortcut="Ctrl+D">Duplicate</ActionMenuItem>
             <ActionMenuDivider />

@@ -4,22 +4,24 @@ import PageHeader from '@/docs/components/PageHeader';
 const styles = [
   {
     title: 'Color',
-    description: 'A two-tier token system with primitive palette values and semantic role-based tokens for surfaces, text, borders, and feedback states.',
+    description: '206 primitive palette values, 55 semantic role tokens, and 88 component aliases across a three-tier architecture. Supports light and dark modes with automatic theme switching via CSS custom properties.',
     path: '/docs/foundations/color',
+    stats: '206 primitives · 55 semantic · 88 aliases · 2 themes',
     preview: (
-      <div className="flex gap-2">
-        <div className="h-10 w-10 rounded-lg bg-primary" />
-        <div className="h-10 w-10 rounded-lg bg-danger" />
-        <div className="h-10 w-10 rounded-lg bg-success" />
-        <div className="h-10 w-10 rounded-lg bg-warning" />
-        <div className="h-10 w-10 rounded-lg bg-info" />
+      <div className="grid grid-cols-5 gap-1.5">
+        <div className="h-6 w-6 bg-interactive" />
+        <div className="h-6 w-6 bg-danger" />
+        <div className="h-6 w-6 bg-success" />
+        <div className="h-6 w-6 bg-warning" />
+        <div className="h-6 w-6 bg-info" />
       </div>
     ),
   },
   {
     title: 'Typography',
-    description: 'o9Sans as the primary typeface with a 7-step scale (10–32px), 3 weights, and JetBrains Mono for code.',
+    description: 'o9 Sans as the primary typeface with a 7-step size scale (10–32px), 3 weights (Regular, Medium, Bold), and composite tokens for headings, labels, paragraphs, and uppercase styles.',
     path: '/docs/foundations/typography',
+    stats: '15 font sizes · 3 weights · 4 letter-spacing tiers',
     preview: (
       <div className="space-y-1">
         <p className="text-2xl font-bold text-text">Heading</p>
@@ -30,14 +32,15 @@ const styles = [
   },
   {
     title: 'Spacing',
-    description: 'A 15-stop scale (1–80px) built on a 4px grid, with Figma primitive tokens mapping directly to Tailwind padding, margin, and gap utilities.',
+    description: 'A 15-stop scale (1–80px) built on a 4px base grid with Figma primitive tokens mapping directly to Tailwind padding, margin, and gap utilities. Includes border-width and border-radius tokens.',
     path: '/docs/foundations/spacing',
+    stats: '15 space stops · 4px base grid · 8 border-radius tokens',
     preview: (
       <div className="flex items-end gap-1">
         {[1, 2, 4, 8, 12, 16, 24, 32].map((size) => (
           <div
             key={size}
-            className="bg-primary rounded-sm shrink-0"
+            className="bg-interactive shrink-0"
             style={{ width: `${Math.max(4, size * 0.5)}px`, height: `${Math.max(4, size * 0.5)}px` }}
           />
         ))}
@@ -46,21 +49,20 @@ const styles = [
   },
   {
     title: 'Effects',
-    description: 'Six directional shadows, a 4px backdrop-blur, and three opacity levels for creating depth, overlays, and disabled states across the UI.',
+    description: 'Six directional shadow tokens, a backdrop-blur token for overlay components, and three opacity levels for hover, selection, and disabled states.',
     path: '/docs/foundations/effects',
+    stats: '6 shadows · 1 blur · 3 opacity levels',
     preview: (
       <div className="flex items-center gap-4">
-        {/* Shadow stack preview */}
         <div className="relative w-10 h-10">
           <div className="absolute inset-0 bg-surface-overlay" style={{ boxShadow: '0px 4px 40px 0px rgba(0,0,0,0.40)' }} />
         </div>
         <div className="relative w-10 h-10">
           <div className="absolute inset-0 bg-surface-overlay" style={{ boxShadow: '0px 10px 20px 0px rgba(0,0,0,0.40)' }} />
         </div>
-        {/* Opacity strip */}
         <div className="flex gap-1 items-center">
           {[0.8, 0.6, 0.4].map((o) => (
-            <div key={o} className="w-6 h-8 bg-primary" style={{ opacity: o }} />
+            <div key={o} className="w-6 h-8 bg-interactive" style={{ opacity: o }} />
           ))}
         </div>
       </div>
@@ -68,8 +70,9 @@ const styles = [
   },
   {
     title: 'Icons',
-    description: 'The o9con icon library with 500+ consistent SVG icons for use across the platform.',
+    description: 'The o9con icon library with 1,000+ consistent SVG icons across categories like navigation, actions, status, file types, and data visualization.',
     path: '/docs/foundations/icons',
+    stats: '1,036 icons · 4 size tokens · SVG with currentColor',
     preview: (
       <div className="flex gap-3 text-text-secondary">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 12h18M12 3v18" /></svg>
@@ -81,8 +84,9 @@ const styles = [
   },
   {
     title: 'Illustrations',
-    description: 'o9illus illustration library supporting both light and dark modes for empty states, onboarding, and feature highlights.',
+    description: '14 inline SVG illustration scenes supporting both light and dark modes. Used for empty states, onboarding, and feature highlights with three size presets.',
     path: '/docs/foundations/illustrations',
+    stats: '14 scenes · 3 sizes (96/124/224px) · Light + Dark',
     preview: (
       <div className="flex items-center gap-2 text-text-tertiary">
         <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
@@ -93,6 +97,19 @@ const styles = [
       </div>
     ),
   },
+  {
+    title: 'Motion',
+    description: '6 duration tokens, 4 easing curves, and 60+ animation keyframes for click effects, hover effects, loading indicators, and looping animations — all respecting prefers-reduced-motion.',
+    path: '/docs/foundations/motion',
+    stats: '6 durations · 4 easings · 60 keyframes',
+    preview: (
+      <div className="flex items-center gap-3 text-text-secondary">
+        <div className="w-8 h-8 bg-interactive o9-anim-pulse-loop" />
+        <div className="w-8 h-8 bg-info animate-spin" style={{ animationDuration: '2s' }} />
+        <div className="w-8 h-8 bg-success animate-bounce" />
+      </div>
+    ),
+  },
 ];
 
 export default function StylesPage() {
@@ -100,7 +117,7 @@ export default function StylesPage() {
     <article>
       <PageHeader
         title="Styles"
-        description="The visual language of o9ds is built on a foundation of design tokens that define color, typography, elevation, spacing, and shape. These tokens ensure consistency across all components and applications."
+        description="The visual foundation of o9ds — design tokens that define color, typography, spacing, effects, iconography, illustrations, and motion. These tokens ensure consistency across 58+ components and enable seamless theming between light and dark modes."
         category="Foundation"
       />
 
@@ -108,7 +125,7 @@ export default function StylesPage() {
         <h2 id="overview" className="text-xl font-semibold text-text mb-4">Overview</h2>
         <p className="text-text-secondary leading-relaxed mb-6">
           Design tokens are the smallest building blocks of the design system. They represent
-          design decisions as named values, making it easy to maintain and update the visual
+          design decisions as named values — making it easy to maintain and update the visual
           language across the entire platform. Tokens are defined using CSS custom properties
           and are available as Tailwind CSS utilities.
         </p>
@@ -118,14 +135,15 @@ export default function StylesPage() {
             <Link
               key={style.title}
               to={style.path}
-              className="group flex items-center gap-6 rounded-xl border border-border bg-surface-raised p-6 transition-colors hover:border-border-hover hover:bg-surface-overlay"
+              className="group flex items-center gap-6 border border-border bg-surface-raised p-6 transition-colors hover:border-border-hover hover:bg-surface-overlay"
             >
-              <div className="shrink-0">{style.preview}</div>
-              <div className="min-w-0">
-                <h3 className="text-lg font-semibold text-text group-hover:text-primary transition-colors">
+              <div className="shrink-0 w-44 h-20 flex items-center justify-center">{style.preview}</div>
+              <div className="min-w-0 flex-1 max-w-lg">
+                <h3 className="text-lg font-semibold text-text group-hover:text-interactive transition-colors">
                   {style.title}
                 </h3>
                 <p className="mt-1 text-sm text-text-secondary">{style.description}</p>
+                <p className="mt-2 text-[10px] font-medium text-text-tertiary uppercase tracking-widest">{style.stats}</p>
               </div>
             </Link>
           ))}
@@ -135,23 +153,51 @@ export default function StylesPage() {
       <section className="mb-12">
         <h2 id="token-architecture" className="text-xl font-semibold text-text mb-4">Token Architecture</h2>
         <p className="text-text-secondary leading-relaxed mb-4">
-          The o9ds token system follows a two-tier architecture:
+          The o9ds token system follows a three-tier architecture:
         </p>
-        <div className="grid gap-4 sm:grid-cols-2">
-          <div className="rounded-xl border border-border bg-surface-raised p-5">
-            <h3 className="font-semibold text-text">Primitive Tokens</h3>
+        <div className="grid gap-4 sm:grid-cols-3">
+          <div className="border border-border bg-surface-raised p-5">
+            <h3 className="font-semibold text-text">Tier 1 — Primitives</h3>
             <p className="mt-1 text-sm text-text-secondary">
-              Raw palette values like <code className="text-xs text-primary">--color-gray-900</code>.
+              Raw palette values like <code className="text-xs text-info">--color-global-gray-10</code>.
               These define the available colors but are not used directly by components.
             </p>
           </div>
-          <div className="rounded-xl border border-border bg-surface-raised p-5">
-            <h3 className="font-semibold text-text">Semantic Tokens</h3>
+          <div className="border border-border bg-surface-raised p-5">
+            <h3 className="font-semibold text-text">Tier 2 — Semantic</h3>
             <p className="mt-1 text-sm text-text-secondary">
-              Role-based mappings like <code className="text-xs text-primary">--color-surface</code>.
+              Role-based mappings like <code className="text-xs text-info">--color-s-layer-01</code>.
+              These map primitives to functional roles (surfaces, borders, text).
+            </p>
+          </div>
+          <div className="border border-border bg-surface-raised p-5">
+            <h3 className="font-semibold text-text">Tier 3 — Component</h3>
+            <p className="mt-1 text-sm text-text-secondary">
+              Tailwind aliases like <code className="text-xs text-info">bg-surface</code>.
               Components consume these, enabling theming by changing only the semantic layer.
             </p>
           </div>
+        </div>
+      </section>
+
+      <section className="mb-12">
+        <h2 id="at-a-glance" className="text-xl font-semibold text-text mb-4">At a Glance</h2>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          {[
+            { label: 'Color Tokens', value: '305' },
+            { label: 'Icons', value: '1,036' },
+            { label: 'Components', value: '58+' },
+            { label: 'Motion Keyframes', value: '60' },
+            { label: 'Space Stops', value: '15' },
+            { label: 'Font Sizes', value: '7' },
+            { label: 'Shadow Tokens', value: '6' },
+            { label: 'Illustrations', value: '14' },
+          ].map((stat) => (
+            <div key={stat.label} className="border border-border bg-surface-raised p-4 text-center">
+              <p className="text-2xl font-bold text-text">{stat.value}</p>
+              <p className="text-[10px] text-text-tertiary uppercase tracking-widest mt-1">{stat.label}</p>
+            </div>
+          ))}
         </div>
       </section>
     </article>

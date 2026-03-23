@@ -1,22 +1,41 @@
 {
-  "name": "o9ds",
-  "private": true,
-  "version": "0.0.0",
+  "name": "@o9ds/components",
+  "version": "1.0.0",
   "type": "module",
+  "description": "o9 Platform Design System — React component library with design tokens, 1000+ icons, and Tailwind CSS v4 integration",
+  "main": "./dist/o9ds.cjs.js",
+  "module": "./dist/o9ds.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/o9ds.es.js",
+      "require": "./dist/o9ds.cjs.js"
+    },
+    "./styles.css": "./dist/styles.css",
+    "./icons/*": "./src/assets/icons/*"
+  },
+  "files": [
+    "dist",
+    "src/assets/icons",
+    "src/tokens",
+    "src/styles.css"
+  ],
+  "sideEffects": [
+    "*.css"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "build:lib": "vite build --mode lib",
     "lint": "eslint .",
     "preview": "vite preview"
   },
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
+  },
   "dependencies": {
     "clsx": "^2.1.1",
-    "prismjs": "^1.30.0",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0",
-    "react-router-dom": "^7.13.1",
-    "tailwind-merge": "^3.5.0",
-    "three": "^0.183.2"
+    "tailwind-merge": "^3.5.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
@@ -28,7 +47,22 @@
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.4.24",
     "globals": "^16.5.0",
+    "prismjs": "^1.30.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-router-dom": "^7.13.1",
     "tailwindcss": "^4.2.1",
+    "three": "^0.183.2",
     "vite": "^7.3.1"
-  }
+  },
+  "keywords": [
+    "o9",
+    "design-system",
+    "react",
+    "components",
+    "tailwindcss",
+    "ui",
+    "tokens"
+  ],
+  "license": "MIT"
 }

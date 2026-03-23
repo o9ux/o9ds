@@ -5,6 +5,14 @@ import ComponentDemo from '@/docs/components/ComponentDemo';
 import CodeExample from '@/docs/components/CodeExample';
 import PropsTable from '@/docs/components/PropsTable';
 import DoDont from '@/docs/components/DoDont';
+import O9Icon from '@/components/O9Icon';
+
+import homeAltSvg from '@/assets/icons/o9con-home-alt.svg?raw';
+import appsSvg from '@/assets/icons/o9con-apps.svg?raw';
+import compassSvg from '@/assets/icons/o9con-compass.svg?raw';
+import fileSvg from '@/assets/icons/o9con-file-o.svg?raw';
+import cogSvg from '@/assets/icons/o9con-cog.svg?raw';
+import folderSvg from '@/assets/icons/o9con-folder.svg?raw';
 
 const breadcrumbProps = [
   {
@@ -12,6 +20,12 @@ const breadcrumbProps = [
     type: "'chevron' | 'slash'",
     default: "'chevron'",
     description: 'Visual separator between items',
+  },
+  {
+    name: 'size',
+    type: "'sm' | 'md' | 'lg'",
+    default: "'md'",
+    description: 'Size variant — sm (10px), md (12px), lg (14px). Icons and separators scale proportionally.',
   },
   {
     name: 'maxItems',
@@ -41,6 +55,12 @@ const breadcrumbItemProps = [
     description: 'URL the breadcrumb item links to (omit for the current page)',
   },
   {
+    name: 'icon',
+    type: 'ReactNode',
+    default: 'undefined',
+    description: 'Leading icon. When provided without children, renders as icon-only.',
+  },
+  {
     name: 'className',
     type: 'string',
     default: "''",
@@ -50,18 +70,19 @@ const breadcrumbItemProps = [
     name: 'children',
     type: 'ReactNode',
     default: '—',
-    description: 'Breadcrumb label',
+    description: 'Breadcrumb label text',
   },
 ];
 
 export default function BreadcrumbPage() {
   const [separator, setSeparator] = useState('chevron');
+  const [size, setSize] = useState('md');
 
   return (
     <article>
       <PageHeader
         title="Breadcrumb"
-        description="Breadcrumbs show the user's current location within a navigation hierarchy and provide quick access to parent levels. They help with orientation in deeply nested structures."
+        description="Breadcrumbs show the user's current location within a navigation hierarchy and provide quick access to parent levels. Three size variants, two separator styles, and icon support."
         status="stable"
         category="Navigation"
       />
@@ -72,7 +93,7 @@ export default function BreadcrumbPage() {
           Interactive Demo
         </h2>
         <p className="text-sm text-text-secondary mb-4">
-          Toggle between separator styles.
+          Toggle between separator styles and sizes.
         </p>
         <ComponentDemo
           controls={[
@@ -83,15 +104,47 @@ export default function BreadcrumbPage() {
               onChange: setSeparator,
               options: ['chevron', 'slash'],
             },
+            {
+              type: 'select',
+              label: 'Size',
+              value: size,
+              onChange: setSize,
+              options: ['sm', 'md', 'lg'],
+            },
           ]}
         >
-          <Breadcrumb separator={separator}>
-            <BreadcrumbItem href="#">Home</BreadcrumbItem>
-            <BreadcrumbItem href="#">Components</BreadcrumbItem>
+          <Breadcrumb separator={separator} size={size}>
+            <BreadcrumbItem href="#" icon={<O9Icon svg={homeAltSvg} />} aria-label="Home" />
+            <BreadcrumbItem href="#" icon={<O9Icon svg={appsSvg} />}>Components</BreadcrumbItem>
             <BreadcrumbItem href="#">Navigation</BreadcrumbItem>
             <BreadcrumbItem>Breadcrumb</BreadcrumbItem>
           </Breadcrumb>
         </ComponentDemo>
+      </section>
+
+      {/* Sizes */}
+      <section className="mb-12">
+        <h2 id="sizes" className="text-xl font-black tracking-tight text-text mb-2">
+          Sizes
+        </h2>
+        <p className="text-sm text-text-secondary mb-4">
+          Three size variants: <strong>sm</strong> (10px), <strong>md</strong> (12px, default), and <strong>lg</strong> (14px). Icon and separator scale proportionally.
+        </p>
+        <CodeExample code={`<Breadcrumb size="sm">…</Breadcrumb>\n<Breadcrumb size="md">…</Breadcrumb>\n<Breadcrumb size="lg">…</Breadcrumb>`}>
+          <div className="space-y-4">
+            {['sm', 'md', 'lg'].map((s) => (
+              <div key={s}>
+                <p className="text-[10px] font-bold tracking-widest uppercase text-text-tertiary mb-2">{s.toUpperCase()}</p>
+                <Breadcrumb size={s}>
+                  <BreadcrumbItem href="#" icon={<O9Icon svg={homeAltSvg} />} aria-label="Home" />
+                  <BreadcrumbItem href="#">Components</BreadcrumbItem>
+                  <BreadcrumbItem href="#">Navigation</BreadcrumbItem>
+                  <BreadcrumbItem>Breadcrumb</BreadcrumbItem>
+                </Breadcrumb>
+              </div>
+            ))}
+          </div>
+        </CodeExample>
       </section>
 
       {/* Basic Usage */}
@@ -100,7 +153,8 @@ export default function BreadcrumbPage() {
           Basic Usage
         </h2>
         <p className="text-sm text-text-secondary mb-4">
-          The last item is automatically styled as the current page (non-interactive).
+          The last item is automatically styled as the current page (non-interactive, medium weight).
+          Breadcrumb items use Link Secondary variant styles — hover shows info-blue underline.
         </p>
         <CodeExample
           code={`<Breadcrumb>
@@ -115,6 +169,44 @@ export default function BreadcrumbPage() {
             <BreadcrumbItem>Current Page</BreadcrumbItem>
           </Breadcrumb>
         </CodeExample>
+      </section>
+
+      {/* Icon Variants */}
+      <section className="mb-12">
+        <h2 id="icon-variants" className="text-xl font-black tracking-tight text-text mb-2">
+          Icon Variants
+        </h2>
+        <p className="text-sm text-text-secondary mb-4">
+          Breadcrumb items support leading icons. Use icon-only for the root/home level, and icon + text for category levels.
+        </p>
+
+        <div className="space-y-6">
+          <CodeExample label="Icon Only (root)" code={`<BreadcrumbItem href="#" icon={<O9Icon svg={homeAltSvg} />} aria-label="Home" />`}>
+            <Breadcrumb>
+              <BreadcrumbItem href="#" icon={<O9Icon svg={homeAltSvg} />} aria-label="Home" />
+              <BreadcrumbItem href="#">Components</BreadcrumbItem>
+              <BreadcrumbItem>Breadcrumb</BreadcrumbItem>
+            </Breadcrumb>
+          </CodeExample>
+
+          <CodeExample label="Icon + Text" code={`<BreadcrumbItem href="#" icon={<O9Icon svg={folderSvg} />}>Projects</BreadcrumbItem>`}>
+            <Breadcrumb>
+              <BreadcrumbItem href="#" icon={<O9Icon svg={homeAltSvg} />} aria-label="Home" />
+              <BreadcrumbItem href="#" icon={<O9Icon svg={folderSvg} />}>Projects</BreadcrumbItem>
+              <BreadcrumbItem href="#" icon={<O9Icon svg={fileSvg} />}>Documents</BreadcrumbItem>
+              <BreadcrumbItem icon={<O9Icon svg={cogSvg} />}>Settings</BreadcrumbItem>
+            </Breadcrumb>
+          </CodeExample>
+
+          <CodeExample label="Mixed (icon-only root + icon+text + text-only)">
+            <Breadcrumb>
+              <BreadcrumbItem href="#" icon={<O9Icon svg={homeAltSvg} />} aria-label="Home" />
+              <BreadcrumbItem href="#" icon={<O9Icon svg={appsSvg} />}>Components</BreadcrumbItem>
+              <BreadcrumbItem href="#" icon={<O9Icon svg={compassSvg} />}>Navigation</BreadcrumbItem>
+              <BreadcrumbItem>Breadcrumb</BreadcrumbItem>
+            </Breadcrumb>
+          </CodeExample>
+        </div>
       </section>
 
       {/* Separators */}
@@ -133,7 +225,7 @@ export default function BreadcrumbPage() {
             <div>
               <p className="text-[10px] font-bold tracking-widest uppercase text-text-tertiary mb-2">Chevron</p>
               <Breadcrumb separator="chevron">
-                <BreadcrumbItem href="#">Home</BreadcrumbItem>
+                <BreadcrumbItem href="#" icon={<O9Icon svg={homeAltSvg} />} aria-label="Home" />
                 <BreadcrumbItem href="#">Section</BreadcrumbItem>
                 <BreadcrumbItem>Page</BreadcrumbItem>
               </Breadcrumb>
@@ -141,7 +233,7 @@ export default function BreadcrumbPage() {
             <div>
               <p className="text-[10px] font-bold tracking-widest uppercase text-text-tertiary mb-2">Slash</p>
               <Breadcrumb separator="slash">
-                <BreadcrumbItem href="#">Home</BreadcrumbItem>
+                <BreadcrumbItem href="#" icon={<O9Icon svg={homeAltSvg} />} aria-label="Home" />
                 <BreadcrumbItem href="#">Section</BreadcrumbItem>
                 <BreadcrumbItem>Page</BreadcrumbItem>
               </Breadcrumb>
@@ -160,7 +252,7 @@ export default function BreadcrumbPage() {
         </p>
         <CodeExample
           code={`<Breadcrumb maxItems={3}>
-  <BreadcrumbItem href="#">Home</BreadcrumbItem>
+  <BreadcrumbItem href="#" icon={…} aria-label="Home" />
   <BreadcrumbItem href="#">Category</BreadcrumbItem>
   <BreadcrumbItem href="#">Subcategory</BreadcrumbItem>
   <BreadcrumbItem href="#">Section</BreadcrumbItem>
@@ -168,7 +260,7 @@ export default function BreadcrumbPage() {
 </Breadcrumb>`}
         >
           <Breadcrumb maxItems={3}>
-            <BreadcrumbItem href="#">Home</BreadcrumbItem>
+            <BreadcrumbItem href="#" icon={<O9Icon svg={homeAltSvg} />} aria-label="Home" />
             <BreadcrumbItem href="#">Category</BreadcrumbItem>
             <BreadcrumbItem href="#">Subcategory</BreadcrumbItem>
             <BreadcrumbItem href="#">Section</BreadcrumbItem>
@@ -186,6 +278,8 @@ export default function BreadcrumbPage() {
           doItems={[
             'Place breadcrumbs at the top of the page, below the header',
             'Always include the root/home page as the first item',
+            'Use an icon-only home item for the root level',
+            'Use icon + text for category levels to add visual context',
             'Use maxItems to collapse deeply nested breadcrumbs',
             'The last item should represent the current page and be non-interactive',
           ]}
@@ -200,18 +294,20 @@ export default function BreadcrumbPage() {
 
       {/* Accessibility */}
       <section className="mb-12">
-        <h2 id="accessibility" className="text-xl font-black tracking-tight text-text mb-2">
+        <h2 id="accessibility" className="text-lg font-semibold text-text mb-4">
           Accessibility
         </h2>
         <ul className="space-y-3 border border-border p-6">
           {[
-            <>Uses a <code className="bg-surface-overlay px-1.5 py-0.5 text-xs border border-border text-white">&lt;nav&gt;</code> element with <code className="bg-surface-overlay px-1.5 py-0.5 text-xs border border-border text-white">aria-label="Breadcrumb"</code>.</>,
-            <>Uses an ordered list (<code className="bg-surface-overlay px-1.5 py-0.5 text-xs border border-border text-white">&lt;ol&gt;</code>) to convey the hierarchical sequence.</>,
-            'The current page item is rendered as a non-interactive span.',
-            'All ancestor items are links for keyboard navigation.',
+            <>Uses a <code className="bg-surface-overlay px-1.5 py-0.5 text-xs border border-border">{'<nav>'}</code> element with <code className="bg-surface-overlay px-1.5 py-0.5 text-xs border border-border">aria-label="Breadcrumb"</code>.</>,
+            <>Uses an ordered list (<code className="bg-surface-overlay px-1.5 py-0.5 text-xs border border-border">{'<ol>'}</code>) to convey the hierarchical sequence.</>,
+            'The current page item is rendered as a non-interactive span with font-medium.',
+            'All ancestor items are links with focus ring for keyboard navigation.',
+            <>Icon-only items should always have an <code className="bg-surface-overlay px-1.5 py-0.5 text-xs border border-border">aria-label</code> for screen reader access.</>,
+            'Items follow Link Secondary variant styles — hover underlines in info-blue.',
           ].map((item, i) => (
             <li key={i} className="flex gap-3 text-xs text-text-secondary">
-              <span className="mt-px text-white font-bold shrink-0">—</span>
+              <span className="mt-px text-text font-bold shrink-0">—</span>
               {item}
             </li>
           ))}

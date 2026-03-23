@@ -417,8 +417,8 @@ const brandingPalette = [
       { stop: 'D2', hex: '#4A2083', token: '--color-global-indigo-d2' },
       { stop: 'D1', hex: '#5F29A8', token: '--color-global-indigo-d1' },
       { stop: 'Accent', hex: '#7433CC', token: '--color-global-indigo-accent' },
-      { stop: 'L1', hex: '#8068D1', token: '--color-global-indigo-l1' },
-      { stop: 'L2', hex: '#AA67DE', token: '--color-global-indigo-l2' },
+      { stop: 'L1', hex: '#8D58D5', token: '--color-global-indigo-l1' },
+      { stop: 'L2', hex: '#A67DDE', token: '--color-global-indigo-l2' },
       { stop: 'L3', hex: '#BFA2E7', token: '--color-global-indigo-l3' },
       { stop: 'L4', hex: '#D8C7F0', token: '--color-global-indigo-l4' },
       { stop: 'L5', hex: '#EEE6F8', token: '--color-global-indigo-l5' },
@@ -817,7 +817,7 @@ export default function ColorPage() {
               ].map((row, i) => (
                 <tr key={row.cls} className={`border-b border-border last:border-0 ${i % 2 === 0 ? 'bg-surface-sunken/30' : ''}`}>
                   <td className="px-4 py-2.5">
-                    <code className="text-[11px] font-mono text-info">{row.cls}</code>
+                    <code className="text-[11px] font-mono text-utility-purple">{row.cls}</code>
                   </td>
                   <td className="px-4 py-2.5">
                     <code className="text-[11px] font-mono text-text-tertiary">{row.token}</code>

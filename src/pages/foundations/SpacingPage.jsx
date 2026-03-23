@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import PageHeader from '@/docs/components/PageHeader';
+import CodeBlock from '@/docs/components/CodeBlock';
 
 /* ─── Border Width tokens (from Figma BORDER GUIDE) ───────────────── */
 const borderTokens = [
@@ -40,10 +41,17 @@ const radiusTokens = [
   },
   {
     name: 'o9ds-radius-circle',
+    px: '50%',
+    rem: '—',
+    tw: 'rounded-circle',
+    usage: 'True circles — avatars, radio dots, spinners, status indicators. Element must have 1:1 aspect ratio.',
+  },
+  {
+    name: 'o9ds-radius-pill',
     px: '9999px',
     rem: '62.438rem',
     tw: 'rounded-full',
-    usage: 'Pill shapes — badges, tags, avatar circles, toggle buttons, status indicators',
+    usage: 'Pill / capsule — badges, tags, chips, counters, switch tracks. Works on any aspect ratio.',
   },
 ];
 
@@ -363,7 +371,7 @@ export default function SpacingPage() {
                     <span className={[
                       'text-2xs font-semibold px-2 py-0.5 rounded-full',
                       t.role === 'Default' ? 'bg-surface-overlay text-text-secondary' :
-                      t.role === 'Focus'   ? 'bg-info/10 text-info' :
+                      t.role === 'Focus'   ? 'bg-utility-purple/10 text-utility-purple' :
                                              'bg-surface-overlay text-text-tertiary',
                     ].join(' ')}>
                       {t.role}
@@ -384,7 +392,8 @@ export default function SpacingPage() {
         <h2 id="border-radius" className="text-xl font-semibold text-text mb-1">Border Radius</h2>
         <p className="text-sm text-text-secondary mb-6">
           o9ds uses <strong className="text-text font-semibold">sharp rectangles (0px)</strong> for all UI surfaces — no softened corners.
-          The only exception is <code className="text-xs text-primary">o9ds-radius-circle</code> for pill/circle shapes such as badges, tags, and avatar frames.
+          Two rounded tokens exist: <code className="text-xs text-primary">o9ds-radius-circle</code> (50%) for true circles on square elements (avatars, dots, spinners),
+          and <code className="text-xs text-primary">o9ds-radius-pill</code> (9999px) for pill/capsule shapes on rectangular elements (badges, tags, chips).
         </p>
 
         <div className="rounded-xl border border-border overflow-hidden mb-6">
@@ -392,7 +401,7 @@ export default function SpacingPage() {
             <thead>
               <tr className="border-b border-border bg-surface-raised">
                 <th className="px-4 py-2.5 text-2xs font-bold tracking-widest text-text-tertiary uppercase">Token</th>
-                <th className="px-4 py-2.5 text-2xs font-bold tracking-widest text-text-tertiary uppercase">px</th>
+                <th className="px-4 py-2.5 text-2xs font-bold tracking-widest text-text-tertiary uppercase">Value</th>
                 <th className="px-4 py-2.5 text-2xs font-bold tracking-widest text-text-tertiary uppercase">rem</th>
                 <th className="px-4 py-2.5 text-2xs font-bold tracking-widest text-text-tertiary uppercase">Tailwind</th>
                 <th className="px-4 py-2.5 text-2xs font-bold tracking-widest text-text-tertiary uppercase hidden lg:table-cell">Usage</th>
@@ -411,10 +420,12 @@ export default function SpacingPage() {
                 >
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-3">
-                      {/* Visual radius swatch */}
+                      {/* Visual radius swatch — circle uses square, pill uses rectangle */}
                       <div
-                        className="shrink-0 w-10 h-6 border border-border bg-surface-overlay"
-                        style={{ borderRadius: t.px === '9999px' ? '9999px' : '0px' }}
+                        className={`shrink-0 border border-border bg-surface-overlay ${
+                          t.px === '50%' ? 'w-8 h-8' : 'w-10 h-6'
+                        }`}
+                        style={{ borderRadius: t.px === '0px' ? '0px' : t.px }}
                       />
                       <code className="text-xs text-primary font-mono whitespace-nowrap">
                         {copied === `--${t.name}` ? '✓ copied' : `--${t.name}`}
@@ -433,9 +444,10 @@ export default function SpacingPage() {
           </table>
         </div>
 
-        {/* Sharp vs Pill visual comparison */}
-        <div className="grid grid-cols-2 gap-4">
-          <div className="rounded-xl border border-border bg-surface-raised p-5 flex flex-col items-center gap-3">
+        {/* Sharp vs Circle vs Pill visual comparison */}
+        <div className="grid grid-cols-3 gap-4">
+          {/* Sharp */}
+          <div className="border border-border bg-surface-raised p-5 flex flex-col items-center gap-3">
             <div className="flex items-center gap-3">
               <div className="w-16 h-8 border border-border bg-surface-overlay" style={{ borderRadius: '0px' }} />
               <div className="w-8 h-8 border border-border bg-surface-overlay" style={{ borderRadius: '0px' }} />
@@ -443,20 +455,32 @@ export default function SpacingPage() {
             </div>
             <div className="text-center">
               <code className="text-2xs text-primary block font-mono">--o9ds-radius-none</code>
-              <span className="text-xs text-text-tertiary">Sharp — all UI components</span>
+              <span className="text-xs text-text-tertiary">Sharp — all UI surfaces</span>
             </div>
           </div>
-          <div className="rounded-xl border border-border bg-surface-raised p-5 flex flex-col items-center gap-3">
+          {/* Circle */}
+          <div className="border border-border bg-surface-raised p-5 flex flex-col items-center gap-3">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 border border-border bg-surface-overlay" style={{ borderRadius: '50%' }} />
+              <div className="w-6 h-6 border border-border bg-surface-overlay" style={{ borderRadius: '50%' }} />
+              <div className="w-3 h-3 bg-success" style={{ borderRadius: '50%' }} />
+            </div>
+            <div className="text-center">
+              <code className="text-2xs text-primary block font-mono">--o9ds-radius-circle</code>
+              <span className="text-xs text-text-tertiary">Circle — avatars, dots, spinners</span>
+            </div>
+          </div>
+          {/* Pill */}
+          <div className="border border-border bg-surface-raised p-5 flex flex-col items-center gap-3">
             <div className="flex items-center gap-3">
               <div className="w-16 h-6 border border-border bg-surface-overlay" style={{ borderRadius: '9999px' }} />
-              <div className="w-6 h-6 border border-border bg-surface-overlay" style={{ borderRadius: '9999px' }} />
               <div className="px-3 h-6 border border-border bg-primary/20 flex items-center" style={{ borderRadius: '9999px' }}>
                 <span className="text-2xs text-text-secondary">Tag</span>
               </div>
             </div>
             <div className="text-center">
-              <code className="text-2xs text-primary block font-mono">--o9ds-radius-circle</code>
-              <span className="text-xs text-text-tertiary">Pill / Circle — badges, tags, avatars</span>
+              <code className="text-2xs text-primary block font-mono">--o9ds-radius-pill</code>
+              <span className="text-xs text-text-tertiary">Pill — badges, tags, chips</span>
             </div>
           </div>
         </div>
@@ -527,11 +551,9 @@ export default function SpacingPage() {
         <div className="grid gap-4 sm:grid-cols-2">
 
           {/* CSS */}
-          <div className="rounded-xl border border-border overflow-hidden">
-            <div className="px-4 py-2.5 border-b border-border bg-surface-raised text-2xs font-bold tracking-widest text-text-tertiary uppercase">
-              CSS — var reference
-            </div>
-            <pre className="p-4 text-xs text-text-secondary leading-relaxed font-mono overflow-x-auto bg-surface whitespace-pre">{`.card {
+          <div>
+            <p className="text-xs text-text-tertiary font-medium uppercase tracking-wide mb-2">CSS — var reference</p>
+            <CodeBlock code={`.card {
   /* o9ds-space-16 → default container */
   padding: var(--o9ds-space-16);
 }
@@ -554,15 +576,13 @@ export default function SpacingPage() {
 .footer-actions {
   /* o9ds-space-8 → footer button gap */
   gap: var(--o9ds-space-8);
-}`}</pre>
+}`} language="css" />
           </div>
 
           {/* JSX */}
-          <div className="rounded-xl border border-border overflow-hidden">
-            <div className="px-4 py-2.5 border-b border-border bg-surface-raised text-2xs font-bold tracking-widest text-text-tertiary uppercase">
-              JSX — Tailwind utilities
-            </div>
-            <pre className="p-4 text-xs text-text-secondary leading-relaxed font-mono overflow-x-auto bg-surface whitespace-pre">{`{/* Card — o9ds-space-24 → p-6 */}
+          <div>
+            <p className="text-xs text-text-tertiary font-medium uppercase tracking-wide mb-2">JSX — Tailwind utilities</p>
+            <CodeBlock code={`{/* Card — o9ds-space-24 → p-6 */}
 <div className="p-6 rounded border border-border">
 
   {/* Form group gap — o9ds-space-16 → space-y-4 */}
@@ -580,7 +600,7 @@ export default function SpacingPage() {
     <button>Cancel</button>
     <button>Save</button>
   </div>
-</div>`}</pre>
+</div>`} language="jsx" />
           </div>
         </div>
       </section>

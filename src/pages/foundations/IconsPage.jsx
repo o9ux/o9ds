@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react';
 import PageHeader from '@/docs/components/PageHeader';
 import CodeBlock from '@/docs/components/CodeBlock';
+import Slider from '@/components/inputs/Slider';
 
 // ─── Load all o9con SVG icon files as URL strings ───────────────────────────
 // Note: import.meta.glob does not support @ alias — use relative path from this file
@@ -11,10 +12,25 @@ const _svgUrls = import.meta.glob(
 );
 
 // Build name → URL map  (strip leading path and o9con- prefix)
+// Vite's ?url import returns percent-encoded data URIs in dev mode
+// (e.g.  data:image/svg+xml,%3csvg …).  CSS mask-image silently rejects
+// that encoding in most browsers, so we convert to base64 data URIs
+// which are universally supported for mask-image.
 const ICON_URLS = {};
 for (const [path, url] of Object.entries(_svgUrls)) {
   const match = path.match(/\/o9con-(.+)\.svg$/);
-  if (match) ICON_URLS[match[1]] = url;
+  if (match) {
+    if (url.startsWith('data:image/svg+xml,')) {
+      try {
+        const svgText = decodeURIComponent(url.slice('data:image/svg+xml,'.length));
+        ICON_URLS[match[1]] = 'data:image/svg+xml;base64,' + btoa(svgText);
+      } catch {
+        ICON_URLS[match[1]] = url; // fallback — use original
+      }
+    } else {
+      ICON_URLS[match[1]] = url;
+    }
+  }
 }
 
 const ALL_ICONS = Object.keys(ICON_URLS).sort();
@@ -453,10 +469,14 @@ const CATEGORIES = [
     : []),
 ];
 
+// ─── Size stops (matching o9con token system from icons.css) ─────────────────
+const SIZE_STOPS = [16, 20, 24, 32, 40, 48, 56, 64, 72, 80];
+
 // ─── IconTile ────────────────────────────────────────────────────────────────
-// SVGs are filled with #303030 (dark). In dark mode we invert them to ~#cfcfcf
-// (light gray) so they're visible. On hover/copy we tint via a CSS filter shift.
-function IconTile({ name, copied, onCopy }) {
+// Uses CSS mask-image so icons inherit currentColor from semantic text tokens.
+// Dark mode: text-text-secondary = #E5E5E5 (secondary white)
+// Light mode: text-text-secondary = #303030 (secondary black)
+function IconTile({ name, copied, onCopy, size = 20 }) {
   const url = ICON_URLS[name];
   if (!url) return null;
   const isCopied = copied === name;
@@ -464,27 +484,28 @@ function IconTile({ name, copied, onCopy }) {
     <button
       onClick={() => onCopy(name)}
       title={`Click to copy: o9con-${name}`}
-      className="group flex flex-col items-center gap-2 border border-border p-3 hover:border-white hover:bg-surface-overlay transition-colors cursor-pointer"
+      className={`group flex flex-col items-center gap-2 border border-border p-3 hover:border-white hover:bg-surface-overlay transition-colors cursor-pointer ${
+        isCopied ? 'text-success' : 'text-text-secondary hover:text-text'
+      }`}
     >
-      <img
-        src={url}
-        width={20}
-        height={20}
-        alt=""
+      <span
         aria-hidden="true"
         style={{
           display: 'block',
-          // invert(1) flips #303030 → ~#cfcfcf (visible on dark bg)
-          // on copy: tint green; on hover: brighten to near-white
-          filter: isCopied
-            ? 'invert(1) sepia(1) saturate(3) hue-rotate(90deg)'  // green tint
-            : 'invert(0.85) brightness(0.95)',
-          transition: 'filter 0.15s ease',
-          pointerEvents: 'none',
+          width: size,
+          height: size,
+          backgroundColor: 'currentColor',
+          maskImage: `url(${url})`,
+          WebkitMaskImage: `url(${url})`,
+          maskSize: 'contain',
+          WebkitMaskSize: 'contain',
+          maskRepeat: 'no-repeat',
+          WebkitMaskRepeat: 'no-repeat',
+          transition: 'width 0.15s ease, height 0.15s ease',
         }}
       />
       <span className={`text-[9px] font-mono truncate w-full text-center leading-tight transition-colors ${
-        isCopied ? 'text-green-400' : 'text-text-tertiary group-hover:text-text-secondary'
+        isCopied ? 'text-success' : 'text-text-tertiary group-hover:text-text-secondary'
       }`}>
         {isCopied ? 'copied!' : name}
       </span>
@@ -497,6 +518,7 @@ export default function IconsPage() {
   const [query, setQuery]           = useState('');
   const [activeCat, setActiveCat]   = useState('all');
   const [copied, setCopied]         = useState(null);
+  const [iconSize, setIconSize]     = useState(20);
 
   const handleCopy = (name) => {
     navigator.clipboard?.writeText(`o9con-${name}`);
@@ -593,6 +615,34 @@ export default function IconsPage() {
         </div>
       </div>
 
+      {/* ── Icon Size Control ─────────────────────────────────────────── */}
+      <div className="flex items-center gap-4 mb-8 px-4 py-3 border border-border bg-surface-raised">
+        <span className="text-[10px] font-bold tracking-widest uppercase text-text-tertiary shrink-0">Size</span>
+        <Slider
+          size="sm"
+          min={0}
+          max={SIZE_STOPS.length - 1}
+          step={1}
+          value={SIZE_STOPS.indexOf(iconSize)}
+          onChange={e => setIconSize(SIZE_STOPS[Number(e.target.value)])}
+          showButtons={false}
+          tooltipFormat={(i) => `${SIZE_STOPS[i]}px`}
+          className="flex-1"
+        />
+        <code className="text-xs font-mono text-text tabular-nums shrink-0 border border-border bg-surface-overlay px-2 py-1">
+          o9con-{iconSize} · {iconSize}px
+        </code>
+        {iconSize !== 20 && (
+          <button
+            onClick={() => setIconSize(20)}
+            className="text-[10px] text-text-tertiary hover:text-text transition-colors shrink-0"
+            title="Reset to default (20px)"
+          >
+            Reset
+          </button>
+        )}
+      </div>
+
       {/* ── Icon Grid (filtered / search) ───────────────────────────────── */}
       {isFiltered ? (
         <section className="mb-12">
@@ -602,9 +652,15 @@ export default function IconsPage() {
             {activeCat !== 'all' ? ` in ${CATEGORIES.find(c => c.id === activeCat)?.label}` : ''}
           </p>
           {filteredIcons.length > 0 ? (
-            <div className="grid grid-cols-4 gap-1.5 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 xl:grid-cols-12">
+            <div
+              className="gap-1.5"
+              style={{
+                display: 'grid',
+                gridTemplateColumns: `repeat(auto-fill, minmax(${Math.max(80, iconSize + 32)}px, 1fr))`,
+              }}
+            >
               {filteredIcons.map(name => (
-                <IconTile key={name} name={name} copied={copied} onCopy={handleCopy} />
+                <IconTile key={name} name={name} copied={copied} onCopy={handleCopy} size={iconSize} />
               ))}
             </div>
           ) : (
@@ -629,9 +685,15 @@ export default function IconsPage() {
             {cat.description && (
               <p className="text-xs text-text-tertiary mb-3">{cat.description}</p>
             )}
-            <div className="grid grid-cols-4 gap-1.5 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 xl:grid-cols-12">
+            <div
+              className="gap-1.5"
+              style={{
+                display: 'grid',
+                gridTemplateColumns: `repeat(auto-fill, minmax(${Math.max(80, iconSize + 32)}px, 1fr))`,
+              }}
+            >
               {cat.icons.map(name => (
-                <IconTile key={name} name={name} copied={copied} onCopy={handleCopy} />
+                <IconTile key={name} name={name} copied={copied} onCopy={handleCopy} size={iconSize} />
               ))}
             </div>
           </section>
@@ -659,17 +721,20 @@ export default function IconsPage() {
             return (
               <div key={px} className="flex flex-col items-center gap-1.5">
                 {url ? (
-                  <img
-                    src={url}
-                    width={px}
-                    height={px}
-                    alt=""
+                  <span
                     aria-hidden="true"
+                    className={isDefault ? 'text-primary' : 'text-text-secondary'}
                     style={{
                       display: 'block',
-                      filter: isDefault
-                        ? 'invert(0.45) sepia(1) saturate(3) hue-rotate(200deg) brightness(1.4)'
-                        : 'invert(0.85) brightness(0.95)',
+                      width: px,
+                      height: px,
+                      backgroundColor: 'currentColor',
+                      maskImage: `url(${url})`,
+                      WebkitMaskImage: `url(${url})`,
+                      maskSize: 'contain',
+                      WebkitMaskSize: 'contain',
+                      maskRepeat: 'no-repeat',
+                      WebkitMaskRepeat: 'no-repeat',
                     }}
                   />
                 ) : (

@@ -34,8 +34,8 @@ export default function FeedPage() {
         <h2 id="basic" className="text-xl font-black tracking-tight text-text mb-2">Basic Usage</h2>
         <CodeExample code={`<Feed>\n  <FeedItem author="Alice" timestamp="2 min ago">\n    Created a new branch\n  </FeedItem>\n  <FeedItem author="Bob" timestamp="5 min ago">\n    Pushed 3 commits\n  </FeedItem>\n</Feed>`}>
           <Feed className="border border-border rounded max-w-md">
-            <FeedItem author="Alice" timestamp="2 min ago">Created a new branch <code className="text-xs bg-white/10 px-1 rounded">feature/auth</code></FeedItem>
-            <FeedItem author="Bob" timestamp="5 min ago">Pushed 3 commits to <code className="text-xs bg-white/10 px-1 rounded">main</code></FeedItem>
+            <FeedItem author="Alice" timestamp="2 min ago">Created a new branch <code className="text-xs bg-surface-overlay px-1 rounded">feature/auth</code></FeedItem>
+            <FeedItem author="Bob" timestamp="5 min ago">Pushed 3 commits to <code className="text-xs bg-surface-overlay px-1 rounded">main</code></FeedItem>
             <FeedItem author="Charlie" timestamp="12 min ago">Opened pull request #42</FeedItem>
           </Feed>
         </CodeExample>
@@ -47,7 +47,7 @@ export default function FeedPage() {
         <CodeExample code={`<FeedItem type="success">Deployment succeeded</FeedItem>\n<FeedItem type="danger">Build failed</FeedItem>`}>
           <Feed className="border border-border rounded max-w-md">
             <FeedItem author="CI Bot" timestamp="1 min ago" type="success">Deployment to production succeeded</FeedItem>
-            <FeedItem author="CI Bot" timestamp="3 min ago" type="danger">Build failed on <code className="text-xs bg-white/10 px-1 rounded">staging</code></FeedItem>
+            <FeedItem author="CI Bot" timestamp="3 min ago" type="danger">Build failed on <code className="text-xs bg-surface-overlay px-1 rounded">staging</code></FeedItem>
             <FeedItem author="System" timestamp="5 min ago" type="warning">Memory usage exceeded 80%</FeedItem>
             <FeedItem author="Admin" timestamp="10 min ago" type="info">Scheduled maintenance at 2:00 AM</FeedItem>
           </Feed>

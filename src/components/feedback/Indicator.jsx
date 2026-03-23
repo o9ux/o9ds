@@ -15,10 +15,26 @@ const sizeStyles = {
   lg: 'h-3 w-3',
 };
 
+const shapeStyles = {
+  circle: 'rounded-circle',
+  rect: 'rounded-none',
+};
+
+/**
+ * Indicator — small colored dot (or rectangle) that conveys status.
+ *
+ * Props:
+ * - status: online | offline | busy | away | neutral
+ * - size: sm | md | lg
+ * - shape: circle (default) | rect (rectangular / box)
+ * - pulse: boolean — pulsing animation
+ * - label: optional text beside the dot
+ */
 const Indicator = forwardRef(function Indicator(
   {
     status = 'online',
     size = 'md',
+    shape = 'circle',
     pulse = false,
     label,
     className,
@@ -26,6 +42,8 @@ const Indicator = forwardRef(function Indicator(
   },
   ref
 ) {
+  const shapeClass = shapeStyles[shape] || shapeStyles.circle;
+
   return (
     <span
       ref={ref}
@@ -35,7 +53,7 @@ const Indicator = forwardRef(function Indicator(
       <span className="relative inline-flex">
         <span
           className={cn(
-            'rounded-full',
+            shapeClass,
             statusColors[status],
             sizeStyles[size]
           )}
@@ -43,7 +61,8 @@ const Indicator = forwardRef(function Indicator(
         {pulse && (
           <span
             className={cn(
-              'absolute inset-0 rounded-full animate-ping opacity-50',
+              'absolute inset-0 animate-ping opacity-50',
+              shapeClass,
               statusColors[status]
             )}
           />

@@ -4,7 +4,9 @@
 @import "./tokens/typography.css";
 @import "./tokens/spacing.css";
 @import "./tokens/effects.css";
+@import "./tokens/motion.css";
 @import "./tokens/icons.css";
+@import "./tokens/elevation.css";
 
 /* === Base Styles === */
 html {
@@ -26,8 +28,9 @@ body {
 *, *::before, *::after {
   border-radius: 0 !important;
 }
-/* Re-allow full radius for specific utilities */
-.rounded-full { border-radius: 9999px !important; }
+/* Re-allow radius utilities through the global reset */
+.rounded-full   { border-radius: 9999px !important; }
+.rounded-circle { border-radius: 50% !important; }
 
 /* === Scrollbar Styling — thin === */
 ::-webkit-scrollbar {

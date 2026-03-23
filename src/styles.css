@@ -1,0 +1,53 @@
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   @o9ds/components — Foundation Styles
+
+   Import this file ONCE in your app entry point to load
+   the complete o9ds design system foundation:
+
+     import '@o9ds/components/styles.css';
+
+   This provides:
+   - Font face declarations (o9 Sans family)
+   - Tailwind CSS v4 base/utilities
+   - Color tokens (305 tokens, light + dark themes)
+   - Typography tokens (font sizes, weights, letter-spacing)
+   - Spacing tokens (15-stop scale, border-width, border-radius)
+   - Effects tokens (shadows, blur, opacity)
+   - Motion tokens (durations, easings, 60+ keyframes)
+   - Icon size tokens (o9con sizing)
+
+   Theme switching:
+   - Dark mode is the default (:root)
+   - Light mode activates via [data-theme="light"] on <html>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/* Font face declarations */
+@import "./tokens/fonts.css";
+
+/* Tailwind CSS v4 */
+@import "tailwindcss";
+
+/* Design tokens — order matters (later files may reference earlier vars) */
+@import "./tokens/colors.css";
+@import "./tokens/typography.css";
+@import "./tokens/spacing.css";
+@import "./tokens/effects.css";
+@import "./tokens/motion.css";
+@import "./tokens/icons.css";
+@import "./tokens/elevation.css";
+
+/* ── Base reset for o9ds components ── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Dark mode default */
+:root {
+  color-scheme: dark;
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+}

@@ -1,36 +1,29 @@
 import { cn } from '@/utils/cn';
+import SelectDropdown from '@/components/inputs/SelectDropdown';
+import Checkbox from '@/components/inputs/Checkbox';
 
 function DemoControl({ control }) {
   if (control.type === 'select') {
     return (
-      <label className="flex flex-col gap-1">
-        <span className="text-[10px] font-bold tracking-widest uppercase text-text-tertiary">{control.label}</span>
-        <select
-          value={control.value}
-          onChange={(e) => control.onChange(e.target.value)}
-          className="border border-border bg-surface-sunken px-2.5 py-1.5 text-xs text-text outline-none focus:border-interactive-border transition-colors"
-        >
-          {control.options.map((opt) => (
-            <option key={opt} value={opt}>
-              {opt}
-            </option>
-          ))}
-        </select>
-      </label>
+      <SelectDropdown
+        label={control.label}
+        size="sm"
+        options={control.options}
+        value={control.value}
+        onChange={(val) => control.onChange(val)}
+        className="min-w-[140px]"
+      />
     );
   }
 
   if (control.type === 'checkbox') {
     return (
-      <label className="flex items-center gap-2 cursor-pointer">
-        <input
-          type="checkbox"
-          checked={control.value}
-          onChange={(e) => control.onChange(e.target.checked)}
-          className="h-4 w-4 border border-border bg-surface accent-interactive"
-        />
-        <span className="text-xs text-text-secondary">{control.label}</span>
-      </label>
+      <Checkbox
+        label={control.label}
+        size="sm"
+        checked={control.value ?? control.checked}
+        onChange={(e) => control.onChange(e.target.checked)}
+      />
     );
   }
 
@@ -51,11 +44,11 @@ function DemoControl({ control }) {
   return null;
 }
 
-export default function ComponentDemo({ children, controls = [] }) {
+export default function ComponentDemo({ children, controls = [], previewClassName }) {
   return (
-    <div className="mt-4 border border-border overflow-hidden">
+    <div className="mt-4 border border-border overflow-visible">
       {/* Preview area */}
-      <div className="flex min-h-40 items-center justify-center bg-surface-overlay p-10">
+      <div className={cn('flex min-h-40 items-center justify-center bg-surface-overlay p-10', previewClassName)}>
         {children}
       </div>
 

@@ -59,10 +59,10 @@ export default function AlertDialogPage() {
       </section>
 
       <section className="mb-12">
-        <h2 id="accessibility" className="text-xl font-black tracking-tight text-text mb-2">Accessibility</h2>
+        <h2 id="accessibility" className="text-lg font-semibold text-text mb-4">Accessibility</h2>
         <ul className="space-y-3 border border-border p-6">
           {['Uses role="alertdialog" and aria-modal="true".', 'Title and description are linked via aria-labelledby and aria-describedby.', 'Backdrop click triggers cancel for easy dismissal.', 'Body scroll is locked while the dialog is open.'].map((item, i) => (
-            <li key={i} className="flex gap-3 text-xs text-text-secondary"><span className="mt-px text-white font-bold shrink-0">—</span>{item}</li>
+            <li key={i} className="flex gap-3 text-xs text-text-secondary"><span className="mt-px text-text font-bold shrink-0">—</span>{item}</li>
           ))}
         </ul>
       </section>

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import PageHeader from '@/docs/components/PageHeader';
+import CodeBlock from '@/docs/components/CodeBlock';
 
 /* ─── copy helper ───────────────────────────────────────────── */
 function useCopy() {
@@ -48,7 +49,7 @@ function TypoTokenRow({ token, size, weight, ls, transform, underline }) {
       title="Click to copy token name"
     >
       <td className="px-4 py-3 align-middle w-52">
-        <code className={`text-[11px] font-mono ${copied === token ? 'text-success' : 'text-info'}`}>
+        <code className={`text-[11px] font-mono ${copied === token ? 'text-success' : 'text-utility-purple'}`}>
           {copied === token ? '✓ copied' : token}
         </code>
       </td>
@@ -219,7 +220,7 @@ export default function TypographyPage() {
             </thead>
             <tbody>
               <tr className="border-b border-border bg-surface-sunken/30">
-                <td className="px-4 py-3"><code className="text-[11px] font-mono text-info">--font-sans</code></td>
+                <td className="px-4 py-3"><code className="text-[11px] font-mono text-utility-purple">--font-sans</code></td>
                 <td className="px-4 py-3"><code className="text-[11px] font-mono text-text-secondary">font-family-o9Sans</code></td>
                 <td className="px-4 py-3">
                   <span className="text-sm text-text" style={{ fontFamily: "'o9Sans', Roboto, sans-serif" }}>
@@ -229,7 +230,7 @@ export default function TypographyPage() {
                 <td className="px-4 py-3"><span className="text-[11px] text-text-tertiary">All UI text</span></td>
               </tr>
               <tr>
-                <td className="px-4 py-3"><code className="text-[11px] font-mono text-info">--font-mono</code></td>
+                <td className="px-4 py-3"><code className="text-[11px] font-mono text-utility-purple">--font-mono</code></td>
                 <td className="px-4 py-3"><code className="text-[11px] font-mono text-text-secondary">font-family-mono</code></td>
                 <td className="px-4 py-3">
                   <span className="text-sm text-text font-mono">JetBrains Mono → Fira Code → Cascadia Code</span>
@@ -259,7 +260,7 @@ export default function TypographyPage() {
             <tbody>
               {fontSizes.map((row, i) => (
                 <tr key={row.token} className={`border-b border-border last:border-0 ${i % 2 ? '' : 'bg-surface-sunken/30'}`}>
-                  <td className="px-4 py-3"><code className="text-[11px] font-mono text-info">{row.token}</code></td>
+                  <td className="px-4 py-3"><code className="text-[11px] font-mono text-utility-purple">{row.token}</code></td>
                   <td className="px-4 py-3"><code className="text-[11px] font-mono text-text-secondary">{row.value}</code></td>
                   <td className="px-4 py-3"><code className="text-[11px] font-mono text-text-disabled">{row.px}px</code></td>
                   <td className="px-4 py-3">
@@ -299,7 +300,7 @@ export default function TypographyPage() {
                   Active hierarchy is an ordered collection of levels across the platform.
                 </p>
                 <div className="mt-3 flex gap-2 flex-wrap">
-                  <code className="font-mono text-info border border-border px-2 py-0.5" style={{ fontSize: '10px' }}>{wt.figma}</code>
+                  <code className="font-mono text-utility-purple border border-border px-2 py-0.5" style={{ fontSize: '10px' }}>{wt.figma}</code>
                   <code className="font-mono text-utility-purple border border-border px-2 py-0.5" style={{ fontSize: '10px' }}>{wt.tw}</code>
                 </div>
               </div>
@@ -326,7 +327,7 @@ export default function TypographyPage() {
             <tbody>
               {letterSpacing.map((row, i) => (
                 <tr key={row.token} className={`border-b border-border last:border-0 ${i % 2 ? '' : 'bg-surface-sunken/30'}`}>
-                  <td className="px-4 py-3"><code className="text-[11px] font-mono text-info">{row.token}</code></td>
+                  <td className="px-4 py-3"><code className="text-[11px] font-mono text-utility-purple">{row.token}</code></td>
                   <td className="px-4 py-3"><code className="text-[11px] font-mono text-text-secondary">{row.value}</code></td>
                   <td className="px-4 py-3"><code className="text-[11px] font-mono text-text-disabled">{row.comment}</code></td>
                   <td className="px-4 py-3">
@@ -431,24 +432,21 @@ export default function TypographyPage() {
         title="Applying Tokens"
         subtitle="Reference the primitive tokens in CSS or combine with Tailwind utilities in JSX."
       >
-        <div className="border border-border overflow-hidden mb-2">
-          <div className="border-b border-border bg-surface-raised px-4 py-2">
-            <span className="text-[10px] font-mono font-bold tracking-widest uppercase text-text-disabled">CSS — Composite Token Usage</span>
-          </div>
-          <pre className="bg-surface-sunken p-5 font-mono text-text-secondary leading-relaxed overflow-x-auto" style={{ fontSize: '12px' }}><code>{`.heading {
+        <div className="space-y-4">
+          <div>
+            <p className="text-xs text-text-tertiary font-medium uppercase tracking-wide mb-2">CSS — Composite Token Usage</p>
+            <CodeBlock code={`.heading {
   font-family:    var(--font-family-o9sans);
   font-size:      var(--font-size-20);           /* 20px */
   font-weight:    var(--font-weight-regular);    /* 400  */
   letter-spacing: var(--letter-spacing-h20);     /* -0.031rem ≈ -0.5px */
 }
-/* ↑ Equivalent to Figma composite token: o9ds-font-h20-r */`}</code></pre>
-        </div>
-
-        <div className="border border-border overflow-hidden">
-          <div className="border-b border-border bg-surface-raised px-4 py-2">
-            <span className="text-[10px] font-mono font-bold tracking-widest uppercase text-text-disabled">JSX — Tailwind + CSS var</span>
+/* ↑ Equivalent to Figma composite token: o9ds-font-h20-r */`} language="css" />
           </div>
-          <pre className="bg-surface-sunken p-5 font-mono text-text-secondary leading-relaxed overflow-x-auto" style={{ fontSize: '12px' }}><code>{`{/* Heading — o9ds-font-h20-r */}
+
+          <div>
+            <p className="text-xs text-text-tertiary font-medium uppercase tracking-wide mb-2">JSX — Tailwind + CSS var</p>
+            <CodeBlock code={`{/* Heading — o9ds-font-h20-r */}
 <h2 className="text-xl font-normal text-text"
     style={{ letterSpacing: 'var(--letter-spacing-h20)' }}>
   Section Title
@@ -470,7 +468,8 @@ export default function TypographyPage() {
 <span className="text-xs font-normal uppercase"
       style={{ letterSpacing: 'var(--letter-spacing-caps)' }}>
   SECTION HEADER
-</span>`}</code></pre>
+</span>`} language="jsx" />
+          </div>
         </div>
       </Section>
     </article>

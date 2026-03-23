@@ -20,7 +20,7 @@ export default function Header({ onMenuToggle }) {
 
       <Link to="/" className="flex items-center gap-3 font-bold text-text">
         <span className="flex h-8 w-8 items-center justify-center bg-interactive border border-interactive text-on-interactive">
-          <O9Icon svg={o9LogoSvg} className="!w-7 !h-7" />
+          <O9Icon svg={o9LogoSvg} className="!w-5 !h-5" />
         </span>
         <span className="text-sm font-semibold tracking-tight">
           o9<span className="text-text-secondary font-normal">ds</span>

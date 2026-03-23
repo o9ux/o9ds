@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import PageHeader from '@/docs/components/PageHeader';
+import CodeBlock from '@/docs/components/CodeBlock';
 
 /* ─── Shadow token data (from Figma EFFECTS GUIDE) ─────────────────── */
 const shadowTokens = [
@@ -122,10 +123,10 @@ function CopyBtn({ value }) {
 }
 
 /* ─── Section header ─────────────────────────────────────────────────── */
-function SectionHeader({ title, description }) {
+function SectionHeader({ id, title, description }) {
   return (
     <div className="mb-6">
-      <h2 className="text-lg font-semibold text-text mb-1">{title}</h2>
+      <h2 id={id} className="text-lg font-semibold text-text mb-1">{title}</h2>
       {description && <p className="text-sm text-text-tertiary">{description}</p>}
     </div>
   );
@@ -159,7 +160,7 @@ export default function EffectsPage() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-8 py-12">
+    <article className="max-w-4xl mx-auto px-8 py-12">
       <PageHeader
         title="Effects"
         description="Shadow, backdrop-blur, and opacity tokens that create depth and hierarchy across the o9ds UI. Shadows are directional — named by the direction they cast — so each token maps directly to its use case."
@@ -169,6 +170,7 @@ export default function EffectsPage() {
       {/* ── Section 1: Shadow Tokens ─────────────────────────────────── */}
       <section className="mb-14">
         <SectionHeader
+          id="shadow-tokens"
           title="Shadow Tokens"
           description="Six directional shadows built on two underlying color primitives. Use box-shadow utilities (shadow-*) or the CSS variable directly."
         />
@@ -261,6 +263,7 @@ export default function EffectsPage() {
       {/* ── Section 2: Layer Blur ────────────────────────────────────── */}
       <section className="mb-14">
         <SectionHeader
+          id="layer-blur"
           title="Layer Blur"
           description="A single backdrop-blur token for overlay components. Applied as a CSS backdrop-filter to create frosted glass over underlying content."
         />
@@ -336,6 +339,7 @@ export default function EffectsPage() {
       {/* ── Section 3: Opacity ──────────────────────────────────────── */}
       <section className="mb-14">
         <SectionHeader
+          id="opacity"
           title="Opacity"
           description="Three opacity levels for interactive and disabled states. Applied via CSS opacity property — the entire element and its children become semi-transparent."
         />
@@ -422,6 +426,7 @@ export default function EffectsPage() {
       {/* ── Section 4: Applying Tokens ──────────────────────────────── */}
       <section className="mb-14">
         <SectionHeader
+          id="applying-tokens"
           title="Applying Tokens"
           description="Reference shadow, blur, and opacity tokens via Tailwind utilities or CSS custom properties."
         />
@@ -429,12 +434,9 @@ export default function EffectsPage() {
         <div className="grid grid-cols-1 gap-4">
 
           {/* Shadows */}
-          <div className="border border-border">
-            <div className="px-4 py-2.5 bg-surface-raised border-b border-border">
-              <p className="text-xs text-text-tertiary font-medium uppercase tracking-wide">Shadows</p>
-            </div>
-            <div className="p-4">
-              <pre className="text-xs font-mono text-text leading-relaxed overflow-x-auto"><code>{`/* Tailwind utility classes */
+          <div>
+            <p className="text-xs text-text-tertiary font-medium uppercase tracking-wide mb-2">Shadows</p>
+            <CodeBlock code={`/* Tailwind utility classes */
 <div className="shadow-center">  {/* tooltip, popover, overlay    */}
 <div className="shadow-down">    {/* dropdown menus               */}
 <div className="shadow-up">      {/* toolbar / action bar footer  */}
@@ -445,34 +447,26 @@ export default function EffectsPage() {
 /* CSS variable (when Tailwind class isn't available) */
 .my-dropdown {
   box-shadow: var(--o9ds-shadow-down);
-}`}</code></pre>
-            </div>
+}`} language="jsx" />
           </div>
 
           {/* Backdrop blur */}
-          <div className="border border-border">
-            <div className="px-4 py-2.5 bg-surface-raised border-b border-border">
-              <p className="text-xs text-text-tertiary font-medium uppercase tracking-wide">Layer Blur</p>
-            </div>
-            <div className="p-4">
-              <pre className="text-xs font-mono text-text leading-relaxed overflow-x-auto"><code>{`/* Tailwind utility (overlay component only) */
+          <div>
+            <p className="text-xs text-text-tertiary font-medium uppercase tracking-wide mb-2">Layer Blur</p>
+            <CodeBlock code={`/* Tailwind utility (overlay component only) */
 <div className="backdrop-blur-overlay">
 
 /* CSS */
 .overlay {
   backdrop-filter: blur(var(--o9ds-layer-blur));
   -webkit-backdrop-filter: blur(var(--o9ds-layer-blur));
-}`}</code></pre>
-            </div>
+}`} language="css" />
           </div>
 
           {/* Opacity */}
-          <div className="border border-border">
-            <div className="px-4 py-2.5 bg-surface-raised border-b border-border">
-              <p className="text-xs text-text-tertiary font-medium uppercase tracking-wide">Opacity</p>
-            </div>
-            <div className="p-4">
-              <pre className="text-xs font-mono text-text leading-relaxed overflow-x-auto"><code>{`/* CSS — apply to the wrapping element */
+          <div>
+            <p className="text-xs text-text-tertiary font-medium uppercase tracking-wide mb-2">Opacity</p>
+            <CodeBlock code={`/* CSS — apply to the wrapping element */
 .image-hover-overlay {
   opacity: var(--o9ds-opacity-high);     /* 0.8 — hover state       */
 }
@@ -483,9 +477,8 @@ export default function EffectsPage() {
   opacity: var(--o9ds-opacity-disabled); /* 0.4 — disabled / low    */
 }
 
-/* Note: Tailwind opacity utilities like opacity-80 are compatible
-   but prefer the semantic token variables for design system alignment. */`}</code></pre>
-            </div>
+/* Tailwind opacity utilities like opacity-80 are compatible
+   but prefer the semantic token variables for design system alignment. */`} language="css" />
           </div>
 
         </div>
@@ -494,6 +487,7 @@ export default function EffectsPage() {
       {/* ── Section 5: Design Decisions ─────────────────────────────── */}
       <section>
         <SectionHeader
+          id="design-decisions"
           title="Design Decisions"
           description="Key principles guiding the o9ds effects system."
         />
@@ -531,6 +525,6 @@ export default function EffectsPage() {
           ))}
         </div>
       </section>
-    </div>
+    </article>
   );
 }

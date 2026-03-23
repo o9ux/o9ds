@@ -31,12 +31,13 @@ const vertexShader = `
 
 const fragmentShader = `
   uniform vec3 color;
+  uniform float uOpacity;
   void main() {
     // Circular particle with soft edge
     float dist = length(gl_PointCoord - vec2(0.5));
     if (dist > 0.5) discard;
     float alpha = 1.0 - smoothstep(0.3, 0.5, dist);
-    gl_FragColor = vec4(color, alpha * 0.8);
+    gl_FragColor = vec4(color, alpha * uOpacity);
   }
 `;
 
@@ -46,13 +47,14 @@ export default function ParticleWaves({ className }) {
   const themeRef = useRef(theme);
   const materialRef = useRef(null);
 
-  // Update particle color when theme changes
+  // Update particle color and opacity when theme changes
   useEffect(() => {
     themeRef.current = theme;
     if (materialRef.current?.uniforms?.color) {
       materialRef.current.uniforms.color.value.set(
-        theme === 'dark' ? '#ffffff' : '#121212'
+        theme === 'dark' ? '#ffffff' : '#000000'
       );
+      materialRef.current.uniforms.uOpacity.value = theme === 'dark' ? 0.8 : 1.0;
     }
   }, [theme]);
 
@@ -111,8 +113,11 @@ export default function ParticleWaves({ className }) {
       uniforms: {
         color: {
           value: new THREE.Color(
-            themeRef.current === 'dark' ? '#ffffff' : '#121212'
+            themeRef.current === 'dark' ? '#ffffff' : '#000000'
           ),
+        },
+        uOpacity: {
+          value: themeRef.current === 'dark' ? 0.8 : 1.0,
         },
       },
       vertexShader,

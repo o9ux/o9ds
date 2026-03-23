@@ -1,43 +1,45 @@
 import { useState } from 'react';
 import { Tabstrip, Tab, TabPanel } from '@/components/navigation/Tabstrip';
+import DropdownList from '@/components/containers/DropdownList';
 import PageHeader from '@/docs/components/PageHeader';
 import ComponentDemo from '@/docs/components/ComponentDemo';
 import CodeExample from '@/docs/components/CodeExample';
 import PropsTable from '@/docs/components/PropsTable';
 import DoDont from '@/docs/components/DoDont';
+import O9Icon from '@/components/O9Icon';
 
-const HomeIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
-    <path d="M2 6.5L8 2l6 4.5V14H2V6.5z" />
-  </svg>
-);
-const GridIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
-    <rect x="2" y="2" width="5" height="5"/><rect x="9" y="2" width="5" height="5"/>
-    <rect x="2" y="9" width="5" height="5"/><rect x="9" y="9" width="5" height="5"/>
-  </svg>
-);
-const SettingsIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
-    <circle cx="8" cy="8" r="2.5"/>
-    <path d="M8 1.5v2m0 9v2M1.5 8h2m9 0h2M3.4 3.4l1.4 1.4m6.4 6.4l1.4 1.4M3.4 12.6l1.4-1.4m6.4-6.4l1.4-1.4"/>
-  </svg>
-);
+import homeSvg from '@/assets/icons/o9con-home.svg?raw';
+import gridSvg from '@/assets/icons/o9con-grid.svg?raw';
+import settingSvg from '@/assets/icons/o9con-setting-edit.svg?raw';
+import userSvg from '@/assets/icons/o9con-user.svg?raw';
+import chartSvg from '@/assets/icons/o9con-bar-chart.svg?raw';
+import fileSvg from '@/assets/icons/o9con-file-o.svg?raw';
+import calendarSvg from '@/assets/icons/o9con-calendar.svg?raw';
+import binSvg from '@/assets/icons/o9con-bin.svg?raw';
+import copySvg from '@/assets/icons/o9con-copy.svg?raw';
+import pencilSvg from '@/assets/icons/o9con-pencil.svg?raw';
 
 const tabstripProps = [
   { name: 'value', type: 'string', default: '—', description: 'The currently active tab value' },
   { name: 'onChange', type: '(value: string) => void', default: '—', description: 'Callback fired when a tab is clicked' },
   { name: 'variant', type: "'underline' | 'filled' | 'outline'", default: "'underline'", description: 'Visual style of the tab strip' },
   { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Height and padding of the tabs' },
+  { name: 'overflow', type: 'number', default: 'undefined', description: 'Maximum visible tabs. Remaining tabs are shown in an overflow dropdown.' },
   { name: 'className', type: 'string', default: "''", description: 'Additional CSS classes' },
 ];
 
 const tabProps = [
   { name: 'value', type: 'string', default: '—', description: 'Unique identifier for this tab' },
-  { name: 'label', type: 'string', default: '—', description: 'Text label displayed in the tab' },
-  { name: 'icon', type: 'ReactNode', default: 'undefined', description: 'Optional icon rendered before the label' },
+  { name: 'label', type: 'string', default: '—', description: 'Text label displayed in the tab. Omit for icon-only tabs.' },
+  { name: 'icon', type: 'ReactNode', default: 'undefined', description: 'Optional icon. When label is omitted, renders icon-only tab.' },
   { name: 'badge', type: 'number | string', default: 'undefined', description: 'Optional badge count shown after the label' },
   { name: 'disabled', type: 'boolean', default: 'false', description: 'Whether the tab is disabled and non-interactive' },
+  { name: 'pinned', type: 'boolean', default: 'false', description: 'Whether the tab shows a pinned indicator (use with onPin)' },
+  { name: 'onPin', type: '(value: string) => void', default: 'undefined', description: 'Callback when pin button is clicked. Enables pin action.' },
+  { name: 'closable', type: 'boolean', default: 'false', description: 'Shows a close button on the tab' },
+  { name: 'onClose', type: '(value: string) => void', default: 'undefined', description: 'Callback when close button is clicked' },
+  { name: 'moreActions', type: 'ReactNode', default: 'undefined', description: 'A DropdownList rendered in a portal when the dropdown action is clicked' },
+  { name: 'className', type: 'string', default: "''", description: 'Additional CSS classes' },
 ];
 
 export default function TabstripPage() {
@@ -50,13 +52,14 @@ export default function TabstripPage() {
   const [activeIcons, setActiveIcons] = useState('home');
   const [activeFilled, setActiveFilled] = useState('tab1');
   const [activeOutline, setActiveOutline] = useState('tab1');
+  const [activeIconOnly, setActiveIconOnly] = useState('home');
 
   return (
     <article>
       <PageHeader
         title="Tabstrip"
         description="Tabstrips organise related content into discrete views, letting users switch between them without leaving the current context."
-        status="beta"
+        status="stable"
         category="Navigation"
       />
 
@@ -167,15 +170,38 @@ export default function TabstripPage() {
         <p className="text-sm text-text-secondary mb-4">
           Icons can be added before the label for additional context.
         </p>
-        <CodeExample code={`<Tab value="home" label="Home" icon={<HomeIcon />} />
-<Tab value="grid" label="Grid" icon={<GridIcon />} />
-<Tab value="settings" label="Settings" icon={<SettingsIcon />} />`}>
+        <CodeExample code={`<Tab value="home" label="Home" icon={<O9Icon svg={homeSvg} />} />
+<Tab value="grid" label="Grid" icon={<O9Icon svg={gridSvg} />} />
+<Tab value="settings" label="Settings" icon={<O9Icon svg={settingSvg} />} />`}>
           <Tabstrip value={activeIcons} onChange={setActiveIcons} variant="underline">
-            <Tab value="home" label="Home" icon={<HomeIcon />} />
-            <Tab value="grid" label="Grid" icon={<GridIcon />} />
-            <Tab value="settings" label="Settings" icon={<SettingsIcon />} />
+            <Tab value="home" label="Home" icon={<O9Icon svg={homeSvg} />} />
+            <Tab value="grid" label="Grid" icon={<O9Icon svg={gridSvg} />} />
+            <Tab value="settings" label="Settings" icon={<O9Icon svg={settingSvg} />} />
           </Tabstrip>
         </CodeExample>
+      </section>
+
+      {/* Icon Only */}
+      <section className="mb-12">
+        <h2 id="icon-only" className="text-xl font-black tracking-tight text-text mb-2">Icon Only</h2>
+        <p className="text-sm text-text-secondary mb-4">
+          When <code className="bg-surface-overlay px-1.5 py-0.5 text-xs border border-border">icon</code> is provided
+          without a <code className="bg-surface-overlay px-1.5 py-0.5 text-xs border border-border">label</code>, the tab
+          renders as a square icon-only button. Always provide an accessible label
+          via <code className="bg-surface-overlay px-1.5 py-0.5 text-xs border border-border">aria-label</code>.
+        </p>
+        <div className="space-y-6">
+          {['underline', 'filled', 'outline'].map((v) => (
+            <CodeExample key={v} label={v.charAt(0).toUpperCase() + v.slice(1)}>
+              <Tabstrip value={activeIconOnly} onChange={setActiveIconOnly} variant={v}>
+                <Tab value="home" icon={<O9Icon svg={homeSvg} />} aria-label="Home" />
+                <Tab value="grid" icon={<O9Icon svg={gridSvg} />} aria-label="Grid" />
+                <Tab value="settings" icon={<O9Icon svg={settingSvg} />} aria-label="Settings" />
+                <Tab value="user" icon={<O9Icon svg={userSvg} />} aria-label="User" />
+              </Tabstrip>
+            </CodeExample>
+          ))}
+        </div>
       </section>
 
       {/* With Badge */}
@@ -193,6 +219,51 @@ export default function TabstripPage() {
             <Tab value="all" label="All" />
           </Tabstrip>
         </CodeExample>
+      </section>
+
+      {/* Overflow */}
+      <section className="mb-12">
+        <h2 id="overflow" className="text-xl font-black tracking-tight text-text mb-2">Overflow</h2>
+        <p className="text-sm text-text-secondary mb-4">
+          Set the <code className="bg-surface-overlay px-1.5 py-0.5 text-xs border border-border">overflow</code> prop to
+          limit visible tabs. Excess tabs are accessible via a ⋯ dropdown menu.
+        </p>
+        <CodeExample code={`<Tabstrip overflow={3} value={tab} onChange={setTab}>
+  <Tab value="a" label="Overview" />
+  <Tab value="b" label="Details" />
+  <Tab value="c" label="History" />
+  <Tab value="d" label="Analytics" />
+  <Tab value="e" label="Settings" />
+  <Tab value="f" label="Files" />
+</Tabstrip>`}>
+          <OverflowDemo />
+        </CodeExample>
+      </section>
+
+      {/* Tab Actions */}
+      <section className="mb-12">
+        <h2 id="tab-actions" className="text-xl font-black tracking-tight text-text mb-2">Tab Actions</h2>
+        <p className="text-sm text-text-secondary mb-4">
+          Individual tabs can have Pin, Close, and Dropdown actions. Actions appear on hover and are always visible on the active tab.
+        </p>
+
+        <div className="space-y-6">
+          <CodeExample label="Closable Tabs" code={`<Tab value="a" label="File.tsx" closable onClose={(v) => handleClose(v)} />`}>
+            <ClosableTabsDemo />
+          </CodeExample>
+
+          <CodeExample label="Pin + Close + Dropdown" code={`<Tab
+  value="a"
+  label="Overview"
+  pinned={isPinned}
+  onPin={(v) => togglePin(v)}
+  closable
+  onClose={(v) => handleClose(v)}
+  moreActions={<DropdownList>…</DropdownList>}
+/>`}>
+            <FullActionsDemo />
+          </CodeExample>
+        </div>
       </section>
 
       {/* States */}
@@ -221,20 +292,21 @@ export default function TabstripPage() {
             'Keep tab labels short — one to three words maximum',
             'Use the underline variant for primary page-level navigation',
             'Use the filled variant for compact sections like panels or sidebars',
+            'Use overflow to manage many tabs instead of scrolling',
             'Indicate unread counts or pending items with the badge prop',
           ]}
           dontItems={[
             'Do not use tabstrips as a stepper or multi-step flow — use a dedicated stepper',
             'Avoid nesting tabstrips more than one level deep',
             'Do not hide tabs based on permissions — use disabled state instead',
-            'Avoid more than 7 tabs; prefer a dropdown or secondary nav',
+            'Avoid more than 7 visible tabs; use overflow for large tab sets',
           ]}
         />
       </section>
 
       {/* Accessibility */}
       <section className="mb-12">
-        <h2 id="accessibility" className="text-xl font-black tracking-tight text-text mb-2">Accessibility</h2>
+        <h2 id="accessibility" className="text-lg font-semibold text-text mb-4">Accessibility</h2>
         <ul className="space-y-3 border border-border p-6">
           {[
             <>Uses <code className="bg-surface-overlay px-1.5 py-0.5 text-xs border border-border">role="tablist"</code> and <code className="bg-surface-overlay px-1.5 py-0.5 text-xs border border-border">role="tab"</code> for full ARIA compliance.</>,
@@ -242,9 +314,11 @@ export default function TabstripPage() {
             <>Disabled tabs set <code className="bg-surface-overlay px-1.5 py-0.5 text-xs border border-border">aria-disabled="true"</code> and <code className="bg-surface-overlay px-1.5 py-0.5 text-xs border border-border">disabled</code> to prevent interaction.</>,
             'Tab panels are associated with their triggering tab via matching value prop.',
             'Focus ring is visible only on keyboard navigation via :focus-visible.',
+            <>Action buttons (pin, close, dropdown) each have <code className="bg-surface-overlay px-1.5 py-0.5 text-xs border border-border">aria-label</code> for screen reader identification.</>,
+            <>Overflow menu uses <code className="bg-surface-overlay px-1.5 py-0.5 text-xs border border-border">aria-haspopup="menu"</code> and <code className="bg-surface-overlay px-1.5 py-0.5 text-xs border border-border">aria-expanded</code> attributes.</>,
           ].map((item, i) => (
             <li key={i} className="flex gap-3 text-xs text-text-secondary">
-              <span className="mt-px text-white font-bold shrink-0">—</span>
+              <span className="mt-px text-text font-bold shrink-0">—</span>
               {item}
             </li>
           ))}
@@ -260,5 +334,112 @@ export default function TabstripPage() {
         <PropsTable props={tabProps} />
       </section>
     </article>
+  );
+}
+
+/* ─────────────────────────────────────────────
+   OverflowDemo — tabs with overflow
+   ───────────────────────────────────────────── */
+function OverflowDemo() {
+  const [active, setActive] = useState('overview');
+  return (
+    <Tabstrip value={active} onChange={setActive} overflow={3}>
+      <Tab value="overview" label="Overview" icon={<O9Icon svg={homeSvg} />} />
+      <Tab value="details" label="Details" icon={<O9Icon svg={fileSvg} />} />
+      <Tab value="history" label="History" icon={<O9Icon svg={calendarSvg} />} />
+      <Tab value="analytics" label="Analytics" icon={<O9Icon svg={chartSvg} />} />
+      <Tab value="settings" label="Settings" icon={<O9Icon svg={settingSvg} />} />
+      <Tab value="users" label="Users" icon={<O9Icon svg={userSvg} />} />
+    </Tabstrip>
+  );
+}
+
+/* ─────────────────────────────────────────────
+   ClosableTabsDemo
+   ───────────────────────────────────────────── */
+function ClosableTabsDemo() {
+  const [tabs, setTabs] = useState([
+    { value: 'index', label: 'index.tsx' },
+    { value: 'app', label: 'App.tsx' },
+    { value: 'utils', label: 'utils.ts' },
+    { value: 'styles', label: 'styles.css' },
+  ]);
+  const [active, setActive] = useState('index');
+
+  const handleClose = (val) => {
+    const next = tabs.filter((t) => t.value !== val);
+    setTabs(next);
+    if (active === val && next.length > 0) {
+      setActive(next[0].value);
+    }
+  };
+
+  return (
+    <Tabstrip value={active} onChange={setActive}>
+      {tabs.map((t) => (
+        <Tab key={t.value} value={t.value} label={t.label} closable onClose={handleClose} />
+      ))}
+    </Tabstrip>
+  );
+}
+
+/* ─────────────────────────────────────────────
+   FullActionsDemo — pin + close + dropdown
+   ───────────────────────────────────────────── */
+function FullActionsDemo() {
+  const [active, setActive] = useState('overview');
+  const [pinned, setPinned] = useState(new Set(['overview']));
+
+  const togglePin = (val) => {
+    setPinned((prev) => {
+      const next = new Set(prev);
+      if (next.has(val)) next.delete(val);
+      else next.add(val);
+      return next;
+    });
+  };
+
+  const moreMenu = (
+    <DropdownList>
+      <DropdownList.Item icon={<O9Icon svg={copySvg} />}>Duplicate</DropdownList.Item>
+      <DropdownList.Item icon={<O9Icon svg={pencilSvg} />}>Rename</DropdownList.Item>
+      <DropdownList.Divider />
+      <DropdownList.Item icon={<O9Icon svg={binSvg} />}>Delete</DropdownList.Item>
+    </DropdownList>
+  );
+
+  return (
+    <Tabstrip value={active} onChange={setActive}>
+      <Tab
+        value="overview"
+        label="Overview"
+        icon={<O9Icon svg={homeSvg} />}
+        pinned={pinned.has('overview')}
+        onPin={togglePin}
+        closable
+        onClose={() => {}}
+        moreActions={moreMenu}
+      />
+      <Tab
+        value="details"
+        label="Details"
+        icon={<O9Icon svg={fileSvg} />}
+        pinned={pinned.has('details')}
+        onPin={togglePin}
+        closable
+        onClose={() => {}}
+        moreActions={moreMenu}
+      />
+      <Tab
+        value="settings"
+        label="Settings"
+        icon={<O9Icon svg={settingSvg} />}
+        pinned={pinned.has('settings')}
+        onPin={togglePin}
+        closable
+        onClose={() => {}}
+        moreActions={moreMenu}
+      />
+    </Tabstrip>
   );
 }
