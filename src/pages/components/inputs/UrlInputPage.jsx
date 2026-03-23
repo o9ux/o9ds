@@ -7,7 +7,7 @@ import PropsTable from '@/docs/components/PropsTable';
 import DoDont from '@/docs/components/DoDont';
 
 const urlInputProps = [
-  { name: 'size', type: "'sm' | 'md'", default: "'md'", description: 'Input size — sm=24px, md=32px' },
+  { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Input size — sm=24px, md=32px, lg=36px' },
   { name: 'status', type: "'default' | 'error'", default: "'default'", description: 'Validation status' },
   { name: 'label', type: 'string', default: 'undefined', description: 'Label text above the input' },
   { name: 'helperText', type: 'string', default: 'undefined', description: 'Helper text below the input' },
@@ -42,7 +42,7 @@ export default function UrlInputPage() {
         <h2 id="demo" className="text-xl font-black tracking-tight text-text mb-2">Interactive Demo</h2>
         <p className="text-sm text-text-secondary mb-4">Try different sizes and states.</p>
         <ComponentDemo controls={[
-          { type: 'select', label: 'Size', value: size, onChange: setSize, options: ['sm', 'md'] },
+          { type: 'select', label: 'Size', value: size, onChange: setSize, options: ['sm', 'md', 'lg'] },
           { type: 'checkbox', label: 'Disabled', value: disabled, onChange: setDisabled },
           { type: 'checkbox', label: 'Read-only', value: readOnlyDemo, onChange: setReadOnlyDemo },
           { type: 'checkbox', label: 'Error', value: errorDemo, onChange: setErrorDemo },
@@ -102,14 +102,17 @@ export default function UrlInputPage() {
       {/* Sizes */}
       <section className="mb-12">
         <h2 id="sizes" className="text-xl font-black tracking-tight text-text mb-2">Sizes</h2>
-        <p className="text-sm text-text-secondary mb-4">Two sizes: sm (24px) and md (32px).</p>
-        <CodeExample code={`<UrlInput size="sm" label="Small" value="https://example.com" />\n<UrlInput size="md" label="Medium" value="https://example.com" />`}>
+        <p className="text-sm text-text-secondary mb-4">Three sizes: sm (24px), md (32px), and lg (36px).</p>
+        <CodeExample code={`<UrlInput size="sm" label="Small (24px)" value="https://example.com" />\n<UrlInput size="md" label="Medium (32px)" value="https://example.com" />\n<UrlInput size="lg" label="Large (36px)" value="https://example.com" />`}>
           <div className="flex flex-col gap-4">
             <div className="w-80">
-              <UrlInput size="sm" label="Small" value="https://example.com" onChange={() => {}} maxLength={20} showCount />
+              <UrlInput size="sm" label="Small (24px)" value="https://example.com" onChange={() => {}} />
             </div>
             <div className="w-80">
-              <UrlInput size="md" label="Medium" value="https://example.com" onChange={() => {}} maxLength={20} showCount />
+              <UrlInput size="md" label="Medium (32px)" value="https://example.com" onChange={() => {}} />
+            </div>
+            <div className="w-80">
+              <UrlInput size="lg" label="Large (36px)" value="https://example.com" onChange={() => {}} />
             </div>
           </div>
         </CodeExample>

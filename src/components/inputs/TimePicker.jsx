@@ -687,7 +687,7 @@ const TimePicker = forwardRef(function TimePicker(
             data-dropdown-id={dropdownId}
             role="listbox"
             aria-label="Select a time"
-            className="bg-surface-raised border border-border shadow-lg"
+            className="bg-surface-raised border border-border shadow-down"
             style={{
               position: 'fixed',
               top: `${menuPos.top}px`,

@@ -608,7 +608,7 @@ const DatePicker = forwardRef(function DatePicker(
             data-dropdown-id={dropdownId}
             role="dialog"
             aria-label="Choose a date"
-            className="bg-surface-raised border border-border shadow-lg"
+            className="bg-surface-raised border border-border shadow-down"
             style={{
               position: 'fixed',
               top: `${menuPos.top}px`,

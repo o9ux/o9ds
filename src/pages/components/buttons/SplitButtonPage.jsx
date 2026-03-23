@@ -21,9 +21,9 @@ import fileAddSvg from '@/assets/icons/o9con-file-add.svg?raw';
 const splitButtonProps = [
   {
     name: 'variant',
-    type: "'primary' | 'secondary' | 'outline' | 'danger'",
+    type: "'primary' | 'secondary' | 'outline' | 'ghost' | 'danger'",
     default: "'primary'",
-    description: 'Visual style variant',
+    description: 'Visual style variant — ghost is fully transparent with no border',
   },
   {
     name: 'size',
@@ -141,7 +141,7 @@ export default function SplitButtonPage() {
               label: 'Variant',
               value: variant,
               onChange: setVariant,
-              options: ['primary', 'secondary', 'outline', 'danger'],
+              options: ['primary', 'secondary', 'outline', 'ghost', 'danger'],
             },
             {
               type: 'select',
@@ -204,12 +204,14 @@ export default function SplitButtonPage() {
           code={`<SplitButton variant="primary" menuItems={items}>Save</SplitButton>
 <SplitButton variant="secondary" menuItems={items}>Save</SplitButton>
 <SplitButton variant="outline" menuItems={items}>Save</SplitButton>
+<SplitButton variant="ghost" menuItems={items}>Save</SplitButton>
 <SplitButton variant="danger" menuItems={items}>Delete</SplitButton>`}
         >
           <div className="flex flex-wrap items-center gap-4">
             <SplitButton variant="primary" menuItems={sampleMenuItems}>Save</SplitButton>
             <SplitButton variant="secondary" menuItems={sampleMenuItems}>Save</SplitButton>
             <SplitButton variant="outline" menuItems={sampleMenuItems}>Save</SplitButton>
+            <SplitButton variant="ghost" menuItems={sampleMenuItems}>Save</SplitButton>
             <SplitButton variant="danger" menuItems={sampleMenuItems}>Delete</SplitButton>
           </div>
         </CodeExample>

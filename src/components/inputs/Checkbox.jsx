@@ -8,7 +8,7 @@ import blockerSvg from '@/assets/icons/o9con-blocker-action-filled-alt.svg?raw';
  * Checkbox — binary checked/unchecked control with optional indeterminate state.
  *
  * Variants from Figma:
- *  - size: sm (14px) | lg (18px)
+ *  - size: sm (14px) | md (16px) | lg (18px)
  *  - types: unchecked, checked, indeterminate, checked+exclude (danger)
  *  - states: enable, hover, focus, disabled, read-only, error
  *
@@ -23,7 +23,7 @@ const Checkbox = forwardRef(function Checkbox(
   {
     label,
     description,
-    size = 'lg',
+    size = 'md',
     indeterminate = false,
     exclude = false,
     disabled = false,
@@ -62,12 +62,12 @@ const Checkbox = forwardRef(function Checkbox(
   };
 
   /* ── Size config ── */
-  const boxSize = { sm: 'h-3.5 w-3.5', lg: 'h-[18px] w-[18px]' };
-  const iconSize = { sm: 'h-2.5 w-2.5', lg: 'h-3.5 w-3.5' };
-  const labelText = { sm: 'text-xs', lg: 'text-sm' };
-  const descText = { sm: 'text-[10px]', lg: 'text-xs' };
-  const gap = { sm: 'gap-2', lg: 'gap-2.5' };
-  const errorIndent = { sm: 'ml-[22px]', lg: 'ml-7' };
+  const boxSize = { sm: 'h-3.5 w-3.5', md: 'h-4 w-4', lg: 'h-[18px] w-[18px]' };
+  const iconSize = { sm: 'h-2.5 w-2.5', md: 'h-3 w-3', lg: 'h-3.5 w-3.5' };
+  const labelText = { sm: 'text-xs', md: 'text-xs', lg: 'text-sm' };
+  const descText = { sm: 'text-[10px]', md: 'text-[11px]', lg: 'text-xs' };
+  const gap = { sm: 'gap-2', md: 'gap-2', lg: 'gap-2.5' };
+  const errorIndent = { sm: 'ml-[22px]', md: 'ml-6', lg: 'ml-7' };
 
   /* ── Box fill when checked/indeterminate ── */
   const checkedFill = exclude

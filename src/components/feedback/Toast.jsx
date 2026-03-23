@@ -293,7 +293,7 @@ const Toast = forwardRef(function Toast(
       onTransitionEnd={handleTransitionEnd}
       className={cn(
         'flex items-start gap-1 p-3 border-l-2',
-        'bg-surface min-w-[300px] max-w-md shadow-lg',
+        'bg-surface min-w-[300px] max-w-md shadow-center',
         config.accent,
         className
       )}

@@ -174,7 +174,7 @@ const Textbox = forwardRef(function Textbox(
         {leadingIcon && (
           <span
             className={cn(
-              'pointer-events-none absolute flex shrink-0 items-center justify-center text-text-tertiary',
+              'pointer-events-none absolute top-1/2 -translate-y-1/2 flex shrink-0 items-center justify-center text-text-tertiary',
               iconLeft[size],
               iconContainerSize[size],
               iconSize[size]
@@ -211,7 +211,7 @@ const Textbox = forwardRef(function Textbox(
             tabIndex={-1}
             onClick={() => setShowPassword((v) => !v)}
             className={cn(
-              'absolute flex shrink-0 items-center justify-center text-text-tertiary hover:text-text cursor-pointer',
+              'absolute top-1/2 -translate-y-1/2 flex shrink-0 items-center justify-center text-text-tertiary hover:text-text cursor-pointer',
               iconRight[size],
               iconContainerSize[size],
               iconSize[size]
@@ -226,7 +226,7 @@ const Textbox = forwardRef(function Textbox(
         {resolvedTrailingIcon && (
           <span
             className={cn(
-              'pointer-events-none absolute flex shrink-0 items-center justify-center',
+              'pointer-events-none absolute top-1/2 -translate-y-1/2 flex shrink-0 items-center justify-center',
               status !== 'default' ? statusText[status] : 'text-text-tertiary',
               iconRight[size],
               iconContainerSize[size],

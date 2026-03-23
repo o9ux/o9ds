@@ -10,7 +10,7 @@ import blockerSvg from '@/assets/icons/o9con-blocker-action-filled-alt.svg?raw';
  * Variants from Figma (node 25784-972):
  *  - Rectangular sharp track with sliding square thumb
  *  - Checked: black track, white thumb with checkmark
- *  - size: sm (28×16 track) | md (36×20 track)
+ *  - size: sm (28×16 track) | md (36×20 track) | lg (44×24 track)
  *  - states: enable, hover, focus, disabled, read-only, error
  *
  * A11Y:
@@ -44,16 +44,17 @@ const Switch = forwardRef(function Switch(
   };
 
   /* ── Size config ── */
-  const trackSize = { sm: 'w-7 h-4', md: 'w-9 h-5' };
+  const trackSize = { sm: 'w-7 h-4', md: 'w-9 h-5', lg: 'w-11 h-6' };
   const thumbSize = {
     sm: 'h-3 w-3 left-0.5 peer-checked:translate-x-3',
     md: 'h-3.5 w-3.5 left-0.5 peer-checked:translate-x-[18px]',
+    lg: 'h-[18px] w-[18px] left-[3px] peer-checked:translate-x-5',
   };
-  const checkIconSize = { sm: 'h-2 w-2', md: 'h-2.5 w-2.5' };
-  const labelText = { sm: 'text-xs', md: 'text-sm' };
-  const descText = { sm: 'text-[10px]', md: 'text-xs' };
-  const gap = { sm: 'gap-2', md: 'gap-3' };
-  const errorIndent = { sm: 'ml-9', md: 'ml-12' };
+  const checkIconSize = { sm: 'h-2 w-2', md: 'h-2.5 w-2.5', lg: 'h-3 w-3' };
+  const labelText = { sm: 'text-xs', md: 'text-sm', lg: 'text-base' };
+  const descText = { sm: 'text-[10px]', md: 'text-xs', lg: 'text-sm' };
+  const gap = { sm: 'gap-2', md: 'gap-3', lg: 'gap-3' };
+  const errorIndent = { sm: 'ml-9', md: 'ml-12', lg: 'ml-14' };
 
   const hasError = error && errorText;
 

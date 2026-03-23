@@ -36,7 +36,7 @@ function DropdownList({ className, children, 'aria-label': ariaLabel }) {
       aria-orientation="vertical"
       aria-label={ariaLabel || 'Menu'}
       className={cn(
-        'bg-surface-raised border border-border py-1 min-w-[220px] shadow-lg max-h-80 overflow-y-auto',
+        'bg-surface-raised border border-border py-1 min-w-[220px] shadow-down max-h-80 overflow-y-auto',
         className
       )}
     >
@@ -254,7 +254,7 @@ function Submenu({ className, children }) {
       role="menu"
       className={cn(
         'absolute left-full top-0 ml-0.5 z-50',
-        'bg-surface-raised border border-border py-1 min-w-[200px] shadow-lg max-h-80 overflow-y-auto',
+        'bg-surface-raised border border-border py-1 min-w-[200px] shadow-down max-h-80 overflow-y-auto',
         className
       )}
     >
@@ -335,7 +335,7 @@ function SubmenuItem({
             data-dropdown-id={ddId}
             data-submenu-panel=""
             data-submenu-parent={submenuId}
-            className="bg-surface-raised border border-border py-1 min-w-[200px] shadow-lg max-h-80 overflow-y-auto"
+            className="bg-surface-raised border border-border py-1 min-w-[200px] shadow-down max-h-80 overflow-y-auto"
             style={{
               position: 'fixed',
               top: `${pos.top}px`,

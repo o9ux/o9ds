@@ -9,7 +9,7 @@ import DoDont from '@/docs/components/DoDont';
 const radioProps = [
   { name: 'label', type: 'string', default: 'undefined', description: 'Label text displayed beside the radio' },
   { name: 'description', type: 'string', default: 'undefined', description: 'Secondary helper text below the label' },
-  { name: 'size', type: "'sm' | 'lg'", default: "'lg'", description: 'Radio size — sm=16px, lg=18px' },
+  { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Radio size — sm=14px, md=16px, lg=18px' },
   { name: 'name', type: 'string', default: 'undefined', description: 'Group name for mutually exclusive selection' },
   { name: 'value', type: 'string', default: 'undefined', description: 'Value submitted when this option is selected' },
   { name: 'disabled', type: 'boolean', default: 'false', description: 'Whether the radio is non-interactive' },
@@ -22,7 +22,7 @@ const radioProps = [
 ];
 
 export default function RadioPage() {
-  const [size, setSize] = useState('lg');
+  const [size, setSize] = useState('md');
   const [disabled, setDisabled] = useState(false);
   const [readOnlyDemo, setReadOnlyDemo] = useState(false);
   const [errorDemo, setErrorDemo] = useState(false);
@@ -43,7 +43,7 @@ export default function RadioPage() {
         <h2 id="demo" className="text-xl font-black tracking-tight text-text mb-2">Interactive Demo</h2>
         <p className="text-sm text-text-secondary mb-4">Try different sizes and states.</p>
         <ComponentDemo controls={[
-          { type: 'select', label: 'Size', value: size, onChange: setSize, options: ['sm', 'lg'] },
+          { type: 'select', label: 'Size', value: size, onChange: setSize, options: ['sm', 'md', 'lg'] },
           { type: 'checkbox', label: 'Disabled', value: disabled, onChange: setDisabled },
           { type: 'checkbox', label: 'Read-only', value: readOnlyDemo, onChange: setReadOnlyDemo },
           { type: 'checkbox', label: 'Error', value: errorDemo, onChange: setErrorDemo },
@@ -104,11 +104,12 @@ export default function RadioPage() {
       {/* Sizes */}
       <section className="mb-12">
         <h2 id="sizes" className="text-xl font-black tracking-tight text-text mb-2">Sizes</h2>
-        <p className="text-sm text-text-secondary mb-4">Two sizes: sm (16px) and lg (18px).</p>
-        <CodeExample code={`<Radio size="sm" label="Small radio" />\n<Radio size="lg" label="Large radio" />`}>
-          <div className="flex flex-col gap-3">
-            <Radio name="sizes" value="sm" size="sm" label="Small radio" checked onChange={() => {}} />
-            <Radio name="sizes" value="lg" size="lg" label="Large radio" checked onChange={() => {}} />
+        <p className="text-sm text-text-secondary mb-4">Three sizes: sm (14px), md (16px), and lg (18px).</p>
+        <CodeExample code={`<Radio size="sm" label="Small radio (14px)" />\n<Radio size="md" label="Medium radio (16px)" />\n<Radio size="lg" label="Large radio (18px)" />`}>
+          <div className="flex flex-col gap-4">
+            <Radio name="sizes" value="sm" size="sm" label="Small radio (14px)" checked onChange={() => {}} />
+            <Radio name="sizes" value="md" size="md" label="Medium radio (16px)" checked onChange={() => {}} />
+            <Radio name="sizes" value="lg" size="lg" label="Large radio (18px)" checked onChange={() => {}} />
           </div>
         </CodeExample>
       </section>

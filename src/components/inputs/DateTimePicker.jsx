@@ -904,7 +904,7 @@ const DateTimePicker = forwardRef(function DateTimePicker(
             data-dropdown-id={dropdownId}
             role="dialog"
             aria-label="Choose a date and time"
-            className="bg-surface-raised border border-border shadow-lg"
+            className="bg-surface-raised border border-border shadow-down"
             style={{
               position: 'fixed',
               top: `${menuPos.top}px`,

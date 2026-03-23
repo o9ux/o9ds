@@ -1090,7 +1090,7 @@ const DateRangePicker = forwardRef(function DateRangePicker(
           data-dropdown-id={dropdownId}
           role="dialog"
           aria-label="Choose a date range"
-          className="bg-surface-raised border border-border shadow-lg"
+          className="bg-surface-raised border border-border shadow-down"
           style={{ position: 'fixed', top: `${menuPos.top}px`, left: `${menuPos.left}px`, zIndex: 9999 }}
         >
           {/* Range mode tabs */}

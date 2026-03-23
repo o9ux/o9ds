@@ -72,6 +72,8 @@ const variantStyles = {
     'bg-surface-raised text-text border border-transparent hover:bg-interactive-muted active:bg-interactive-muted-hover focus-visible:ring-1 focus-visible:ring-interactive-border/50',
   outline:
     'bg-transparent text-text border border-border-strong hover:border-interactive-border hover:bg-interactive-subtle active:bg-interactive-muted focus-visible:ring-1 focus-visible:ring-interactive-border/50',
+  ghost:
+    'bg-transparent text-text border border-transparent hover:bg-interactive-subtle active:bg-interactive-muted focus-visible:ring-1 focus-visible:ring-interactive-border/50',
   danger:
     'bg-danger text-white-static border border-danger hover:bg-danger-hover hover:border-danger-hover active:bg-danger-active focus-visible:ring-1 focus-visible:ring-danger focus-visible:ring-offset-1 focus-visible:ring-offset-surface',
 };
@@ -118,6 +120,7 @@ const dividerStyles = {
   primary: 'bg-divider-on-interactive',
   secondary: 'bg-interactive-muted-hover',
   outline: 'bg-border-strong',
+  ghost: 'bg-border',
   danger: 'bg-white-static/20',
 };
 
@@ -373,7 +376,7 @@ const SplitButton = forwardRef(function SplitButton(
 
   const hasMenu = menu || menuItems.length > 0;
   const isIconOnly = !children && !!leadingIcon;
-  const isOutline = variant === 'outline';
+  const isOutline = variant === 'outline' || variant === 'ghost';
 
   return (
     <DropdownPortalContext.Provider value={dropdownId}>
@@ -487,7 +490,7 @@ const SplitButton = forwardRef(function SplitButton(
                   role="menu"
                   aria-orientation="vertical"
                   aria-label="More options"
-                  className="bg-surface-raised border border-border py-1 min-w-full shadow-lg"
+                  className="bg-surface-raised border border-border py-1 min-w-full shadow-down"
                 >
                   {menuItems.map((item, i) => (
                     <button

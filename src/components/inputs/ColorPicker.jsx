@@ -396,7 +396,7 @@ const ColorPicker = forwardRef(function ColorPicker(
       {isOpen && !disabled && createPortal(
         <div
           data-dropdown-id={dropdownId}
-          className="bg-surface-raised border border-border shadow-lg"
+          className="bg-surface-raised border border-border shadow-down"
           style={{
             position: 'fixed',
             top: `${menuPos.top}px`,

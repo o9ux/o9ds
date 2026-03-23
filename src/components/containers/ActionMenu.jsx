@@ -71,7 +71,7 @@ const ActionMenu = forwardRef(function ActionMenu(
           ref={ref}
           role="menu"
           className={cn(
-            'absolute z-50 bg-surface-raised border border-border py-1 min-w-[180px] shadow-lg',
+            'absolute z-50 bg-surface-raised border border-border py-1 min-w-[180px] shadow-down',
             placementStyles[placement],
             className
           )}

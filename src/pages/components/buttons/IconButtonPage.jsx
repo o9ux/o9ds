@@ -22,9 +22,9 @@ import filterSvg from '@/assets/icons/o9con-filter.svg?raw';
 const iconButtonProps = [
   {
     name: 'variant',
-    type: "'primary' | 'secondary' | 'outline' | 'danger'",
+    type: "'primary' | 'secondary' | 'outline' | 'ghost' | 'danger'",
     default: "'primary'",
-    description: 'Visual style variant of the icon button',
+    description: 'Visual style variant — ghost is fully transparent with no border',
   },
   {
     name: 'size',
@@ -105,7 +105,7 @@ export default function IconButtonPage() {
               label: 'Variant',
               value: variant,
               onChange: setVariant,
-              options: ['primary', 'secondary', 'outline', 'danger'],
+              options: ['primary', 'secondary', 'outline', 'ghost', 'danger'],
             },
             {
               type: 'select',
@@ -139,18 +139,20 @@ export default function IconButtonPage() {
           Variants
         </h2>
         <p className="text-sm text-text-secondary mb-4">
-          Four visual variants matching the Button component. Each icon button displays a Tooltip on hover describing its action.
+          Five visual variants matching the Button component. Each icon button displays a Tooltip on hover describing its action.
         </p>
         <CodeExample
           code={`<IconButton variant="primary" icon={<O9Icon svg={closeSvg} />} tooltip="Close" aria-label="Close" />
 <IconButton variant="secondary" icon={<O9Icon svg={cogSvg} />} tooltip="Settings" aria-label="Settings" />
 <IconButton variant="outline" icon={<O9Icon svg={plusSvg} />} tooltip="Add item" aria-label="Add" />
+<IconButton variant="ghost" icon={<O9Icon svg={searchSvg} />} tooltip="Search" aria-label="Search" />
 <IconButton variant="danger" icon={<O9Icon svg={binSvg} />} tooltip="Delete" aria-label="Delete" />`}
         >
           <div className="flex flex-wrap items-center gap-4">
             <IconButton variant="primary" icon={<O9Icon svg={closeSvg} />} tooltip="Close" aria-label="Close" />
             <IconButton variant="secondary" icon={<O9Icon svg={cogSvg} />} tooltip="Settings" aria-label="Settings" />
             <IconButton variant="outline" icon={<O9Icon svg={plusSvg} />} tooltip="Add item" aria-label="Add" />
+            <IconButton variant="ghost" icon={<O9Icon svg={searchSvg} />} tooltip="Search" aria-label="Search" />
             <IconButton variant="danger" icon={<O9Icon svg={binSvg} />} tooltip="Delete" aria-label="Delete" />
           </div>
         </CodeExample>
@@ -277,6 +279,7 @@ export default function IconButtonPage() {
             <IconButton variant="primary" icon={<O9Icon svg={closeSvg} />} tooltip="Close" aria-label="Close" disabled />
             <IconButton variant="secondary" icon={<O9Icon svg={cogSvg} />} tooltip="Settings" aria-label="Settings" disabled />
             <IconButton variant="outline" icon={<O9Icon svg={plusSvg} />} tooltip="Add" aria-label="Add" disabled />
+            <IconButton variant="ghost" icon={<O9Icon svg={searchSvg} />} tooltip="Search" aria-label="Search" disabled />
             <IconButton variant="danger" icon={<O9Icon svg={binSvg} />} tooltip="Delete" aria-label="Delete" disabled />
           </div>
         </div>

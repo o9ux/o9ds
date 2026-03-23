@@ -9,7 +9,7 @@ import DoDont from '@/docs/components/DoDont';
 const switchProps = [
   { name: 'label', type: 'string', default: 'undefined', description: 'Label text displayed beside the switch' },
   { name: 'description', type: 'string', default: 'undefined', description: 'Secondary helper text below the label' },
-  { name: 'size', type: "'sm' | 'md'", default: "'md'", description: 'Switch size — sm=28×16px track, md=36×20px track' },
+  { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Switch size — sm=28×16px track, md=36×20px track, lg=44×24px track' },
   { name: 'disabled', type: 'boolean', default: 'false', description: 'Whether the switch is non-interactive' },
   { name: 'readOnly', type: 'boolean', default: 'false', description: 'Whether the switch is read-only (visible but not editable)' },
   { name: 'error', type: 'boolean', default: 'false', description: 'Show error state with danger border' },
@@ -35,7 +35,7 @@ export default function SwitchPage() {
         <h2 id="demo" className="text-xl font-black tracking-tight text-text mb-2">Interactive Demo</h2>
         <p className="text-sm text-text-secondary mb-4">Try different sizes and states.</p>
         <ComponentDemo controls={[
-          { type: 'select', label: 'Size', value: size, onChange: setSize, options: ['sm', 'md'] },
+          { type: 'select', label: 'Size', value: size, onChange: setSize, options: ['sm', 'md', 'lg'] },
           { type: 'checkbox', label: 'Disabled', value: disabled, onChange: setDisabled },
           { type: 'checkbox', label: 'Read-only', value: readOnlyDemo, onChange: setReadOnlyDemo },
           { type: 'checkbox', label: 'Error', value: errorDemo, onChange: setErrorDemo },
@@ -98,11 +98,12 @@ export default function SwitchPage() {
       {/* Sizes */}
       <section className="mb-12">
         <h2 id="sizes" className="text-xl font-black tracking-tight text-text mb-2">Sizes</h2>
-        <p className="text-sm text-text-secondary mb-4">Two sizes: sm (28×16px track) and md (36×20px track).</p>
-        <CodeExample code={`<Switch size="sm" label="Small switch" />\n<Switch size="md" label="Medium switch" />`}>
-          <div className="flex flex-col gap-3">
-            <Switch size="sm" label="Small switch" checked onChange={() => {}} />
-            <Switch size="md" label="Medium switch" checked onChange={() => {}} />
+        <p className="text-sm text-text-secondary mb-4">Three sizes: sm (28×16px), md (36×20px), and lg (44×24px).</p>
+        <CodeExample code={`<Switch size="sm" label="Small switch (28×16)" />\n<Switch size="md" label="Medium switch (36×20)" />\n<Switch size="lg" label="Large switch (44×24)" />`}>
+          <div className="flex flex-col gap-4">
+            <Switch size="sm" label="Small switch (28×16)" checked onChange={() => {}} />
+            <Switch size="md" label="Medium switch (36×20)" checked onChange={() => {}} />
+            <Switch size="lg" label="Large switch (44×24)" checked onChange={() => {}} />
           </div>
         </CodeExample>
       </section>

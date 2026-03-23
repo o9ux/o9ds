@@ -154,26 +154,28 @@ const Textarea = forwardRef(function Textarea(
           </span>
         )}
 
-        <textarea
-          ref={ref}
-          id={inputId}
-          disabled={disabled}
-          readOnly={readOnly}
-          maxLength={maxLength}
-          rows={rows}
-          style={{ outline: 'none' }}
-          className={cn(
-            'w-full bg-transparent text-text placeholder:text-text-placeholder',
-            sizeStyles[size],
-            padBase[size],
-            leadingIcon && inputPadLeft[size],
-            resizeClass[resize]
-          )}
-          {...rest}
-          onChange={handleChange}
-          onFocus={handleFocus}
-          onBlur={handleBlur}
-        />
+        <div className={cn('w-full', resize !== 'none' && 'pr-1 pb-1')}>
+          <textarea
+            ref={ref}
+            id={inputId}
+            disabled={disabled}
+            readOnly={readOnly}
+            maxLength={maxLength}
+            rows={rows}
+            style={{ outline: 'none' }}
+            className={cn(
+              'w-full bg-transparent text-text placeholder:text-text-placeholder',
+              sizeStyles[size],
+              padBase[size],
+              leadingIcon && inputPadLeft[size],
+              resizeClass[resize]
+            )}
+            {...rest}
+            onChange={handleChange}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
+          />
+        </div>
       </div>
 
       {hasFooter && (

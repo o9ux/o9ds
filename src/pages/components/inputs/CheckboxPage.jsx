@@ -9,7 +9,7 @@ import DoDont from '@/docs/components/DoDont';
 const checkboxProps = [
   { name: 'label', type: 'string', default: 'undefined', description: 'Label text displayed beside the checkbox' },
   { name: 'description', type: 'string', default: 'undefined', description: 'Secondary helper text below the label' },
-  { name: 'size', type: "'sm' | 'lg'", default: "'lg'", description: 'Checkbox size — sm=14px, lg=18px' },
+  { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Checkbox size — sm=14px, md=16px, lg=18px' },
   { name: 'indeterminate', type: 'boolean', default: 'false', description: 'Visual-only partial check state for parent group checkboxes' },
   { name: 'exclude', type: 'boolean', default: 'false', description: 'Shows danger/red fill when checked — used for exclusion selections' },
   { name: 'disabled', type: 'boolean', default: 'false', description: 'Whether the checkbox is non-interactive' },
@@ -22,7 +22,7 @@ const checkboxProps = [
 ];
 
 export default function CheckboxPage() {
-  const [size, setSize] = useState('lg');
+  const [size, setSize] = useState('md');
   const [disabled, setDisabled] = useState(false);
   const [readOnlyDemo, setReadOnlyDemo] = useState(false);
   const [errorDemo, setErrorDemo] = useState(false);
@@ -56,7 +56,7 @@ export default function CheckboxPage() {
         <h2 id="demo" className="text-xl font-black tracking-tight text-text mb-2">Interactive Demo</h2>
         <p className="text-sm text-text-secondary mb-4">Try different sizes and states.</p>
         <ComponentDemo controls={[
-          { type: 'select', label: 'Size', value: size, onChange: setSize, options: ['sm', 'lg'] },
+          { type: 'select', label: 'Size', value: size, onChange: setSize, options: ['sm', 'md', 'lg'] },
           { type: 'checkbox', label: 'Disabled', value: disabled, onChange: setDisabled },
           { type: 'checkbox', label: 'Read-only', value: readOnlyDemo, onChange: setReadOnlyDemo },
           { type: 'checkbox', label: 'Error', value: errorDemo, onChange: setErrorDemo },
@@ -132,11 +132,12 @@ export default function CheckboxPage() {
       {/* Sizes */}
       <section className="mb-12">
         <h2 id="sizes" className="text-xl font-black tracking-tight text-text mb-2">Sizes</h2>
-        <p className="text-sm text-text-secondary mb-4">Two sizes: sm (14px) and lg (18px).</p>
-        <CodeExample code={`<Checkbox size="sm" label="Small checkbox" />\n<Checkbox size="lg" label="Large checkbox" />`}>
-          <div className="flex flex-col gap-3">
-            <Checkbox size="sm" label="Small checkbox" checked onChange={() => {}} />
-            <Checkbox size="lg" label="Large checkbox" checked onChange={() => {}} />
+        <p className="text-sm text-text-secondary mb-4">Three sizes: sm (14px), md (16px), and lg (18px).</p>
+        <CodeExample code={`<Checkbox size="sm" label="Small checkbox (14px)" />\n<Checkbox size="md" label="Medium checkbox (16px)" />\n<Checkbox size="lg" label="Large checkbox (18px)" />`}>
+          <div className="flex flex-col gap-4">
+            <Checkbox size="sm" label="Small checkbox (14px)" checked onChange={() => {}} />
+            <Checkbox size="md" label="Medium checkbox (16px)" checked onChange={() => {}} />
+            <Checkbox size="lg" label="Large checkbox (18px)" checked onChange={() => {}} />
           </div>
         </CodeExample>
       </section>

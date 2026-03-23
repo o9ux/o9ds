@@ -526,7 +526,7 @@ const SelectDropdown = forwardRef(function SelectDropdown(
             data-dropdown-id={dropdownId}
             role="listbox"
             aria-label={label || 'Options'}
-            className="bg-surface-raised border border-border py-1 max-h-60 overflow-y-auto shadow-lg"
+            className="bg-surface-raised border border-border py-1 max-h-60 overflow-y-auto shadow-down"
             style={{
               position: 'fixed',
               top: `${menuPos.top}px`,

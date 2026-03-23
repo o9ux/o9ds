@@ -12,7 +12,7 @@ export const navigation = [
       { title: 'Spacing', path: '/docs/foundations/spacing' },
       { title: 'Effects', path: '/docs/foundations/effects' },
       { title: 'Icons', path: '/docs/foundations/icons' },
-      { title: 'Illustrations', path: '/docs/foundations/illustrations' },
+      { title: 'Illustrations', path: '/docs/foundations/illustrations', status: 'beta' },
       { title: 'Motion', path: '/docs/foundations/motion', className: 'o9-anim-gelatine-loop', style: { animationDuration: '2s' } },
     ],
   },

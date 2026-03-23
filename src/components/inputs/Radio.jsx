@@ -8,7 +8,7 @@ import blockerSvg from '@/assets/icons/o9con-blocker-action-filled-alt.svg?raw';
  * Radio — single option within a radio group.
  *
  * Variants from Figma:
- *  - size: sm (16px) | lg (18px)
+ *  - size: sm (14px) | md (16px) | lg (18px)
  *  - states: enable, hover, focus, disabled, read-only, error
  *
  * A11Y:
@@ -21,7 +21,7 @@ const Radio = forwardRef(function Radio(
   {
     label,
     description,
-    size = 'lg',
+    size = 'md',
     disabled = false,
     readOnly = false,
     error = false,
@@ -44,12 +44,12 @@ const Radio = forwardRef(function Radio(
   };
 
   /* ── Size config ── */
-  const boxSize = { sm: 'h-4 w-4', lg: 'h-[18px] w-[18px]' };
-  const dotSize = { sm: 'h-2 w-2', lg: 'h-2.5 w-2.5' };
-  const labelText = { sm: 'text-xs', lg: 'text-sm' };
-  const descText = { sm: 'text-[10px]', lg: 'text-xs' };
-  const gap = { sm: 'gap-2', lg: 'gap-2' };
-  const errorIndent = { sm: 'ml-6', lg: 'ml-[26px]' };
+  const boxSize = { sm: 'h-3.5 w-3.5', md: 'h-4 w-4', lg: 'h-[18px] w-[18px]' };
+  const dotSize = { sm: 'h-1.5 w-1.5', md: 'h-2 w-2', lg: 'h-2.5 w-2.5' };
+  const labelText = { sm: 'text-xs', md: 'text-xs', lg: 'text-sm' };
+  const descText = { sm: 'text-[10px]', md: 'text-[11px]', lg: 'text-xs' };
+  const gap = { sm: 'gap-2', md: 'gap-2', lg: 'gap-2' };
+  const errorIndent = { sm: 'ml-[22px]', md: 'ml-6', lg: 'ml-[26px]' };
 
   const hasError = error && errorText;
 

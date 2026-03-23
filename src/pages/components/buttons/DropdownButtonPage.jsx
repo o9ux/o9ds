@@ -24,9 +24,9 @@ import ellipsisVSvg from '@/assets/icons/o9con-ellipsis-v.svg?raw';
 const dropdownButtonProps = [
   {
     name: 'variant',
-    type: "'primary' | 'secondary' | 'outline' | 'danger'",
+    type: "'primary' | 'secondary' | 'outline' | 'ghost' | 'danger'",
     default: "'primary'",
-    description: 'Visual style variant. Secondary adds a subtle filled background.',
+    description: 'Visual style variant — ghost is fully transparent with no border',
   },
   {
     name: 'size',
@@ -172,7 +172,7 @@ export default function DropdownButtonPage() {
               label: 'Variant',
               value: variant,
               onChange: setVariant,
-              options: ['primary', 'secondary', 'outline', 'danger'],
+              options: ['primary', 'secondary', 'outline', 'ghost', 'danger'],
             },
             {
               type: 'select',
@@ -242,10 +242,11 @@ export default function DropdownButtonPage() {
           code={`<DropdownButton variant="primary" menu={…}>Primary</DropdownButton>
 <DropdownButton variant="secondary" menu={…}>Secondary</DropdownButton>
 <DropdownButton variant="outline" menu={…}>Outline</DropdownButton>
+<DropdownButton variant="ghost" menu={…}>Ghost</DropdownButton>
 <DropdownButton variant="danger" menu={…}>Danger</DropdownButton>`}
         >
           <div className="flex flex-wrap items-center gap-4">
-            {['primary', 'secondary', 'outline', 'danger'].map((v) => (
+            {['primary', 'secondary', 'outline', 'ghost', 'danger'].map((v) => (
               <DropdownButton
                 key={v}
                 variant={v}

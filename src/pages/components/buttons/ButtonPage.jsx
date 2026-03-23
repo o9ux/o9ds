@@ -16,9 +16,9 @@ import starSvg from '@/assets/icons/o9con-star.svg?raw';
 const buttonProps = [
   {
     name: 'variant',
-    type: "'primary' | 'secondary' | 'outline' | 'danger'",
+    type: "'primary' | 'secondary' | 'outline' | 'ghost' | 'danger'",
     default: "'primary'",
-    description: 'Visual style variant of the button',
+    description: 'Visual style variant — ghost is fully transparent with no border',
   },
   {
     name: 'size',
@@ -87,7 +87,7 @@ export default function ButtonPage() {
               label: 'Variant',
               value: variant,
               onChange: setVariant,
-              options: ['primary', 'secondary', 'outline', 'danger'],
+              options: ['primary', 'secondary', 'outline', 'ghost', 'danger'],
             },
             {
               type: 'select',
@@ -116,18 +116,20 @@ export default function ButtonPage() {
           Variants
         </h2>
         <p className="text-sm text-text-secondary mb-4">
-          Four visual variants to communicate hierarchy and intent.
+          Five visual variants to communicate hierarchy and intent.
         </p>
         <CodeExample
           code={`<Button variant="primary">Primary</Button>
 <Button variant="secondary">Secondary</Button>
 <Button variant="outline">Outline</Button>
+<Button variant="ghost">Ghost</Button>
 <Button variant="danger">Danger</Button>`}
         >
           <div className="flex flex-wrap items-center gap-4">
             <Button variant="primary">Primary</Button>
             <Button variant="secondary">Secondary</Button>
             <Button variant="outline">Outline</Button>
+            <Button variant="ghost">Ghost</Button>
             <Button variant="danger">Danger</Button>
           </div>
         </CodeExample>
@@ -266,8 +268,9 @@ import arrowRightSvg from '@/assets/icons/o9con-arrow-right.svg?raw';
           <p className="text-xs font-bold tracking-widest uppercase text-text-tertiary mb-3">All Variants — Disabled State</p>
           <div className="flex flex-wrap items-center gap-4 border border-border bg-surface-overlay p-6">
             <Button variant="primary" disabled>Primary</Button>
-            <Button variant="secondary" disabled>Tertiary</Button>
+            <Button variant="secondary" disabled>Secondary</Button>
             <Button variant="outline" disabled>Outline</Button>
+            <Button variant="ghost" disabled>Ghost</Button>
             <Button variant="danger" disabled>Danger</Button>
           </div>
         </div>

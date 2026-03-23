@@ -49,7 +49,7 @@ function AvatarOverflowDropdown({ wrapperRef, items, effectiveMax, onItemClick, 
       style={{ position: 'absolute', top: pos.top, left: pos.left, zIndex: 9999 }}
       className={cn(
         'min-w-[200px] max-h-[280px] overflow-y-auto',
-        'bg-surface-overlay border border-border shadow-lg',
+        'bg-surface-overlay border border-border shadow-down',
       )}
     >
       {items.map((item, i) => (

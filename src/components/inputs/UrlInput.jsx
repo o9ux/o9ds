@@ -9,7 +9,7 @@ import externalLinkSvg from '@/assets/icons/o9con-external-link.svg?raw';
  * UrlInput — single-line URL input with link styling and external-link action.
  *
  * Figma node 33648-24964:
- *  - Sizes: sm (24px) | md (32px)
+ *  - Sizes: sm (24px) | md (32px) | lg (36px)
  *  - States: enable, filled, hover, focus, error, disabled, read-only, visited
  *  - Filled text styled as link (info blue), external-link icon opens URL in new tab
  *  - Visited state: purple text after link click
@@ -75,20 +75,23 @@ const UrlInput = forwardRef(function UrlInput(
   const sizeStyles = {
     sm: 'h-6 px-2 text-xs',
     md: 'h-8 px-3 text-xs',
+    lg: 'h-9 px-3 text-sm',
   };
 
   const iconSize = {
     sm: '[&_svg]:h-3 [&_svg]:w-3',
     md: '[&_svg]:h-3.5 [&_svg]:w-3.5',
+    lg: '[&_svg]:h-4 [&_svg]:w-4',
   };
 
   const iconContainerSize = {
     sm: 'w-3 h-3',
     md: 'w-3.5 h-3.5',
+    lg: 'w-4 h-4',
   };
 
-  const iconRight = { sm: 'right-2', md: 'right-3' };
-  const inputPadRight = { sm: 'pr-6', md: 'pr-8' };
+  const iconRight = { sm: 'right-2', md: 'right-3', lg: 'right-3' };
+  const inputPadRight = { sm: 'pr-6', md: 'pr-8', lg: 'pr-9' };
 
   /* ── Status border colors ── */
   const focusBorderColors = {
@@ -176,7 +179,7 @@ const UrlInput = forwardRef(function UrlInput(
             tabIndex={-1}
             onClick={handleLinkClick}
             className={cn(
-              'absolute flex shrink-0 items-center justify-center cursor-pointer',
+              'absolute top-1/2 -translate-y-1/2 flex shrink-0 items-center justify-center cursor-pointer',
               visited ? 'text-utility-purple' : 'text-info hover:text-info-hover',
               iconRight[size],
               iconContainerSize[size],
@@ -192,7 +195,7 @@ const UrlInput = forwardRef(function UrlInput(
         {showTrailingError && (
           <span
             className={cn(
-              'pointer-events-none absolute flex shrink-0 items-center justify-center text-danger',
+              'pointer-events-none absolute top-1/2 -translate-y-1/2 flex shrink-0 items-center justify-center text-danger',
               iconRight[size],
               iconContainerSize[size],
               iconSize[size]

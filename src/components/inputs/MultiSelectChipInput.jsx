@@ -570,7 +570,7 @@ const MultiSelectChipInput = forwardRef(function MultiSelectChipInput(
             role="listbox"
             aria-multiselectable="true"
             aria-label={label || 'Options'}
-            className="bg-surface-raised border border-border py-1 max-h-60 overflow-y-auto shadow-lg"
+            className="bg-surface-raised border border-border py-1 max-h-60 overflow-y-auto shadow-down"
             style={{
               position: 'fixed',
               top: `${menuPos.top}px`,

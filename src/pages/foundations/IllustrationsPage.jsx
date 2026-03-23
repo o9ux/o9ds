@@ -391,6 +391,7 @@ export default function IllustrationsPage() {
       <PageHeader
         title="Illustrations"
         description="The o9illus library provides contextual illustrations for empty states, error pages, onboarding, and system states. Every illustration ships in light and dark variants across three sizes."
+        status="beta"
         category="Foundation"
       />
 

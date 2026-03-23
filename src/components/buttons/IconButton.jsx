@@ -9,6 +9,8 @@ const variantStyles = {
     'bg-surface-raised text-text border border-transparent hover:bg-interactive-muted active:bg-interactive-muted-hover focus-visible:ring-1 focus-visible:ring-interactive-border/50',
   outline:
     'bg-transparent text-text border border-border-strong hover:border-interactive-border hover:bg-interactive-subtle active:bg-interactive-muted focus-visible:ring-1 focus-visible:ring-interactive-border/50',
+  ghost:
+    'bg-transparent text-text border border-transparent hover:bg-interactive-subtle active:bg-interactive-muted focus-visible:ring-1 focus-visible:ring-interactive-border/50',
   danger:
     'bg-danger text-white-static border border-danger hover:bg-danger-hover hover:border-danger-hover active:bg-danger-active focus-visible:ring-1 focus-visible:ring-danger focus-visible:ring-offset-1 focus-visible:ring-offset-surface',
 };
@@ -34,7 +36,7 @@ const iconSizeStyles = {
 /**
  * IconButton — square icon-only button with optional Tooltip.
  *
- * @param {'primary'|'secondary'|'outline'|'danger'} props.variant
+ * @param {'primary'|'secondary'|'outline'|'ghost'|'danger'} props.variant
  * @param {'xm'|'sm'|'md'|'lg'} props.size
  * @param {ReactNode}  props.icon        — O9Icon element
  * @param {string}     props.tooltip     — Tooltip label (shown on hover/focus)
