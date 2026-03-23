@@ -4,9 +4,9 @@ import PageHeader from '@/docs/components/PageHeader';
 const styles = [
   {
     title: 'Color',
-    description: '206 primitive palette values, 55 semantic role tokens, and 88 component aliases across a three-tier architecture. Supports light and dark modes with automatic theme switching via CSS custom properties.',
+    description: '206 primitive palette values, 64 semantic role tokens, and 62 component aliases across a three-tier architecture. Supports light and dark modes with automatic theme switching via CSS custom properties.',
     path: '/docs/foundations/color',
-    stats: '206 primitives · 55 semantic · 88 aliases · 2 themes',
+    stats: '206 primitives · 64 semantic · 62 aliases · 2 themes',
     preview: (
       <div className="grid grid-cols-5 gap-1.5">
         <div className="h-6 w-6 bg-interactive" />
@@ -99,9 +99,9 @@ const styles = [
   },
   {
     title: 'Motion',
-    description: '6 duration tokens, 4 easing curves, and 60+ animation keyframes for click effects, hover effects, loading indicators, and looping animations — all respecting prefers-reduced-motion.',
+    description: '6 duration tokens, 4 easing curves, and 165 animation keyframes for click effects, hover effects, loading indicators, and looping animations — all respecting prefers-reduced-motion.',
     path: '/docs/foundations/motion',
-    stats: '6 durations · 4 easings · 60 keyframes',
+    stats: '6 durations · 4 easings · 165 definitions',
     preview: (
       <div className="flex items-center gap-3 text-text-secondary">
         <div className="w-8 h-8 bg-interactive o9-anim-pulse-loop" />
@@ -117,7 +117,7 @@ export default function StylesPage() {
     <article>
       <PageHeader
         title="Styles"
-        description="The visual foundation of o9ds — design tokens that define color, typography, spacing, effects, iconography, illustrations, and motion. These tokens ensure consistency across 58+ components and enable seamless theming between light and dark modes."
+        description="The visual foundation of o9ds — design tokens that define color, typography, spacing, effects, iconography, illustrations, and motion. These 570+ tokens ensure consistency across 67 components and enable seamless theming between light and dark modes."
         category="Foundation"
       />
 

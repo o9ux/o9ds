@@ -6,10 +6,10 @@ import O9Icon from '@/components/O9Icon';
 import o9LogoSvg from '@/assets/icons/o9con-o9-logo.svg?raw';
 
 const stats = [
-  { value: '58+',   label: 'Components' },
-  { value: '7',     label: 'Foundation Categories' },
+  { value: '67',    label: 'Components' },
+  { value: '8',     label: 'Foundation Categories' },
   { value: '1,036', label: 'Icons' },
-  { value: '305',   label: 'Design Tokens' },
+  { value: '570+',  label: 'Design Tokens' },
 ];
 
 const sections = [
@@ -30,7 +30,7 @@ const sections = [
     tag: '02',
     title: 'Components',
     description:
-      'Over 58 production-ready UI components — buttons, navigation, containers, feedback, inputs, and more.',
+      'Over 67 production-ready UI components — buttons, navigation, containers, feedback, inputs, and more.',
     links: [
       { label: 'Buttons & Actions',         path: '/docs/components/button' },
       { label: 'Navigation',                path: '/docs/components/tabstrip' },

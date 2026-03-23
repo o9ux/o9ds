@@ -68,10 +68,10 @@ function App() {
         <h2 id="whats-included" className="text-xl font-black tracking-tight text-text mb-4 uppercase">What's Included</h2>
         <div className="grid gap-0 border border-border divide-y divide-border sm:grid-cols-2 sm:divide-y-0 sm:divide-x">
           {[
-            { title: 'Foundation', desc: 'Design tokens for color, typography, spacing, elevation, and shape' },
-            { title: '62+ Components', desc: 'Buttons, inputs, navigation, containers, feedback, and form controls' },
-            { title: '500+ Icons', desc: 'o9con icon library with consistent 24px SVG icons' },
-            { title: 'Illustrations', desc: 'o9illus illustrations supporting both light and dark modes' },
+            { title: '8 Foundation Categories', desc: 'Color (332 tokens), typography (39 tokens), spacing (34 tokens), effects, icons, illustrations, and motion (165 definitions)' },
+            { title: '67 Components', desc: 'Buttons, inputs, navigation, containers, feedback, and form controls across 55 documentation pages' },
+            { title: '1,036 Icons', desc: 'o9con icon library with consistent SVG icons across 4 size tokens' },
+            { title: '570+ Design Tokens', desc: 'Color, typography, spacing, motion, and effect tokens for light and dark themes' },
           ].map((item) => (
             <div key={item.title} className="p-6">
               <h3 className="text-sm font-bold tracking-tight text-white">{item.title}</h3>

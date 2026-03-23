@@ -48,7 +48,7 @@ export const navigation = [
           { title: 'Popover', path: '/docs/components/popover' },
           { title: 'Dialog Window', path: '/docs/components/dialog-window' },
           { title: 'Sidepanel', path: '/docs/components/sidepanel' },
-          { title: 'Feed', status: 'planned' },
+          { title: 'Pulse Feed', path: '/docs/components/pulse-feed', status: 'beta' },
           { title: 'Card', status: 'planned' },
         ],
       },

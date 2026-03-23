@@ -368,6 +368,8 @@
   --color-surface-chip:     #303030;   /* → s-layer-05 */
   --color-surface-menu:     #404040;   /* → s-layer-06 */
   --color-surface-popover:  #202020;   /* → s-layer-03 (floating panel) */
+  --color-pulse-feed-selected: #2A2A2A; /* → surface-input (one shade darker than raised) */
+  --color-pulse-feed-separator: #383838; /* lighter separator for dark selected state */
 
   /* --- Primary interactive --- */
   --color-primary:          #FFFFFF;   /* → s-theme */
@@ -465,6 +467,8 @@
   --color-surface-chip:     #E5E5E5;   /* gray-02 */
   --color-surface-menu:     #FFFFFF;
   --color-surface-popover:  #FFFFFF;   /* white floating panel */
+  --color-pulse-feed-selected: #E5E5E5; /* → global-gray-02 (one shade darker than raised) */
+  --color-pulse-feed-separator: #CCCCCC; /* → global-gray-03 (visible on gray-02 bg) */
 
   /* --- Primary interactive --- */
   --color-primary:          #010101;

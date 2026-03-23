@@ -8,4 +8,4 @@ export { default as Sidepanel } from './Sidepanel';
 export { default as ListItem } from './ListItem';
 export { default as DropdownList } from './DropdownList';
 export { ActionMenu, ActionMenuItem, ActionMenuDivider } from './ActionMenu';
-export { Feed, FeedItem, FeedDivider } from './Feed';
+export { default as PulseFeed } from './PulseFeed';

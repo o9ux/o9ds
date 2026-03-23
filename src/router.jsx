@@ -30,6 +30,7 @@ import PopoverPage from './pages/components/containers/PopoverPage';
 import DialogWindowPage from './pages/components/containers/DialogWindowPage';
 import SidepanelPage from './pages/components/containers/SidepanelPage';
 import ListItemPage from './pages/components/containers/ListItemPage';
+import PulseFeedPage from './pages/components/containers/PulseFeedPage';
 // Components — Status & System Feedback
 import PillPage from './pages/components/feedback/PillPage';
 import ProgressPage from './pages/components/feedback/ProgressPage';
@@ -102,6 +103,7 @@ export const router = createHashRouter([
       { path: 'components/dialog-window',  element: <DialogWindowPage /> },
       { path: 'components/sidepanel',     element: <SidepanelPage /> },
       { path: 'components/list-item',       element: <ListItemPage /> },
+      { path: 'components/pulse-feed',     element: <PulseFeedPage /> },
       // Status & System Feedback
       { path: 'components/pill',           element: <PillPage /> },
       { path: 'components/progress',      element: <ProgressPage /> },

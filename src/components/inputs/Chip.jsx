@@ -38,7 +38,7 @@ const variantStyles = {
   primary:
     'bg-surface-chip text-text border border-transparent hover:bg-interactive-muted-hover',
   secondary:
-    'bg-transparent text-text border border-border hover:bg-surface-chip hover:border-border-hover',
+    'bg-transparent text-text border border-border-strong hover:bg-surface-chip hover:border-border-hover',
   tertiary:
     'bg-transparent text-utility-purple-light border border-utility-purple-light hover:bg-utility-purple-light/10',
 };
