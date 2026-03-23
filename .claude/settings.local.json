@@ -129,7 +129,10 @@
       "Bash(find /Users/atulmeshram/Development/o9ds/src/assets/illustrations -name *.svg)",
       "Bash(find /Users/atulmeshram/Development/o9ds/src -type d -name illus*)",
       "Bash(git status:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(gh auth:*)"
     ]
   },
   "enableAllProjectMcpServers": true,
